@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Mobile-friendly scaling -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OPRA Study Quiz</title>
+  <title>OPRA & RAPIDO Study Quizzes</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,17 +15,15 @@
     h1, h2 {
       text-align: center;
     }
-    /* Intro screen styling */
-    #intro-screen {
+    /* Landing page style */
+    #landing-page {
       margin-top: 50px;
+      text-align: center;
     }
-    #intro-screen p {
-      margin-bottom: 20px;
-    }
-    #start-btn {
-      display: block;
-      margin: 0 auto;
-      padding: 12px 20px;
+    .quiz-btn {
+      display: inline-block;
+      margin: 15px;
+      padding: 15px 25px;
       font-size: 18px;
       cursor: pointer;
       border: 1px solid #333;
@@ -61,15 +58,6 @@
       margin-top: 10px;
       font-weight: normal;
     }
-    .hidden {
-      display: none;
-    }
-    .score {
-      margin-top: 2em;
-      text-align: center;
-      font-weight: bold;
-      font-size: 20px;
-    }
     .next-btn {
       display: inline-block;
       margin-top: 15px;
@@ -80,38 +68,36 @@
       border-radius: 4px;
       background-color: #eee;
     }
+    .hidden {
+      display: none;
+    }
+    .score {
+      margin-top: 2em;
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+    }
   </style>
 </head>
+
 <body>
+  <!-- Landing Page -->
+  <div id="landing-page">
+    <h1>Select a Quiz</h1>
+    <p>Please choose one of the following quizzes on rectal cancer studies.</p>
+    <button class="quiz-btn" onclick="startOPRA()">OPRA Study Quiz</button>
+    <button class="quiz-btn" onclick="startRAPIDO()">RAPIDO Study Quiz</button>
+  </div>
 
-<!-- Intro Screen -->
-<div id="intro-screen">
-  <h1>Welcome to the OPRA Study Quiz</h1>
-  <p>
-    This quiz is based on the OPRA (Organ Preservation in Rectal Adenocarcinoma) study (J Clin Oncol 2022;40:2546-2556). 
-    It contains 10 questions, each with five multiple-choice answers.
-  </p>
-  <p>
-    The OPRA trial investigated total neoadjuvant therapy (TNT) for locally advanced rectal cancer (stage II/III), comparing 
-    induction versus consolidation chemotherapy, followed by either surgery or a watch-and-wait approach if a complete or near-complete 
-    clinical response was achieved.
-  </p>
-  <button id="start-btn" onclick="startQuiz()">Start Quiz</button>
-</div>
-
-<!-- Quiz Container -->
-<div id="quiz-container">
-  <div id="quiz-content"></div>
-</div>
+  <!-- Quiz Container -->
+  <div id="quiz-container">
+    <h2 id="quiz-title"></h2>
+    <div id="quiz-content"></div>
+  </div>
 
 <script>
-// Each question object has:
-// - question: The question text
-// - answers: 5 possible answer choices
-// - correct: The index (0..4) of the correct answer
-// - explanation: A short paragraph explaining why that choice is correct
-
-const questions = [
+// ==================== OPRA QUESTIONS ====================
+const opraQuestions = [
   {
     question: "1. What was the PRIMARY endpoint of the OPRA trial?",
     answers: [
@@ -121,47 +107,47 @@ const questions = [
       "Disease-free survival (DFS)",
       "Pathologic complete response (pCR) rate"
     ],
-    correct: 3, // Zero-based index => 3 = DFS
-    explanation: "Although organ preservation was a major focus, the trial was officially designed with DFS as the primary endpoint, comparing results to historical data. TME-free survival (organ preservation) was a secondary endpoint."
+    correct: 3,
+    explanation: "OPRA officially had DFS as the primary endpoint, comparing it to historical controls. TME-free survival (organ preservation) was a secondary endpoint."
   },
   {
-    question: "2. Which patient population was primarily enrolled in the OPRA study?",
+    question: "2. Which patient population was primarily enrolled in OPRA?",
     answers: [
       "Early-stage rectal cancer (T1–T2, N0) only",
       "Metastatic rectal cancer (Stage IV)",
-      "Locally advanced rectal cancer (Stage II/III: T3–T4 or N+)",
-      "Rectal cancer unsuitable for any neoadjuvant treatments",
+      "Locally advanced rectal cancer (Stage II/III)",
+      "Rectal cancer unsuitable for neoadjuvant treatments",
       "Patients with confirmed distant metastases"
     ],
     correct: 2,
-    explanation: "OPRA enrolled patients with stage II or III rectal adenocarcinoma, clinically T3–T4 or node-positive, to evaluate TNT and a selective watch-and-wait approach."
+    explanation: "OPRA enrolled stage II/III rectal cancer (T3–T4 and/or node-positive) to assess total neoadjuvant therapy and watch-and-wait in those who achieved complete clinical response."
   },
   {
     question: "3. What was the main distinction between the two TNT schedules (induction vs consolidation) in OPRA?",
     answers: [
       "Use of immunotherapy in the induction arm only",
-      "Sequence of systemic chemotherapy in relation to chemoradiotherapy (before vs after)",
+      "Sequence of chemotherapy (before vs after chemoradiotherapy)",
       "Variation in total radiotherapy dose",
-      "Only the consolidation arm included targeted biologics",
-      "No significant difference between the two arms"
+      "Consolidation arm used targeted therapies",
+      "No difference in systemic therapy approach"
     ],
     correct: 1,
-    explanation: "The OPRA study compared delivering systemic chemotherapy before chemoradiotherapy (induction) versus after chemoradiotherapy (consolidation)."
+    explanation: "OPRA compared chemotherapy before chemoradiation (induction) vs. after chemoradiation (consolidation)."
   },
   {
-    question: "4. What did achieving a complete clinical response (cCR) permit within the OPRA trial design?",
+    question: "4. In OPRA, what did achieving a complete clinical response (cCR) allow?",
     answers: [
       "Immediate total mesorectal excision (TME)",
-      "A watch-and-wait approach (nonoperative management) with close surveillance",
-      "Mandatory abdominoperineal resection to confirm pathological response",
-      "Permanent stoma to avoid local recurrence",
+      "Nonoperative management (watch-and-wait) with close surveillance",
+      "Mandatory abdominoperineal resection",
+      "Permanent stoma to avoid recurrence",
       "Exclusion from further follow-up"
     ],
     correct: 1,
-    explanation: "Patients with a cCR (or near-cCR) were offered a watch-and-wait strategy (close monitoring) instead of immediate surgery."
+    explanation: "Patients with a cCR were offered a nonoperative, watch-and-wait approach instead of surgery."
   },
   {
-    question: "5. How long after completing neoadjuvant therapy (TNT) were patients typically observed before deciding on surgery or continuing watch-and-wait?",
+    question: "5. How long after completing total neoadjuvant therapy (TNT) did OPRA typically observe before deciding on surgery or watch-and-wait?",
     answers: [
       "2 weeks",
       "8–12 weeks",
@@ -170,98 +156,256 @@ const questions = [
       "No observation was used"
     ],
     correct: 1,
-    explanation: "In OPRA, restaging typically occurred around 8 weeks (±4) after completion of TNT to assess tumor response and decide on TME or watch-and-wait."
+    explanation: "In OPRA, restaging usually took place at around 8 weeks post-neoadjuvant therapy to determine next steps."
   },
   {
-    question: "6. Which best describes the main oncological outcomes tracked for watch-and-wait patients in OPRA?",
+    question: "6. Which best describes the main outcomes for watch-and-wait patients in OPRA?",
     answers: [
       "Immediate colostomy formation rates",
       "Permanent stoma incidence",
-      "Disease-free survival (DFS) and local regrowth rates",
+      "DFS and local regrowth rates",
       "Time to sexual dysfunction",
-      "Cost-effectiveness of nonoperative management"
+      "Cost-effectiveness analysis"
     ],
     correct: 2,
-    explanation: "Primary endpoints included DFS overall, but local regrowth rates were a crucial outcome for those managed without surgery (watch-and-wait)."
+    explanation: "Key endpoints for watch-and-wait included local regrowth rates and DFS among those who avoided surgery."
   },
   {
-    question: "7. In the OPRA study, what was recommended if a watch-and-wait patient developed local regrowth?",
+    question: "7. If local regrowth occurred under watch-and-wait in OPRA, what was recommended?",
     answers: [
-      "Continue observation until symptoms worsen",
-      "Start another course of chemotherapy without surgery",
-      "Perform salvage surgical resection (TME) if feasible",
-      "Offer best supportive (palliative) care only",
-      "Immediate re-irradiation"
+      "Ongoing observation only",
+      "Re-irradiation without surgery",
+      "Salvage surgical resection if feasible",
+      "End the protocol and provide palliative care",
+      "No further intervention was offered"
     ],
     correct: 2,
-    explanation: "Patients with local regrowth under watch-and-wait were advised to undergo prompt salvage resection if technically feasible."
+    explanation: "Patients with local regrowth were advised to undergo prompt salvage TME if technically possible."
   },
   {
-    question: "8. Which statement best reflects OPRA’s key finding on organ preservation?",
+    question: "8. Which statement best reflects OPRA’s finding regarding organ preservation?",
     answers: [
       "Organ preservation was not feasible for any rectal cancer patient",
-      "All patients ultimately required standard surgery within 2 years",
-      "A significant proportion achieved organ preservation, especially in the consolidation chemotherapy arm",
-      "Organ preservation only benefited those with T4 tumors",
-      "Organ preservation led to drastically worse survival outcomes"
+      "All patients eventually required surgery",
+      "A significant portion achieved organ preservation, especially with consolidation chemo",
+      "Only T4 tumors were eligible for organ preservation",
+      "Organ preservation led to markedly worse survival"
     ],
     correct: 2,
-    explanation: "About half of the patients, especially those in the consolidation arm, were able to avoid TME (with watch-and-wait), showing that organ preservation is achievable without an apparent survival detriment."
+    explanation: "OPRA showed that nearly half of patients achieved organ preservation, particularly in the consolidation chemo arm, without a clear survival detriment."
   },
   {
-    question: "9. Regarding survival in OPRA, which statement is most accurate?",
+    question: "9. Regarding survival outcomes, which statement is most accurate from OPRA?",
     answers: [
-      "Watch-and-wait resulted in significantly worse overall survival than immediate surgery",
-      "All local regrowth cases rapidly progressed to distant metastases",
-      "Patients managed with close surveillance had DFS rates comparable to those undergoing immediate TME",
-      "Only local recurrence was measured, not disease-free survival",
-      "Long-term follow-up revealed no salvages after regrowth"
+      "Watch-and-wait had significantly worse survival outcomes",
+      "Local regrowth always led to rapid metastatic disease",
+      "Watch-and-wait had DFS rates comparable to immediate TME under strict surveillance",
+      "Only local outcomes were reported, not survival",
+      "No patients had salvageable disease"
     ],
     correct: 2,
-    explanation: "OPRA found no apparent survival detriment in patients who entered watch-and-wait with a cCR, provided they had strict surveillance and prompt salvage surgery if regrowth occurred."
+    explanation: "Under close follow-up and salvage surgery, OPRA did not show significantly worse DFS for watch-and-wait patients compared to those undergoing TME."
   },
   {
-    question: "10. How might a colorectal surgeon apply OPRA’s findings to future practice?",
+    question: "10. How might a consultant colorectal surgeon apply OPRA findings in practice?",
     answers: [
-      "Adopt an automatic watch-and-wait policy for all rectal cancer patients regardless of stage",
-      "Select and closely monitor suitable patients for nonoperative management if they achieve a complete response to TNT",
-      "Eliminate neoadjuvant chemotherapy/radiotherapy in rectal cancer protocols",
-      "Always proceed to total mesorectal excision to avoid any risk of regrowth",
-      "Use short-course radiotherapy plus surgery in all cases"
+      "Use watch-and-wait for all rectal cancers regardless of stage",
+      "Discontinue all neoadjuvant therapy",
+      "Offer nonoperative management to well-selected patients achieving cCR, with rigorous follow-up",
+      "Immediate surgery is mandatory to avoid regrowth",
+      "No further research is needed"
     ],
-    correct: 1,
-    explanation: "The OPRA trial underscores the value of TNT plus a watch-and-wait strategy for clinically complete responders, but emphasizes patient selection and vigilant follow-up to ensure safe organ preservation."
+    correct: 2,
+    explanation: "The OPRA trial suggests that carefully selected patients who achieve cCR can safely avoid surgery, with close monitoring and salvage operations if needed."
   }
 ];
 
-let currentQuestionIndex = 0;
+// ==================== RAPIDO QUESTIONS ====================
+/* 
+  Source: Dijkstra et al. Annals of Surgery 2023;278:e766–e772
+  Key Points from the 5-year RAPIDO results:
+   - Compares short-course radiotherapy + chemo (TNT) vs long-course chemoradiotherapy + optional adjuvant chemo.
+   - Primary endpoint: Disease-related treatment failure (DrTF).
+   - Found improved DrTF & reduced distant metastases in the TNT arm, but slightly higher local recurrence at 5 years.
+   - High-risk locally advanced rectal cancer (T4/N2/EMVI+/threatened margin).
+*/
+
+const rapidoQuestions = [
+  {
+    question: "1. What was the primary objective of the RAPIDO trial?",
+    answers: [
+      "To compare watch-and-wait vs surgery in rectal cancer",
+      "To reduce disease-related treatment failure (DrTF) by intensifying therapy",
+      "To investigate immunotherapy in metastatic rectal cancer",
+      "To assess robotic TME vs laparoscopic TME",
+      "To test whether neoadjuvant therapy can be omitted"
+    ],
+    correct: 1,
+    explanation: "RAPIDO aimed to reduce DrTF by giving short-course radiotherapy followed by systemic chemotherapy (TNT) before TME, in high-risk rectal cancer."
+  },
+  {
+    question: "2. Which two treatment approaches were compared in RAPIDO?",
+    answers: [
+      "Immediate surgery vs. observation only",
+      "Long-course chemoradiotherapy vs. watch-and-wait",
+      "Short-course radiotherapy followed by chemo (TNT) vs. standard long-course chemoradiotherapy ± postoperative chemo",
+      "Proton therapy vs. photon therapy",
+      "Local excision vs. total mesorectal excision"
+    ],
+    correct: 2,
+    explanation: "RAPIDO compared short-course RT + chemo (TNT) before TME, versus conventional long-course CRT (± post-op chemo)."
+  },
+  {
+    question: "3. What patient population did the RAPIDO trial focus on?",
+    answers: [
+      "Only T1 rectal cancers",
+      "Stage IV disease with liver metastases",
+      "High-risk locally advanced rectal cancers (e.g., T4, N2, EMVI+, threatened margins)",
+      "Very early rectal cancers with minimal risk factors",
+      "Patients refusing all forms of chemotherapy"
+    ],
+    correct: 2,
+    explanation: "RAPIDO enrolled patients with high-risk features (T4, N2, EMVI+, etc.), as determined by MRI, to examine a TNT approach."
+  },
+  {
+    question: "4. At 5-year follow-up, which outcome was significantly improved in the short-course RT (TNT) arm compared to standard care?",
+    answers: [
+      "Local recurrence rate was dramatically lower",
+      "Disease-related treatment failure (DrTF) and distant metastases were reduced",
+      "Overall survival was doubled",
+      "Pathologic complete response was zero",
+      "None of the above"
+    ],
+    correct: 1,
+    explanation: "While local recurrence was slightly higher, the TNT approach significantly reduced disease-related treatment failure and distant metastases at 5 years."
+  },
+  {
+    question: "5. What happened to locoregional failures (local recurrence) at 5 years in the short-course RT + chemo group compared to standard?",
+    answers: [
+      "Locoregional failures were lower in the short-course arm",
+      "No difference was observed",
+      "Short-course arm showed slightly higher locoregional failure",
+      "Standard arm had near 100% local control",
+      "Both arms had zero local recurrences"
+    ],
+    correct: 2,
+    explanation: "Although the TNT arm had better systemic control, the 5-year results showed a modestly higher rate of locoregional failure (about 12% vs. 8%)."
+  },
+  {
+    question: "6. Which treatment factor was partly associated with the increased local recurrence in the TNT arm?",
+    answers: [
+      "Excessively high radiation dose",
+      "Widespread use of immunotherapy",
+      "More mesorectal breaches and potential geographic misses with older 3D-CRT approach",
+      "Lack of TME surgery in most patients",
+      "All rapeseed oil diet"
+    ],
+    correct: 2,
+    explanation: "In the short-course + chemo group, surgical specimen analyses showed more mesorectal breaches, and some patients used older 3D-CRT, possibly leading to slightly higher local recurrence."
+  },
+  {
+    question: "7. What does an 'early locoregional failure (eLRF)' mean in RAPIDO?",
+    answers: [
+      "LRF happening after R0 resection",
+      "LRF in a watch-and-wait patient",
+      "No resection or an R2 resection for poor responders, often concurrently with distant metastases",
+      "LRF discovered 5 years post-treatment",
+      "It refers to re-irradiation only"
+    ],
+    correct: 2,
+    explanation: "eLRF was defined as patients who never achieved an R0/R1 resection because the tumor was not resectable or was resected R2 (often accompanied by distant mets)."
+  },
+  {
+    question: "8. Which outcome measure was used to capture systemic relapse or local progression in RAPIDO?",
+    answers: [
+      "Colonoscopic polyp burden",
+      "Disease-related treatment failure (DrTF)",
+      "Patient-reported quality of life",
+      "Complete clinical response rate",
+      "Short-term stoma reversal rates"
+    ],
+    correct: 1,
+    explanation: "The primary endpoint was disease-related treatment failure, a composite including locoregional failure, distant metastases, new tumors, and death."
+  },
+  {
+    question: "9. After short-course RT and chemotherapy, how did overall survival at 5 years compare to standard therapy?",
+    answers: [
+      "OS was significantly worse in the TNT arm",
+      "OS was significantly better in the TNT arm",
+      "No significant difference in overall survival between arms",
+      "TNT arm had near 100% survival",
+      "Data on OS were not reported"
+    ],
+    correct: 2,
+    explanation: "Despite better systemic control and slightly higher local recurrences, overall survival at 5 years showed no significant difference between TNT and standard arms."
+  },
+  {
+    question: "10. What is the key implication of the RAPIDO findings for future practice?",
+    answers: [
+      "Short-course RT + chemo can improve systemic outcomes but requires careful attention to local control",
+      "Long-course CRT is obsolete and should never be used",
+      "Patients with rectal cancer do not benefit from any neoadjuvant therapy",
+      "Organ preservation was the primary focus of RAPIDO",
+      "No role remains for TME surgery"
+    ],
+    correct: 0,
+    explanation: "RAPIDO indicates that total neoadjuvant therapy helps reduce distant metastases and DrTF, but local recurrence can slightly increase if surgical quality or RT technique is suboptimal. Clinicians must remain vigilant in balancing local and distant control."
+  }
+];
+
+// ========== Global Variables ==============
+let currentQuiz = [];
+let currentIndex = 0;
 let score = 0;
 let hasAnswered = false;
+let quizTitle = "";
 
-// Start Quiz: hide intro, show quiz container, render first Q
-function startQuiz() {
-  document.getElementById('intro-screen').style.display = 'none';
+// ========== Start OPRA Quiz ==============
+function startOPRA() {
+  quizTitle = "OPRA Study Quiz";
+  currentQuiz = opraQuestions;
+  initQuiz();
+}
+
+// ========== Start RAPIDO Quiz ============
+function startRAPIDO() {
+  quizTitle = "RAPIDO Study Quiz";
+  currentQuiz = rapidoQuestions;
+  initQuiz();
+}
+
+// ========== Initialize the Quiz ==========
+function initQuiz() {
+  // Hide landing page
+  document.getElementById('landing-page').style.display = 'none';
+  // Show quiz container
   document.getElementById('quiz-container').style.display = 'block';
+  // Reset quiz variables
+  currentIndex = 0;
+  score = 0;
+  hasAnswered = false;
+  // Set the quiz title
+  document.getElementById('quiz-title').innerText = quizTitle;
   renderQuestion();
 }
 
+// ========== Render the Current Question ==========
 function renderQuestion() {
   const quizContent = document.getElementById('quiz-content');
 
-  // If we've gone through all 10 questions, show final score
-  if (currentQuestionIndex >= questions.length) {
+  // If we've completed all questions, show final score
+  if (currentIndex >= currentQuiz.length) {
     quizContent.innerHTML = `
       <div class="score">
-        You scored ${score} out of ${questions.length}!
+        You scored ${score} out of ${currentQuiz.length}!
       </div>
     `;
     return;
   }
 
-  const q = questions[currentQuestionIndex];
-  // Build the answer buttons
-  const answersHtml = q.answers.map((answer, i) => {
-    return `<button onclick="checkAnswer(${i})">${answer}</button>`;
+  const q = currentQuiz[currentIndex];
+  const answersHtml = q.answers.map((answer, idx) => {
+    return `<button onclick="checkAnswer(${idx})">${answer}</button>`;
   }).join('');
 
   quizContent.innerHTML = `
@@ -272,11 +416,12 @@ function renderQuestion() {
   hasAnswered = false;
 }
 
+// ========== Check Answer ==========
 function checkAnswer(selectedIndex) {
-  if (hasAnswered) return; // prevent multiple clicks
+  if (hasAnswered) return;
   hasAnswered = true;
 
-  const q = questions[currentQuestionIndex];
+  const q = currentQuiz[currentIndex];
   const feedbackEl = document.getElementById('feedback');
 
   if (selectedIndex === q.correct) {
@@ -286,7 +431,6 @@ function checkAnswer(selectedIndex) {
     feedbackEl.innerHTML = `<span style="color: red;">Incorrect!</span>`;
   }
 
-  // Explanation plus Next button
   feedbackEl.innerHTML += `
     <div class="explanation">${q.explanation}</div>
     <button class="next-btn" onclick="nextQuestion()">Next Question</button>
@@ -294,8 +438,9 @@ function checkAnswer(selectedIndex) {
   feedbackEl.classList.remove('hidden');
 }
 
+// ========== Move to Next Question ==========
 function nextQuestion() {
-  currentQuestionIndex++;
+  currentIndex++;
   renderQuestion();
 }
 </script>
