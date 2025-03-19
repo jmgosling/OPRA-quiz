@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- Ensure proper scaling on mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OPRA & RAPIDO Study Quizzes</title>
+  <title>Three Study Quizzes: OPRA, RAPIDO, and GRAALL-2005</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,7 +16,7 @@
     h1, h2 {
       text-align: center;
     }
-    /* Landing page style */
+    /* Landing Page style */
     #landing-page {
       margin-top: 50px;
       text-align: center;
@@ -84,9 +85,10 @@
   <!-- Landing Page -->
   <div id="landing-page">
     <h1>Select a Quiz</h1>
-    <p>Please choose one of the following quizzes on rectal cancer studies.</p>
+    <p>Choose one of the following study quizzes:</p>
     <button class="quiz-btn" onclick="startOPRA()">OPRA Study Quiz</button>
     <button class="quiz-btn" onclick="startRAPIDO()">RAPIDO Study Quiz</button>
+    <button class="quiz-btn" onclick="startGRAALL()">GRAALL-2005 Study Quiz</button>
   </div>
 
   <!-- Quiz Container -->
@@ -101,299 +103,435 @@ const opraQuestions = [
   {
     question: "1. What was the PRIMARY endpoint of the OPRA trial?",
     answers: [
-      "TME-free survival (organ preservation rate)",
+      "TME-free survival (organ preservation)",
       "Overall survival (OS)",
       "Local regrowth rate",
       "Disease-free survival (DFS)",
-      "Pathologic complete response (pCR) rate"
+      "Pathologic complete response (pCR)"
     ],
     correct: 3,
-    explanation: "OPRA officially had DFS as the primary endpoint, comparing it to historical controls. TME-free survival (organ preservation) was a secondary endpoint."
+    explanation: "OPRA officially designated DFS as the primary endpoint. Organ preservation was a secondary outcome."
   },
   {
-    question: "2. Which patient population was primarily enrolled in OPRA?",
+    question: "2. Which patients did OPRA recruit?",
     answers: [
-      "Early-stage rectal cancer (T1–T2, N0) only",
-      "Metastatic rectal cancer (Stage IV)",
-      "Locally advanced rectal cancer (Stage II/III)",
-      "Rectal cancer unsuitable for neoadjuvant treatments",
-      "Patients with confirmed distant metastases"
+      "Early-stage rectal cancer only",
+      "Metastatic rectal cancer (stage IV)",
+      "Locally advanced rectal cancer (stage II/III)",
+      "Rectal cancer with no margin involvement",
+      "Patients with complete clinical response at baseline"
     ],
     correct: 2,
-    explanation: "OPRA enrolled stage II/III rectal cancer (T3–T4 and/or node-positive) to assess total neoadjuvant therapy and watch-and-wait in those who achieved complete clinical response."
+    explanation: "OPRA enrolled stage II or III rectal adenocarcinoma for evaluating total neoadjuvant therapy (TNT) plus watch-and-wait in cCR cases."
   },
   {
-    question: "3. What was the main distinction between the two TNT schedules (induction vs consolidation) in OPRA?",
+    question: "3. What was the main difference between induction vs consolidation TNT arms in OPRA?",
     answers: [
-      "Use of immunotherapy in the induction arm only",
-      "Sequence of chemotherapy (before vs after chemoradiotherapy)",
+      "One arm had immunotherapy only",
+      "Timing of chemotherapy relative to chemoradiation (before vs after)",
       "Variation in total radiotherapy dose",
-      "Consolidation arm used targeted therapies",
-      "No difference in systemic therapy approach"
+      "One arm used advanced targeted agents",
+      "No difference was studied"
     ],
     correct: 1,
-    explanation: "OPRA compared chemotherapy before chemoradiation (induction) vs. after chemoradiation (consolidation)."
+    explanation: "Patients were randomized to induction chemo → chemoradiotherapy or chemoradiotherapy → consolidation chemo."
   },
   {
-    question: "4. In OPRA, what did achieving a complete clinical response (cCR) allow?",
+    question: "4. What happened if a patient in OPRA achieved a complete clinical response (cCR)?",
     answers: [
-      "Immediate total mesorectal excision (TME)",
-      "Nonoperative management (watch-and-wait) with close surveillance",
-      "Mandatory abdominoperineal resection",
-      "Permanent stoma to avoid recurrence",
-      "Exclusion from further follow-up"
+      "Immediate surgery was mandatory",
+      "Nonoperative management (watch-and-wait) with close follow-up",
+      "Permanent stoma to prevent recurrence",
+      "Excluded from any further treatments",
+      "Routine extended resections"
     ],
     correct: 1,
-    explanation: "Patients with a cCR were offered a nonoperative, watch-and-wait approach instead of surgery."
+    explanation: "Patients with cCR or near-cCR were placed on a strict watch-and-wait approach instead of immediate TME."
   },
   {
-    question: "5. How long after completing total neoadjuvant therapy (TNT) did OPRA typically observe before deciding on surgery or watch-and-wait?",
+    question: "5. How long after TNT completion did OPRA typically wait before deciding on surgery vs continued watch-and-wait?",
     answers: [
       "2 weeks",
-      "8–12 weeks",
+      "8-12 weeks",
       "6 months",
-      "2 years",
-      "No observation was used"
+      "No set interval was used",
+      "24 weeks"
     ],
     correct: 1,
-    explanation: "In OPRA, restaging usually took place at around 8 weeks post-neoadjuvant therapy to determine next steps."
+    explanation: "OPRA generally restaged around 8-12 weeks post-TNT to decide if the patient needed TME or could continue watch-and-wait."
   },
   {
-    question: "6. Which best describes the main outcomes for watch-and-wait patients in OPRA?",
+    question: "6. Which key oncological outcomes did OPRA track for watch-and-wait patients?",
     answers: [
-      "Immediate colostomy formation rates",
-      "Permanent stoma incidence",
-      "DFS and local regrowth rates",
-      "Time to sexual dysfunction",
-      "Cost-effectiveness analysis"
+      "Permanent stoma formation rate",
+      "Local regrowth rates and disease-free survival",
+      "Overall stoma-free survival only",
+      "Cost-effectiveness of the watch-and-wait approach",
+      "Time to sexual dysfunction"
     ],
-    correct: 2,
-    explanation: "Key endpoints for watch-and-wait included local regrowth rates and DFS among those who avoided surgery."
+    correct: 1,
+    explanation: "Local regrowth (especially after cCR) and DFS were central metrics for those managed nonoperatively."
   },
   {
-    question: "7. If local regrowth occurred under watch-and-wait in OPRA, what was recommended?",
+    question: "7. What was the recommended action if local regrowth was detected under watch-and-wait in OPRA?",
     answers: [
-      "Ongoing observation only",
-      "Re-irradiation without surgery",
-      "Salvage surgical resection if feasible",
-      "End the protocol and provide palliative care",
-      "No further intervention was offered"
+      "Continue observation until symptomatic",
+      "Second full course of TNT only",
+      "Immediate salvage surgical resection if technically feasible",
+      "Palliative care exclusively",
+      "End the study protocol"
     ],
     correct: 2,
-    explanation: "Patients with local regrowth were advised to undergo prompt salvage TME if technically possible."
+    explanation: "OPRA recommended prompt salvage TME if local regrowth occurred."
   },
   {
-    question: "8. Which statement best reflects OPRA’s finding regarding organ preservation?",
+    question: "8. OPRA’s key finding about organ preservation was what?",
     answers: [
-      "Organ preservation was not feasible for any rectal cancer patient",
-      "All patients eventually required surgery",
-      "A significant portion achieved organ preservation, especially with consolidation chemo",
-      "Only T4 tumors were eligible for organ preservation",
-      "Organ preservation led to markedly worse survival"
+      "Nearly all patients ultimately required surgery",
+      "Organ preservation success was low in both arms",
+      "A large proportion of patients achieved organ preservation, especially in consolidation chemo arm",
+      "Only T4 tumors were organ-preserved",
+      "Organ preservation always led to inferior survival"
     ],
     correct: 2,
-    explanation: "OPRA showed that nearly half of patients achieved organ preservation, particularly in the consolidation chemo arm, without a clear survival detriment."
+    explanation: "Organ preservation was achieved in almost half the cohort, particularly with consolidation chemo, with no major survival penalty."
   },
   {
-    question: "9. Regarding survival outcomes, which statement is most accurate from OPRA?",
+    question: "9. Regarding survival in OPRA, which statement is correct?",
     answers: [
-      "Watch-and-wait had significantly worse survival outcomes",
-      "Local regrowth always led to rapid metastatic disease",
-      "Watch-and-wait had DFS rates comparable to immediate TME under strict surveillance",
-      "Only local outcomes were reported, not survival",
-      "No patients had salvageable disease"
+      "Watch-and-wait drastically worsened overall survival",
+      "Local regrowth always spread systemically",
+      "Watch-and-wait had similar DFS to standard TME under close monitoring",
+      "They did not measure DFS or OS in OPRA",
+      "All watch-and-wait patients died by 3 years"
     ],
     correct: 2,
-    explanation: "Under close follow-up and salvage surgery, OPRA did not show significantly worse DFS for watch-and-wait patients compared to those undergoing TME."
+    explanation: "Close surveillance and salvage resection helped watch-and-wait patients maintain comparable DFS to immediate TME."
   },
   {
-    question: "10. How might a consultant colorectal surgeon apply OPRA findings in practice?",
+    question: "10. How can a colorectal surgeon use OPRA’s findings in practice?",
     answers: [
-      "Use watch-and-wait for all rectal cancers regardless of stage",
-      "Discontinue all neoadjuvant therapy",
-      "Offer nonoperative management to well-selected patients achieving cCR, with rigorous follow-up",
-      "Immediate surgery is mandatory to avoid regrowth",
-      "No further research is needed"
+      "Offer a universal watch-and-wait policy to all rectal cancers",
+      "Stop using TNT or radiotherapy entirely",
+      "Select patients with cCR for strict nonoperative management with salvage if needed",
+      "Always do TME to avoid any risk of regrowth",
+      "Use short-course RT for all patients"
     ],
     correct: 2,
-    explanation: "The OPRA trial suggests that carefully selected patients who achieve cCR can safely avoid surgery, with close monitoring and salvage operations if needed."
+    explanation: "OPRA supports a watch-and-wait strategy for carefully selected rectal cancer patients with cCR, with close follow-up."
   }
 ];
 
 // ==================== RAPIDO QUESTIONS ====================
 /* 
-  Source: Dijkstra et al. Annals of Surgery 2023;278:e766–e772
-  Key Points from the 5-year RAPIDO results:
-   - Compares short-course radiotherapy + chemo (TNT) vs long-course chemoradiotherapy + optional adjuvant chemo.
-   - Primary endpoint: Disease-related treatment failure (DrTF).
-   - Found improved DrTF & reduced distant metastases in the TNT arm, but slightly higher local recurrence at 5 years.
-   - High-risk locally advanced rectal cancer (T4/N2/EMVI+/threatened margin).
+  Source: Dijkstra et al. Ann Surg 2023;278:e766–e772
+  Key Points:
+    - Compares short-course RT + chemo (TNT) vs standard long-course chemoradiotherapy
+    - At 5 years, better systemic control (fewer distant mets) with TNT, but slightly higher local recurrence
+    - No difference in overall survival
 */
 
 const rapidoQuestions = [
   {
-    question: "1. What was the primary objective of the RAPIDO trial?",
+    question: "1. What was the main goal of the RAPIDO trial?",
     answers: [
-      "To compare watch-and-wait vs surgery in rectal cancer",
-      "To reduce disease-related treatment failure (DrTF) by intensifying therapy",
-      "To investigate immunotherapy in metastatic rectal cancer",
-      "To assess robotic TME vs laparoscopic TME",
-      "To test whether neoadjuvant therapy can be omitted"
+      "Compare watch-and-wait vs total mesorectal excision in rectal cancer",
+      "Reduce disease-related treatment failure (DrTF) with short-course RT and chemo (TNT)",
+      "Assess immunotherapy alone in rectal cancer",
+      "Compare robotic vs laparoscopic TME",
+      "Analyze long-term stoma rates only"
     ],
     correct: 1,
-    explanation: "RAPIDO aimed to reduce DrTF by giving short-course radiotherapy followed by systemic chemotherapy (TNT) before TME, in high-risk rectal cancer."
+    explanation: "RAPIDO aimed to lower DrTF by using short-course radiotherapy followed by systemic chemotherapy before TME in high-risk rectal cancer."
   },
   {
-    question: "2. Which two treatment approaches were compared in RAPIDO?",
+    question: "2. Which two approaches did RAPIDO compare?",
     answers: [
-      "Immediate surgery vs. observation only",
-      "Long-course chemoradiotherapy vs. watch-and-wait",
-      "Short-course radiotherapy followed by chemo (TNT) vs. standard long-course chemoradiotherapy ± postoperative chemo",
-      "Proton therapy vs. photon therapy",
-      "Local excision vs. total mesorectal excision"
+      "Immediate surgery vs palliative care",
+      "Short-course RT + chemo (TNT) vs standard long-course chemoradiotherapy (with optional postop chemo)",
+      "Long-course RT + watch-and-wait only",
+      "Proton therapy vs photon therapy",
+      "Chemotherapy alone vs TME alone"
+    ],
+    correct: 1,
+    explanation: "RAPIDO compared short-course RT plus chemo (a TNT approach) versus conventional long-course chemoradiotherapy ± optional adjuvant chemotherapy."
+  },
+  {
+    question: "3. What specific patient population was RAPIDO designed for?",
+    answers: [
+      "Only T1 rectal tumors",
+      "Stage IV rectal cancer with liver mets",
+      "High-risk locally advanced rectal cancer (e.g., T4, N2, EMVI+, threatened margins)",
+      "Rectal cancer with negative margins only",
+      "Metastatic colon cancer"
     ],
     correct: 2,
-    explanation: "RAPIDO compared short-course RT + chemo (TNT) before TME, versus conventional long-course CRT (± post-op chemo)."
+    explanation: "RAPIDO focused on locally advanced rectal cancers with high-risk features per MRI."
   },
   {
-    question: "3. What patient population did the RAPIDO trial focus on?",
+    question: "4. After 5 years, which outcome was significantly improved in the TNT (short-course RT + chemo) arm?",
     answers: [
-      "Only T1 rectal cancers",
-      "Stage IV disease with liver metastases",
-      "High-risk locally advanced rectal cancers (e.g., T4, N2, EMVI+, threatened margins)",
-      "Very early rectal cancers with minimal risk factors",
-      "Patients refusing all forms of chemotherapy"
-    ],
-    correct: 2,
-    explanation: "RAPIDO enrolled patients with high-risk features (T4, N2, EMVI+, etc.), as determined by MRI, to examine a TNT approach."
-  },
-  {
-    question: "4. At 5-year follow-up, which outcome was significantly improved in the short-course RT (TNT) arm compared to standard care?",
-    answers: [
-      "Local recurrence rate was dramatically lower",
+      "Local recurrence was much lower",
       "Disease-related treatment failure (DrTF) and distant metastases were reduced",
-      "Overall survival was doubled",
-      "Pathologic complete response was zero",
-      "None of the above"
+      "Overall survival doubled",
+      "No improvement was found",
+      "Pathologic complete response was zero"
     ],
     correct: 1,
-    explanation: "While local recurrence was slightly higher, the TNT approach significantly reduced disease-related treatment failure and distant metastases at 5 years."
+    explanation: "The TNT approach lowered disease-related treatment failure and distant metastases at 5 years, even though local recurrence was modestly higher."
   },
   {
-    question: "5. What happened to locoregional failures (local recurrence) at 5 years in the short-course RT + chemo group compared to standard?",
+    question: "5. What happened to locoregional failure (LRF) at 5 years in the short-course RT + chemo group compared to standard?",
     answers: [
-      "Locoregional failures were lower in the short-course arm",
-      "No difference was observed",
-      "Short-course arm showed slightly higher locoregional failure",
-      "Standard arm had near 100% local control",
+      "LRF was significantly lower",
+      "LRF was the same in both arms",
+      "Slightly higher LRF in the TNT group",
+      "Nearly 100% local control in TNT",
       "Both arms had zero local recurrences"
     ],
     correct: 2,
-    explanation: "Although the TNT arm had better systemic control, the 5-year results showed a modestly higher rate of locoregional failure (about 12% vs. 8%)."
+    explanation: "Although the TNT approach improved systemic control, it led to a small but notable increase in local recurrence at 5 years."
   },
   {
-    question: "6. Which treatment factor was partly associated with the increased local recurrence in the TNT arm?",
+    question: "6. Which factor contributed to the higher local recurrence in the TNT arm?",
     answers: [
-      "Excessively high radiation dose",
-      "Widespread use of immunotherapy",
-      "More mesorectal breaches and potential geographic misses with older 3D-CRT approach",
-      "Lack of TME surgery in most patients",
-      "All rapeseed oil diet"
+      "Excessive immunotherapy use",
+      "Major reduction in TME surgeries",
+      "Higher incidence of mesorectal breach and some older 3D-CRT techniques",
+      "Inadequate follow-up protocols",
+      "Massive variation in RT dose"
     ],
     correct: 2,
-    explanation: "In the short-course + chemo group, surgical specimen analyses showed more mesorectal breaches, and some patients used older 3D-CRT, possibly leading to slightly higher local recurrence."
+    explanation: "Data showed more mesorectal breaches and possible geometric misses with older 3D-CRT in the TNT group, raising local recurrence."
   },
   {
-    question: "7. What does an 'early locoregional failure (eLRF)' mean in RAPIDO?",
+    question: "7. In RAPIDO, what is an 'early locoregional failure (eLRF)'?",
     answers: [
-      "LRF happening after R0 resection",
-      "LRF in a watch-and-wait patient",
-      "No resection or an R2 resection for poor responders, often concurrently with distant metastases",
-      "LRF discovered 5 years post-treatment",
-      "It refers to re-irradiation only"
+      "LRF after R0 resection and 2 years of follow-up",
+      "Regrowth in a watch-and-wait scenario",
+      "No resection or an R2 resection in poor responders (often with distant mets)",
+      "LRF discovered after 5 years post-TNT",
+      "A trivial data point in the trial"
     ],
     correct: 2,
-    explanation: "eLRF was defined as patients who never achieved an R0/R1 resection because the tumor was not resectable or was resected R2 (often accompanied by distant mets)."
+    explanation: "eLRF was defined as no (or R2) resection because the tumor was deemed unresectable or widely progressed before definitive surgery."
   },
   {
-    question: "8. Which outcome measure was used to capture systemic relapse or local progression in RAPIDO?",
+    question: "8. Which composite endpoint captured local and systemic progressions in RAPIDO?",
     answers: [
-      "Colonoscopic polyp burden",
+      "Overall stoma rate (OSR)",
       "Disease-related treatment failure (DrTF)",
-      "Patient-reported quality of life",
-      "Complete clinical response rate",
-      "Short-term stoma reversal rates"
+      "Patient-reported QoL",
+      "Pathologic complete response (pCR)",
+      "Time to local re-growth"
     ],
     correct: 1,
-    explanation: "The primary endpoint was disease-related treatment failure, a composite including locoregional failure, distant metastases, new tumors, and death."
+    explanation: "The trial's primary endpoint was disease-related treatment failure, combining locoregional failure, distant mets, and new primaries or death."
   },
   {
-    question: "9. After short-course RT and chemotherapy, how did overall survival at 5 years compare to standard therapy?",
+    question: "9. At 5 years, how did overall survival (OS) compare between TNT and standard therapy in RAPIDO?",
     answers: [
-      "OS was significantly worse in the TNT arm",
-      "OS was significantly better in the TNT arm",
-      "No significant difference in overall survival between arms",
-      "TNT arm had near 100% survival",
-      "Data on OS were not reported"
+      "TNT had significantly worse OS",
+      "TNT significantly boosted OS",
+      "No significant difference in OS",
+      "OS was near 100% in both arms",
+      "OS was unmeasured in the trial"
     ],
     correct: 2,
-    explanation: "Despite better systemic control and slightly higher local recurrences, overall survival at 5 years showed no significant difference between TNT and standard arms."
+    explanation: "Despite improved distant control and a small rise in LRF, OS did not differ significantly between short-course TNT and standard therapy."
   },
   {
-    question: "10. What is the key implication of the RAPIDO findings for future practice?",
+    question: "10. What key lesson can be drawn from RAPIDO for future rectal cancer management?",
     answers: [
-      "Short-course RT + chemo can improve systemic outcomes but requires careful attention to local control",
-      "Long-course CRT is obsolete and should never be used",
-      "Patients with rectal cancer do not benefit from any neoadjuvant therapy",
-      "Organ preservation was the primary focus of RAPIDO",
-      "No role remains for TME surgery"
+      "Short-course RT + chemo improves systemic outcomes but local control must be carefully managed",
+      "Long-course CRT is obsolete",
+      "Neoadjuvant therapy has no role in advanced rectal cancer",
+      "All patients should skip TME surgery",
+      "A watch-and-wait policy was the main endpoint of RAPIDO"
     ],
     correct: 0,
-    explanation: "RAPIDO indicates that total neoadjuvant therapy helps reduce distant metastases and DrTF, but local recurrence can slightly increase if surgical quality or RT technique is suboptimal. Clinicians must remain vigilant in balancing local and distant control."
+    explanation: "While TNT reduces metastases and DrTF, local recurrence can be slightly higher. The takeaway is to monitor local control carefully."
   }
 ];
 
-// ========== Global Variables ==============
+// ==================== GRAALL-2005 QUESTIONS ====================
+/*
+  Source: Huguet et al. J Clin Oncol 2018;36:2514-2523
+  Key Points:
+    - Adults (age 18-59) with Philadelphia chromosome–negative ALL
+    - Randomized hyperfractionated cyclophosphamide (hyper-C) vs standard dose during induction & late intensification
+    - No overall survival benefit from hyper-C in the entire cohort
+    - Tolerability issues in patients >= 55
+*/
+
+const graallQuestions = [
+  {
+    question: "1. Which patient population was enrolled in the GRAALL-2005 trial?",
+    answers: [
+      "Children under age 10 with ALL",
+      "Adults (18-59 years) with Philadelphia chromosome–negative ALL",
+      "Adults (40-70 years) with chronic myeloid leukemia",
+      "Older patients (≥ 60 years) with relapsed ALL",
+      "Patients with mature B-cell (Burkitt) lymphoma only"
+    ],
+    correct: 1,
+    explanation: "GRAALL-2005 included newly diagnosed, Ph-negative ALL patients aged 18-59, excluding Burkitt leukemia/lymphoma."
+  },
+  {
+    question: "2. What was the key randomization factor in GRAALL-2005?",
+    answers: [
+      "Hyperfractionated cyclophosphamide (hyper-C) vs standard-dose cyclophosphamide (standard-C)",
+      "Immediate transplant vs delayed transplant",
+      "Oral chemotherapy vs intravenous chemotherapy only",
+      "Car-T therapy vs supportive care",
+      "Targeted TKIs vs no targeted therapy"
+    ],
+    correct: 0,
+    explanation: "Patients were randomized to standard cyclophosphamide or a hyperfractionated (Hyper-C) regimen during induction and late intensification."
+  },
+  {
+    question: "3. What was the primary endpoint of GRAALL-2005?",
+    answers: [
+      "Shortening the duration of hospitalization",
+      "Minimizing toxicity only",
+      "Event-free survival (EFS)",
+      "Testing new immunotherapy for minimal residual disease",
+      "Quality of life at 5 years"
+    ],
+    correct: 2,
+    explanation: "The main outcome measure was EFS, with overall survival (OS) as a key secondary endpoint."
+  },
+  {
+    question: "4. Did hyper-C improve overall outcomes compared to standard-C in the entire GRAALL-2005 population?",
+    answers: [
+      "Yes, significantly better EFS and OS",
+      "It improved OS but not EFS",
+      "It only lowered induction mortality",
+      "No significant advantage was seen in the overall cohort",
+      "It worsened treatment outcomes drastically"
+    ],
+    correct: 3,
+    explanation: "Hyper-C did not yield a statistically significant benefit in EFS or OS across the entire study population."
+  },
+  {
+    question: "5. What was the CR (complete remission) rate for GRAALL-2005 overall?",
+    answers: [
+      "Around 50%",
+      "Approximately 92%",
+      "Less than 30%",
+      "100% for patients under 40",
+      "Induction CR was not reported"
+    ],
+    correct: 1,
+    explanation: "The overall complete remission rate was ~92% (91.9% in the published data)."
+  },
+  {
+    question: "6. Which age group showed particularly poor tolerance to the pediatric-inspired regimen in GRAALL-2005?",
+    answers: [
+      "All ages tolerated it well",
+      "Adolescents (15-18 years)",
+      "Patients 25-34 years old",
+      "Patients ≥ 55 years old",
+      "Patients older than 40 only"
+    ],
+    correct: 3,
+    explanation: "Patients ≥ 55 had worse toxicity and higher treatment-related mortality, indicating poor tolerability to fully intensified protocols."
+  },
+  {
+    question: "7. What was a notable result of hyper-C among patients ≥ 55 years in GRAALL-2005?",
+    answers: [
+      "They had drastically higher relapse rates",
+      "They showed some improved outcomes compared to standard-C if their ALL was sensitive",
+      "They derived no benefit at all",
+      "They all died during induction",
+      "They were excluded from the trial"
+    ],
+    correct: 1,
+    explanation: "Post hoc analysis suggested older patients with chemo-sensitive ALL might see some benefit from early cyclophosphamide intensification."
+  },
+  {
+    question: "8. How did the GRAALL-2005 define 'high-risk' ALL?",
+    answers: [
+      "Based solely on presence of the BCR-ABL fusion gene",
+      "Any extramedullary disease",
+      "A combination of poor early blast clearance, unfavorable cytogenetics (e.g. t(4;11)), or late CR",
+      "Low white cell count at presentation",
+      "Presence of minimal residual disease only"
+    ],
+    correct: 2,
+    explanation: "High-risk included CNS involvement, poor early blast clearance, certain adverse cytogenetics (e.g., KMT2A), and the need for a second induction to achieve CR."
+  },
+  {
+    question: "9. Why did the authors propose an age limit of 55 for using pediatric-derived protocols in adult ALL?",
+    answers: [
+      "Because the CR rate was zero in older patients",
+      "To reduce asparaginase usage only",
+      "Due to significantly higher toxicity and mortality in patients ≥ 55",
+      "No patients older than 30 responded well in this trial",
+      "They needed to limit insurance coverage"
+    ],
+    correct: 2,
+    explanation: "Tolerance declines notably beyond 55, leading to higher rates of induction death and poor treatment compliance."
+  },
+  {
+    question: "10. What is the take-home message of the GRAALL-2005 trial for UK consultants treating adult ALL?",
+    answers: [
+      "Pediatric-inspired therapy yields poor results for all adult patients",
+      "Hyper-C dramatically benefits all adult ALL patients",
+      "A pediatric-based approach is feasible for adults up to ~55, but older patients have high toxicity and minimal net benefit",
+      "Long-term maintenance is unnecessary for adult ALL",
+      "It is recommended to omit all allogeneic transplants in first remission"
+    ],
+    correct: 2,
+    explanation: "GRAALL-2005 supports a pediatric-like regimen for younger adults. Past 55 years, toxicity rises and outcomes worsen, requiring adapted strategies."
+  }
+];
+
+// ========== Variables to hold whichever quiz is selected ==========
 let currentQuiz = [];
 let currentIndex = 0;
 let score = 0;
 let hasAnswered = false;
 let quizTitle = "";
 
-// ========== Start OPRA Quiz ==============
+// ========== Start OPRA Quiz ==========
 function startOPRA() {
   quizTitle = "OPRA Study Quiz";
   currentQuiz = opraQuestions;
   initQuiz();
 }
 
-// ========== Start RAPIDO Quiz ============
+// ========== Start RAPIDO Quiz ==========
 function startRAPIDO() {
   quizTitle = "RAPIDO Study Quiz";
   currentQuiz = rapidoQuestions;
   initQuiz();
 }
 
-// ========== Initialize the Quiz ==========
+// ========== Start GRAALL Quiz ==========
+function startGRAALL() {
+  quizTitle = "GRAALL-2005 Study Quiz";
+  currentQuiz = graallQuestions;
+  initQuiz();
+}
+
+// ========== Initialize / Render the Chosen Quiz ==========
 function initQuiz() {
   // Hide landing page
   document.getElementById('landing-page').style.display = 'none';
   // Show quiz container
   document.getElementById('quiz-container').style.display = 'block';
-  // Reset quiz variables
+  // Reset quiz parameters
   currentIndex = 0;
   score = 0;
   hasAnswered = false;
-  // Set the quiz title
   document.getElementById('quiz-title').innerText = quizTitle;
   renderQuestion();
 }
 
-// ========== Render the Current Question ==========
 function renderQuestion() {
   const quizContent = document.getElementById('quiz-content');
 
-  // If we've completed all questions, show final score
   if (currentIndex >= currentQuiz.length) {
     quizContent.innerHTML = `
       <div class="score">
@@ -404,8 +542,8 @@ function renderQuestion() {
   }
 
   const q = currentQuiz[currentIndex];
-  const answersHtml = q.answers.map((answer, idx) => {
-    return `<button onclick="checkAnswer(${idx})">${answer}</button>`;
+  const answersHtml = q.answers.map((ans, idx) => {
+    return `<button onclick="checkAnswer(${idx})">${ans}</button>`;
   }).join('');
 
   quizContent.innerHTML = `
@@ -416,7 +554,6 @@ function renderQuestion() {
   hasAnswered = false;
 }
 
-// ========== Check Answer ==========
 function checkAnswer(selectedIndex) {
   if (hasAnswered) return;
   hasAnswered = true;
@@ -438,12 +575,10 @@ function checkAnswer(selectedIndex) {
   feedbackEl.classList.remove('hidden');
 }
 
-// ========== Move to Next Question ==========
 function nextQuestion() {
   currentIndex++;
   renderQuestion();
 }
 </script>
-
 </body>
 </html>
