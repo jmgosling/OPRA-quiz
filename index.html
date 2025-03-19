@@ -94,7 +94,7 @@
 </div>
 
 <script>
-// =============== MAIN & BONUS QUESTIONS FOR OPRA ===============
+// ==================== OPRA MAIN QUESTIONS ====================
 const opraMain = [
   {
     question: "1. What was the PRIMARY endpoint of the OPRA trial?",
@@ -244,20 +244,20 @@ const opraBonus = [
     explanation: "Consolidation chemo arms tended to have higher organ preservation, although not the sole factor."
   },
   {
-    question: "BONUS OPRA Q3: What was the typical 3-year TME-free survival in the consolidation arm?",
+    question: "BONUS OPRA Q3: Approximately what 3-year TME-free survival was observed in the consolidation arm?",
     answers: [
-      "5%",
+      "46%",
+      "50%",
       "53%",
-      "15%",
-      "95%",
-      "N/A"
+      "58%",
+      "62%"
     ],
-    correct: 1,
+    correct: 2,
     explanation: "In the consolidation arm, OPRA reported TME-free survival around 53% at 3 years."
   }
 ];
 
-// =============== MAIN & BONUS QUESTIONS FOR RAPIDO ===============
+// ==================== RAPIDO MAIN QUESTIONS ====================
 const rapidoMain = [
   {
     question: "1. What was the main goal of the RAPIDO trial?",
@@ -463,7 +463,7 @@ function initQuiz() {
 function renderQuestion() {
   const quizContent = document.getElementById('quiz-content');
   
-  // If we're on main quiz
+  // If we're on the main quiz
   if(!bonusActive) {
     if(currentIndex >= currentQuiz.length) {
       // Finished the main 10
@@ -472,7 +472,6 @@ function renderQuestion() {
       if(score >= 8) {
         // Start bonus
         bonusActive = true;
-        currentIndex = 0;
         quizContent.innerHTML = `
           <div class="score">You got ${score} out of ${currentQuiz.length} correct!</div>
           <p>Congratulations! You qualify for 3 bonus questions!</p>
@@ -488,15 +487,14 @@ function renderQuestion() {
       return;
     }
   } else {
-    // We are in bonus quiz
+    // We are in the bonus quiz
     if(currentIndex >= bonusQuiz.length) {
       // finished bonus
       quizContent.innerHTML = `
         <div class="score">
-          Main Quiz Score: ${score - getBonusScore()} / 10 <br>
-          Bonus Score: ${getBonusScore()} / ${bonusQuiz.length} <br>
-          <br>
-          Total Score: ${score}!
+          Main Quiz Score: ${score - getBonusScore()} / 10<br>
+          Bonus Score: ${getBonusScore()} / ${bonusQuiz.length}<br><br>
+          Total Score: ${score}
         </div>
         <p>Great job finishing the bonus questions!</p>
       `;
@@ -518,9 +516,7 @@ function renderQuestion() {
   `;
 }
 
-// Check Answer
 function checkAnswer(selectedIndex) {
-  const quizContent = document.getElementById('quiz-content');
   const feedbackEl = document.getElementById('feedback');
   if(!feedbackEl) return; // safety
   
@@ -569,22 +565,16 @@ function nextQuestion() {
   renderQuestion();
 }
 
-// Helper to count how many bonus points
+// Counting how many bonus points user earned
 function getBonusScore() {
-  // We'll do total - the base from the main quiz. 
-  // The user can get a maximum of 10 points from main. 
-  // If they have more than 10, the difference is bonus. If partial, 
-  // e.g. 9.5 => 9.5 - 10 => -0.5 => 0. 
-  // Instead let's track it carefully. We'll do a simpler approach: 
-  // We know the main quiz has 10 questions. Each can yield up to 1 point. 
-  // Actually up to 1 on first attempt or 0.5 on second attempt => but let's say max 10 from main. 
+  // The main quiz is 10 questions total. Each can yield up to 1 point 
+  // if correct on first attempt or 0.5 on second. We'll do a simple approach: 
+  // if total score is above 10, anything above 10 is from the bonus round.
   let mainMax = 10;
-  let totalScore = score;
-  if(totalScore <= mainMax) return 0; 
-  return (totalScore - mainMax);
+  if(score <= mainMax) return 0; 
+  return (score - mainMax);
 }
 
-// If user qualifies, we show a small text to proceed to the bonus
 function renderBonus() {
   const quizContent = document.getElementById('quiz-content');
   // Start bonus
