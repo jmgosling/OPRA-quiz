@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <!-- Ensure proper scaling on mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Three Study Quizzes: OPRA, RAPIDO, and GRAALL-2005</title>
+  <title>OPRA & RAPIDO Study Quizzes</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -88,7 +88,6 @@
     <p>Choose one of the following study quizzes:</p>
     <button class="quiz-btn" onclick="startOPRA()">OPRA Study Quiz</button>
     <button class="quiz-btn" onclick="startRAPIDO()">RAPIDO Study Quiz</button>
-    <button class="quiz-btn" onclick="startGRAALL()">GRAALL-2005 Study Quiz</button>
   </div>
 
   <!-- Quiz Container -->
@@ -354,140 +353,7 @@ const rapidoQuestions = [
   }
 ];
 
-// ==================== GRAALL-2005 QUESTIONS ====================
-/*
-  Source: Huguet et al. J Clin Oncol 2018;36:2514-2523
-  Key Points:
-    - Adults (age 18-59) with Philadelphia chromosome–negative ALL
-    - Randomized hyperfractionated cyclophosphamide (hyper-C) vs standard dose during induction & late intensification
-    - No overall survival benefit from hyper-C in the entire cohort
-    - Tolerability issues in patients >= 55
-*/
-
-const graallQuestions = [
-  {
-    question: "1. Which patient population was enrolled in the GRAALL-2005 trial?",
-    answers: [
-      "Children under age 10 with ALL",
-      "Adults (18-59 years) with Philadelphia chromosome–negative ALL",
-      "Adults (40-70 years) with chronic myeloid leukemia",
-      "Older patients (≥ 60 years) with relapsed ALL",
-      "Patients with mature B-cell (Burkitt) lymphoma only"
-    ],
-    correct: 1,
-    explanation: "GRAALL-2005 included newly diagnosed, Ph-negative ALL patients aged 18-59, excluding Burkitt leukemia/lymphoma."
-  },
-  {
-    question: "2. What was the key randomization factor in GRAALL-2005?",
-    answers: [
-      "Hyperfractionated cyclophosphamide (hyper-C) vs standard-dose cyclophosphamide (standard-C)",
-      "Immediate transplant vs delayed transplant",
-      "Oral chemotherapy vs intravenous chemotherapy only",
-      "Car-T therapy vs supportive care",
-      "Targeted TKIs vs no targeted therapy"
-    ],
-    correct: 0,
-    explanation: "Patients were randomized to standard cyclophosphamide or a hyperfractionated (Hyper-C) regimen during induction and late intensification."
-  },
-  {
-    question: "3. What was the primary endpoint of GRAALL-2005?",
-    answers: [
-      "Shortening the duration of hospitalization",
-      "Minimizing toxicity only",
-      "Event-free survival (EFS)",
-      "Testing new immunotherapy for minimal residual disease",
-      "Quality of life at 5 years"
-    ],
-    correct: 2,
-    explanation: "The main outcome measure was EFS, with overall survival (OS) as a key secondary endpoint."
-  },
-  {
-    question: "4. Did hyper-C improve overall outcomes compared to standard-C in the entire GRAALL-2005 population?",
-    answers: [
-      "Yes, significantly better EFS and OS",
-      "It improved OS but not EFS",
-      "It only lowered induction mortality",
-      "No significant advantage was seen in the overall cohort",
-      "It worsened treatment outcomes drastically"
-    ],
-    correct: 3,
-    explanation: "Hyper-C did not yield a statistically significant benefit in EFS or OS across the entire study population."
-  },
-  {
-    question: "5. What was the CR (complete remission) rate for GRAALL-2005 overall?",
-    answers: [
-      "Around 50%",
-      "Approximately 92%",
-      "Less than 30%",
-      "100% for patients under 40",
-      "Induction CR was not reported"
-    ],
-    correct: 1,
-    explanation: "The overall complete remission rate was ~92% (91.9% in the published data)."
-  },
-  {
-    question: "6. Which age group showed particularly poor tolerance to the pediatric-inspired regimen in GRAALL-2005?",
-    answers: [
-      "All ages tolerated it well",
-      "Adolescents (15-18 years)",
-      "Patients 25-34 years old",
-      "Patients ≥ 55 years old",
-      "Patients older than 40 only"
-    ],
-    correct: 3,
-    explanation: "Patients ≥ 55 had worse toxicity and higher treatment-related mortality, indicating poor tolerability to fully intensified protocols."
-  },
-  {
-    question: "7. What was a notable result of hyper-C among patients ≥ 55 years in GRAALL-2005?",
-    answers: [
-      "They had drastically higher relapse rates",
-      "They showed some improved outcomes compared to standard-C if their ALL was sensitive",
-      "They derived no benefit at all",
-      "They all died during induction",
-      "They were excluded from the trial"
-    ],
-    correct: 1,
-    explanation: "Post hoc analysis suggested older patients with chemo-sensitive ALL might see some benefit from early cyclophosphamide intensification."
-  },
-  {
-    question: "8. How did the GRAALL-2005 define 'high-risk' ALL?",
-    answers: [
-      "Based solely on presence of the BCR-ABL fusion gene",
-      "Any extramedullary disease",
-      "A combination of poor early blast clearance, unfavorable cytogenetics (e.g. t(4;11)), or late CR",
-      "Low white cell count at presentation",
-      "Presence of minimal residual disease only"
-    ],
-    correct: 2,
-    explanation: "High-risk included CNS involvement, poor early blast clearance, certain adverse cytogenetics (e.g., KMT2A), and the need for a second induction to achieve CR."
-  },
-  {
-    question: "9. Why did the authors propose an age limit of 55 for using pediatric-derived protocols in adult ALL?",
-    answers: [
-      "Because the CR rate was zero in older patients",
-      "To reduce asparaginase usage only",
-      "Due to significantly higher toxicity and mortality in patients ≥ 55",
-      "No patients older than 30 responded well in this trial",
-      "They needed to limit insurance coverage"
-    ],
-    correct: 2,
-    explanation: "Tolerance declines notably beyond 55, leading to higher rates of induction death and poor treatment compliance."
-  },
-  {
-    question: "10. What is the take-home message of the GRAALL-2005 trial for UK consultants treating adult ALL?",
-    answers: [
-      "Pediatric-inspired therapy yields poor results for all adult patients",
-      "Hyper-C dramatically benefits all adult ALL patients",
-      "A pediatric-based approach is feasible for adults up to ~55, but older patients have high toxicity and minimal net benefit",
-      "Long-term maintenance is unnecessary for adult ALL",
-      "It is recommended to omit all allogeneic transplants in first remission"
-    ],
-    correct: 2,
-    explanation: "GRAALL-2005 supports a pediatric-like regimen for younger adults. Past 55 years, toxicity rises and outcomes worsen, requiring adapted strategies."
-  }
-];
-
-// ========== Variables to hold whichever quiz is selected ==========
+// ========== Variables for whichever quiz is selected ==========
 let currentQuiz = [];
 let currentIndex = 0;
 let score = 0;
@@ -505,13 +371,6 @@ function startOPRA() {
 function startRAPIDO() {
   quizTitle = "RAPIDO Study Quiz";
   currentQuiz = rapidoQuestions;
-  initQuiz();
-}
-
-// ========== Start GRAALL Quiz ==========
-function startGRAALL() {
-  quizTitle = "GRAALL-2005 Study Quiz";
-  currentQuiz = graallQuestions;
   initQuiz();
 }
 
