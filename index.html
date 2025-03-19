@@ -2,26 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Ensure the page scales properly on mobile devices -->
+  <!-- Ensures mobile-friendly scaling -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OPRA Study Quiz</title>
   <style>
-    /* Larger, more readable fonts for mobile */
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
       max-width: 600px;
-      font-size: 18px; /* Increase overall text size */
+      font-size: 18px;
       line-height: 1.5;
     }
-    h1 {
+    h1, h2 {
       text-align: center;
-      font-size: 24px;
+    }
+    /* Intro screen styling */
+    #intro-screen {
+      margin-top: 50px;
+    }
+    #intro-screen p {
       margin-bottom: 20px;
     }
+    #start-btn {
+      display: block;
+      margin: 0 auto;
+      padding: 12px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      border: 1px solid #333;
+      border-radius: 4px;
+      background-color: #f5f5f5;
+    }
+    /* Quiz container styling */
+    #quiz-container {
+      display: none; /* hidden by default, shown after clicking Start Quiz */
+    }
     .question {
-      margin-bottom: 1em;
       font-weight: bold;
+      margin-bottom: 1em;
     }
     .answers button {
       display: block;
@@ -36,8 +54,8 @@
       border-radius: 4px;
     }
     .feedback {
-      font-weight: bold;
       margin-top: 1em;
+      font-weight: bold;
     }
     .hidden {
       display: none;
@@ -48,17 +66,51 @@
       font-weight: bold;
       font-size: 20px;
     }
+    .explanation {
+      margin-top: 10px;
+      font-weight: normal;
+    }
+    .next-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      border: 1px solid #333;
+      border-radius: 4px;
+      background-color: #eee;
+    }
   </style>
 </head>
 <body>
 
-<h1>OPRA Study Quiz</h1>
+<!-- Intro Screen -->
+<div id="intro-screen">
+  <h1>Welcome to the OPRA Study Quiz</h1>
+  <p>
+    This quiz is based on the OPRA (Organ Preservation in Rectal Adenocarcinoma) study.
+    It contains 10 questions, each with five multiple-choice answers. 
+  </p>
+  <p>
+    After you choose an answer, you'll be told if you're correct or incorrect and given a brief explanation.
+    At the end, you'll see your total score out of 10.
+  </p>
+  <button id="start-btn" onclick="startQuiz()">Start Quiz</button>
+</div>
 
-<div id="quiz-container"></div>
+<!-- Quiz Container -->
+<div id="quiz-container">
+  <div id="quiz-content"></div>
+</div>
 
 <script>
-// Example quiz data with 5 options each.
-// 'correct' is the zero-based index of the right answer.
+/* 
+  Each question object has:
+    - question: The question text
+    - answers: An array of five possible answers
+    - correct: Index (0 to 4) of the correct answer
+    - explanation: A short paragraph explaining why that is correct
+*/
 const questions = [
   {
     question: "1. What was the primary goal of the OPRA study?",
@@ -67,9 +119,10 @@ const questions = [
       "Evaluate organ preservation rates and outcomes after total neoadjuvant therapy",
       "Compare different surgical anastomotic techniques in low rectal cancer",
       "Determine cost-effectiveness of robotic vs. open rectal cancer surgery",
-      "None of the above"  // 5th option
+      "No specific goal was defined"
     ],
-    correct: 1
+    correct: 1,
+    explanation: "The OPRA study primarily investigated organ preservation and oncological outcomes using total neoadjuvant therapy (TNT) and a watch-and-wait approach."
   },
   {
     question: "2. Which patient population was primarily enrolled in the OPRA study?",
@@ -78,31 +131,34 @@ const questions = [
       "Metastatic rectal cancer (Stage IV)",
       "Locally advanced rectal cancer (T3–T4 or N+)",
       "Rectal cancer unsuitable for neoadjuvant treatments",
-      "All of the above"
+      "Patients with complete clinical response only"
     ],
-    correct: 2
+    correct: 2,
+    explanation: "OPRA focused on locally advanced rectal cancer (clinical T3–T4 or N+), where total neoadjuvant therapy was most relevant."
   },
   {
-    question: "3. What was the main difference between the two TNT approaches?",
+    question: "3. What was the main difference between the two TNT approaches in OPRA?",
     answers: [
       "Use of immunotherapy in one arm only",
       "Timing of chemotherapy (induction vs. consolidation)",
       "Addition of targeted therapies in the consolidation arm only",
       "Variation in total radiation dose",
-      "No significant difference at all"
+      "No difference at all"
     ],
-    correct: 1
+    correct: 1,
+    explanation: "The trial compared induction chemotherapy followed by chemoradiotherapy versus chemoradiotherapy followed by consolidation chemotherapy."
   },
   {
     question: "4. In the OPRA study, what did achieving a complete clinical response (cCR) signify?",
     answers: [
       "Non-surgical management (watch-and-wait) could be offered",
-      "Immediate surgical resection to confirm pathological complete response",
+      "Immediate surgical resection was mandated",
       "Exclusion from further follow-up in the study",
-      "Early colostomy formation to prevent recurrence",
-      "Continuation of chemotherapy indefinitely"
+      "Mandatory colostomy formation",
+      "Not applicable; cCR was not evaluated"
     ],
-    correct: 0
+    correct: 0,
+    explanation: "Patients with a clinical complete response were offered a watch-and-wait approach instead of immediate surgery."
   },
   {
     question: "5. How long was the typical observation period before deciding on surgery or continued watch-and-wait?",
@@ -111,20 +167,22 @@ const questions = [
       "8-12 weeks",
       "6 months",
       "18 months",
-      "No standard observation period was used"
+      "No observation period was used"
     ],
-    correct: 1
+    correct: 1,
+    explanation: "Typically, OPRA used an 8- to 12-week interval after completing TNT to assess response and decide on watch-and-wait vs surgery."
   },
   {
     question: "6. Which best describes the main oncological outcome for watch-and-wait?",
     answers: [
       "Time to permanent stoma creation",
       "Disease-free survival and local regrowth rates",
-      "Quality of life with temporary stoma",
+      "Quality of life with a temporary stoma",
       "Rate of immediate postoperative complications",
-      "Patient satisfaction scores"
+      "Age-related comorbidity incidence"
     ],
-    correct: 1
+    correct: 1,
+    explanation: "Key outcomes included disease-free survival (DFS) and the rate of local regrowth for patients in a watch-and-wait pathway."
   },
   {
     question: "7. If local regrowth was detected in watch-and-wait, what was recommended?",
@@ -133,55 +191,67 @@ const questions = [
       "Start a new course of chemotherapy",
       "Proceed with salvage surgical resection if feasible",
       "Switch to palliative care",
-      "High-dose short-course radiotherapy again"
+      "Offer re-irradiation alone"
     ],
-    correct: 2
+    correct: 2,
+    explanation: "The study protocol recommended prompt salvage surgery for any local regrowth detected during close surveillance."
   },
   {
     question: "8. Key finding regarding organ preservation in OPRA?",
     answers: [
       "No difference between induction and consolidation arms",
       "Significant organ preservation in TNT arms, especially consolidation",
-      "All patients required surgery eventually",
+      "All patients eventually required surgery",
       "Only patients with positive CRM were eligible",
-      "It was safe only in a small subset of patients"
+      "Organ preservation was not an endpoint"
     ],
-    correct: 1
+    correct: 1,
+    explanation: "A substantial proportion achieved organ preservation, particularly in the consolidation chemotherapy arm."
   },
   {
     question: "9. Regarding survival outcomes, what is most accurate?",
     answers: [
       "Watch-and-wait had significantly worse overall survival",
       "Most local regrowth quickly led to metastatic disease",
-      "Watch-and-wait had comparable disease-free survival (with close surveillance)",
+      "Watch-and-wait had comparable DFS to surgery, with rigorous surveillance",
       "Only local recurrence was measured, not survival",
-      "Both disease-free survival and overall survival were drastically reduced"
+      "All patients in the watch-and-wait group relapsed"
     ],
-    correct: 2
+    correct: 2,
+    explanation: "Under strict follow-up and salvage protocols, survival outcomes remained comparable to those undergoing immediate surgery."
   },
   {
     question: "10. How does OPRA inform future practice?",
     answers: [
       "Automatic watch-and-wait for all rectal cancer",
       "Importance of careful selection and strict surveillance for non-operative management",
-      "Discourages any neoadjuvant therapy",
-      "Immediate surgery to avoid regrowth",
-      "No further research needed"
+      "Discourages the use of neoadjuvant therapy",
+      "Immediate surgery is mandatory to avoid regrowth",
+      "It concluded that no further trials are required"
     ],
-    correct: 1
+    correct: 1,
+    explanation: "The study highlights the viability of organ preservation for properly selected patients, with close monitoring and salvage surgery when needed."
   }
 ];
 
-let currentQuestion = 0;
+let currentQuestionIndex = 0;
 let score = 0;
+let hasAnswered = false; // track if user has selected an answer
+
+function startQuiz() {
+  // Hide intro screen, show quiz container
+  document.getElementById('intro-screen').style.display = 'none';
+  document.getElementById('quiz-container').style.display = 'block';
+  renderQuestion();
+}
 
 // Render the current question & answers
 function renderQuestion() {
-  const quizContainer = document.getElementById('quiz-container');
+  const quizContent = document.getElementById('quiz-content');
 
   // If we've gone through all questions, show final score
-  if (currentQuestion >= questions.length) {
-    quizContainer.innerHTML = `
+  if (currentQuestionIndex >= questions.length) {
+    quizContent.innerHTML = `
       <div class="score">
         You scored ${score} out of ${questions.length}!
       </div>
@@ -189,44 +259,48 @@ function renderQuestion() {
     return;
   }
 
-  // Otherwise, build the current question
-  const q = questions[currentQuestion];
+  // Build the current question
+  const q = questions[currentQuestionIndex];
   const answersHtml = q.answers.map((answer, index) => {
     return `<button onclick="checkAnswer(${index})">${answer}</button>`;
   }).join('');
 
-  quizContainer.innerHTML = `
+  quizContent.innerHTML = `
     <div class="question">${q.question}</div>
     <div class="answers">${answersHtml}</div>
     <div id="feedback" class="feedback hidden"></div>
   `;
+  hasAnswered = false;
 }
 
-// Check the user's selected answer
 function checkAnswer(selectedIndex) {
-  const q = questions[currentQuestion];
+  if (hasAnswered) return; // prevent multiple clicks
+  hasAnswered = true;
+
+  const q = questions[currentQuestionIndex];
   const feedbackEl = document.getElementById('feedback');
 
+  // Mark correct or incorrect
   if (selectedIndex === q.correct) {
     score++;
-    feedbackEl.textContent = "Correct!";
-    feedbackEl.style.color = "green";
+    feedbackEl.innerHTML = `<span style="color: green;">Correct!</span>`;
   } else {
-    feedbackEl.textContent = "Incorrect!";
-    feedbackEl.style.color = "red";
+    feedbackEl.innerHTML = `<span style="color: red;">Incorrect!</span>`;
   }
 
-  feedbackEl.classList.remove("hidden");
-
-  // Brief pause so user can see feedback, then load the next question
-  setTimeout(() => {
-    currentQuestion++;
-    renderQuestion();
-  }, 1000);
+  // Show the explanation
+  feedbackEl.innerHTML += `
+    <div class="explanation">${q.explanation}</div>
+    <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+  `;
+  
+  feedbackEl.classList.remove('hidden');
 }
 
-// Initialize the quiz on page load
-renderQuestion();
+function nextQuestion() {
+  currentQuestionIndex++;
+  renderQuestion();
+}
 </script>
 
 </body>
