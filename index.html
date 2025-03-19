@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Ensure proper scaling on mobile -->
+  <title>OPRA & RAPIDO Quizzes With Bonus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OPRA & RAPIDO Study Quizzes</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,7 +15,7 @@
     h1, h2 {
       text-align: center;
     }
-    /* Landing Page style */
+    /* Landing Page */
     #landing-page {
       margin-top: 50px;
       text-align: center;
@@ -31,7 +30,7 @@
       border-radius: 4px;
       background-color: #f5f5f5;
     }
-    /* Quiz container hidden by default */
+    /* Quiz container hidden initially */
     #quiz-container {
       display: none;
     }
@@ -80,25 +79,23 @@
     }
   </style>
 </head>
-
 <body>
-  <!-- Landing Page -->
-  <div id="landing-page">
-    <h1>Select a Quiz</h1>
-    <p>Choose one of the following study quizzes:</p>
-    <button class="quiz-btn" onclick="startOPRA()">OPRA Study Quiz</button>
-    <button class="quiz-btn" onclick="startRAPIDO()">RAPIDO Study Quiz</button>
-  </div>
 
-  <!-- Quiz Container -->
-  <div id="quiz-container">
-    <h2 id="quiz-title"></h2>
-    <div id="quiz-content"></div>
-  </div>
+<div id="landing-page">
+  <h1>Select a Quiz</h1>
+  <p>Choose one of the following study quizzes:</p>
+  <button class="quiz-btn" onclick="startOPRA()">OPRA Study Quiz</button>
+  <button class="quiz-btn" onclick="startRAPIDO()">RAPIDO Study Quiz</button>
+</div>
+
+<div id="quiz-container">
+  <h2 id="quiz-title"></h2>
+  <div id="quiz-content"></div>
+</div>
 
 <script>
-// ==================== OPRA QUESTIONS ====================
-const opraQuestions = [
+// =============== MAIN & BONUS QUESTIONS FOR OPRA ===============
+const opraMain = [
   {
     question: "1. What was the PRIMARY endpoint of the OPRA trial?",
     answers: [
@@ -221,16 +218,47 @@ const opraQuestions = [
   }
 ];
 
-// ==================== RAPIDO QUESTIONS ====================
-/* 
-  Source: Dijkstra et al. Ann Surg 2023;278:e766–e772
-  Key Points:
-    - Compares short-course RT + chemo (TNT) vs standard long-course chemoradiotherapy
-    - At 5 years, better systemic control (fewer distant mets) with TNT, but slightly higher local recurrence
-    - No difference in overall survival
-*/
+const opraBonus = [
+  {
+    question: "BONUS OPRA Q1: How was local regrowth typically detected under watch-and-wait?",
+    answers: [
+      "Purely by patient symptoms",
+      "Routine MRI & endoscopic surveillance at scheduled intervals",
+      "Only discovered at autopsy",
+      "Biopsy of every local node monthly",
+      "They never actually monitored local regrowth"
+    ],
+    correct: 1,
+    explanation: "Surveillance included endoscopy and MRI at regular intervals to detect local regrowth."
+  },
+  {
+    question: "BONUS OPRA Q2: Which TNT sequence appeared to yield higher organ preservation?",
+    answers: [
+      "Induction chemo before chemoradiotherapy",
+      "Consolidation chemo after chemoradiotherapy",
+      "They had identical organ preservation rates",
+      "Short-course RT was used instead",
+      "No difference was seen in OPRA"
+    ],
+    correct: 1,
+    explanation: "Consolidation chemo arms tended to have higher organ preservation, although not the sole factor."
+  },
+  {
+    question: "BONUS OPRA Q3: What was the typical 3-year TME-free survival in the consolidation arm?",
+    answers: [
+      "5%",
+      "53%",
+      "15%",
+      "95%",
+      "N/A"
+    ],
+    correct: 1,
+    explanation: "In the consolidation arm, OPRA reported TME-free survival around 53% at 3 years."
+  }
+];
 
-const rapidoQuestions = [
+// =============== MAIN & BONUS QUESTIONS FOR RAPIDO ===============
+const rapidoMain = [
   {
     question: "1. What was the main goal of the RAPIDO trial?",
     answers: [
@@ -353,91 +381,218 @@ const rapidoQuestions = [
   }
 ];
 
-// ========== Variables for whichever quiz is selected ==========
+const rapidoBonus = [
+  {
+    question: "BONUS RAPIDO Q1: How was 'disease-related treatment failure' (DrTF) defined?",
+    answers: [
+      "Only local recurrence",
+      "Only distant metastases",
+      "A composite of locoregional failure, distant mets, new primary tumor, or death",
+      "Any infection after TME",
+      "No formal definition was given"
+    ],
+    correct: 2,
+    explanation: "DrTF included local or distant relapse, new primary, or death from disease."
+  },
+  {
+    question: "BONUS RAPIDO Q2: Why might older 3D-CRT usage increase local recurrence risk?",
+    answers: [
+      "It omits radiation entirely",
+      "It doesn't target enough volume or can have geographic misses",
+      "It uses extremely high doses that cause tumor hype",
+      "It is purely palliative",
+      "No difference from modern IMRT"
+    ],
+    correct: 1,
+    explanation: "3D-CRT can lead to suboptimal coverage, resulting in missed tumor regions if not precisely planned."
+  },
+  {
+    question: "BONUS RAPIDO Q3: Which group primarily benefited from short-course RT + chemo in terms of distant control?",
+    answers: [
+      "Early T1 patients with no node involvement",
+      "High-risk rectal cancers (T4, N2, EMVI+, threatened margins)",
+      "All patients equally, no difference in distant mets",
+      "Only patients with poor performance status",
+      "Stage IV with multiple metastases"
+    ],
+    correct: 1,
+    explanation: "High-risk LARC features saw improved distant metastasis outcomes with TNT in RAPIDO."
+  }
+];
+
+// ----------------- QUIZ LOGIC -------------------
 let currentQuiz = [];
+let bonusQuiz = [];
 let currentIndex = 0;
 let score = 0;
-let hasAnswered = false;
+let attemptCount = 0;       // 0 or 1 to track attempts
+let mainQuizDone = false;   // After finishing main 10 Q
 let quizTitle = "";
+let bonusActive = false;    // Are we in bonus questions?
 
-// ========== Start OPRA Quiz ==========
 function startOPRA() {
   quizTitle = "OPRA Study Quiz";
-  currentQuiz = opraQuestions;
+  currentQuiz = opraMain;
+  bonusQuiz = opraBonus;
   initQuiz();
 }
 
-// ========== Start RAPIDO Quiz ==========
 function startRAPIDO() {
   quizTitle = "RAPIDO Study Quiz";
-  currentQuiz = rapidoQuestions;
+  currentQuiz = rapidoMain;
+  bonusQuiz = rapidoBonus;
   initQuiz();
 }
 
-// ========== Initialize / Render the Chosen Quiz ==========
 function initQuiz() {
-  // Hide landing page
+  // Hide landing
   document.getElementById('landing-page').style.display = 'none';
-  // Show quiz container
+  // Show quiz
   document.getElementById('quiz-container').style.display = 'block';
-  // Reset quiz parameters
+  // Reset
   currentIndex = 0;
   score = 0;
-  hasAnswered = false;
+  mainQuizDone = false;
+  bonusActive = false;
+  attemptCount = 0;
   document.getElementById('quiz-title').innerText = quizTitle;
   renderQuestion();
 }
 
+// Render question or show final scoreboard
 function renderQuestion() {
   const quizContent = document.getElementById('quiz-content');
-
-  if (currentIndex >= currentQuiz.length) {
-    quizContent.innerHTML = `
-      <div class="score">
-        You scored ${score} out of ${currentQuiz.length}!
-      </div>
-    `;
-    return;
+  
+  // If we're on main quiz
+  if(!bonusActive) {
+    if(currentIndex >= currentQuiz.length) {
+      // Finished the main 10
+      mainQuizDone = true;
+      // Check if user scored 8 or more
+      if(score >= 8) {
+        // Start bonus
+        bonusActive = true;
+        currentIndex = 0;
+        quizContent.innerHTML = `
+          <div class="score">You got ${score} out of ${currentQuiz.length} correct!</div>
+          <p>Congratulations! You qualify for 3 bonus questions!</p>
+          <button class="next-btn" onclick="renderBonus()">Proceed to Bonus</button>
+        `;
+      } else {
+        // No bonus
+        quizContent.innerHTML = `
+          <div class="score">You scored ${score} out of ${currentQuiz.length}.</div>
+          <p>You needed at least 8 correct to unlock bonus questions.</p>
+        `;
+      }
+      return;
+    }
+  } else {
+    // We are in bonus quiz
+    if(currentIndex >= bonusQuiz.length) {
+      // finished bonus
+      quizContent.innerHTML = `
+        <div class="score">
+          Main Quiz Score: ${score - getBonusScore()} / 10 <br>
+          Bonus Score: ${getBonusScore()} / ${bonusQuiz.length} <br>
+          <br>
+          Total Score: ${score}!
+        </div>
+        <p>Great job finishing the bonus questions!</p>
+      `;
+      return;
+    }
   }
 
-  const q = currentQuiz[currentIndex];
-  const answersHtml = q.answers.map((ans, idx) => {
+  // Show question
+  attemptCount = 0; // reset attempt for new question
+  let qObj = bonusActive ? bonusQuiz[currentIndex] : currentQuiz[currentIndex];
+  let answersHtml = qObj.answers.map((ans, idx) => {
     return `<button onclick="checkAnswer(${idx})">${ans}</button>`;
   }).join('');
 
   quizContent.innerHTML = `
-    <div class="question">${q.question}</div>
+    <div class="question">${qObj.question}</div>
     <div class="answers">${answersHtml}</div>
     <div id="feedback" class="feedback hidden"></div>
   `;
-  hasAnswered = false;
 }
 
+// Check Answer
 function checkAnswer(selectedIndex) {
-  if (hasAnswered) return;
-  hasAnswered = true;
-
-  const q = currentQuiz[currentIndex];
+  const quizContent = document.getElementById('quiz-content');
   const feedbackEl = document.getElementById('feedback');
-
-  if (selectedIndex === q.correct) {
-    score++;
-    feedbackEl.innerHTML = `<span style="color: green;">Correct!</span>`;
+  if(!feedbackEl) return; // safety
+  
+  let qObj = bonusActive ? bonusQuiz[currentIndex] : currentQuiz[currentIndex];
+  
+  if(attemptCount === 0) {
+    // First attempt
+    if(selectedIndex === qObj.correct) {
+      // +1 point
+      score += 1;
+      feedbackEl.innerHTML = `<span style="color: green;">Correct (1 mark)!</span>`;
+      showExplanationAndNext(qObj.explanation);
+    } else {
+      // Wrong, let's allow second attempt
+      attemptCount = 1;
+      feedbackEl.innerHTML = `<span style="color: red;">Incorrect. Try again!</span>`;
+      feedbackEl.classList.remove('hidden');
+    }
   } else {
-    feedbackEl.innerHTML = `<span style="color: red;">Incorrect!</span>`;
+    // Second attempt
+    if(selectedIndex === qObj.correct) {
+      // +0.5 point
+      score += 0.5;
+      feedbackEl.innerHTML = `<span style="color: green;">Correct on second attempt (+0.5)!</span>`;
+    } else {
+      feedbackEl.innerHTML = `<span style="color: red;">Incorrect again (0 marks).<br>
+       Correct answer was: ${qObj.answers[qObj.correct]}</span>`;
+    }
+    showExplanationAndNext(qObj.explanation);
   }
+}
 
+// Show explanation & Next Q button
+function showExplanationAndNext(expl) {
+  const feedbackEl = document.getElementById('feedback');
   feedbackEl.innerHTML += `
-    <div class="explanation">${q.explanation}</div>
+    <div class="explanation">${expl}</div>
     <button class="next-btn" onclick="nextQuestion()">Next Question</button>
   `;
   feedbackEl.classList.remove('hidden');
 }
 
+// Move to next question
 function nextQuestion() {
   currentIndex++;
   renderQuestion();
 }
+
+// Helper to count how many bonus points
+function getBonusScore() {
+  // We'll do total - the base from the main quiz. 
+  // The user can get a maximum of 10 points from main. 
+  // If they have more than 10, the difference is bonus. If partial, 
+  // e.g. 9.5 => 9.5 - 10 => -0.5 => 0. 
+  // Instead let's track it carefully. We'll do a simpler approach: 
+  // We know the main quiz has 10 questions. Each can yield up to 1 point. 
+  // Actually up to 1 on first attempt or 0.5 on second attempt => but let's say max 10 from main. 
+  let mainMax = 10;
+  let totalScore = score;
+  if(totalScore <= mainMax) return 0; 
+  return (totalScore - mainMax);
+}
+
+// If user qualifies, we show a small text to proceed to the bonus
+function renderBonus() {
+  const quizContent = document.getElementById('quiz-content');
+  // Start bonus
+  currentIndex = 0;
+  bonusActive = true;
+  renderQuestion();
+}
 </script>
+
 </body>
 </html>
