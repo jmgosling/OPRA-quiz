@@ -2,87 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>OPRA Trial &amp; TNT in Rectal Cancer Quiz</title>
+  <title>OPRA Trial and Rectal Cancer Treatment Quiz</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+      background: #f7f7f7;
+    }
+    #quiz-container {
       max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1 {
       text-align: center;
     }
     #progress-container {
-      margin-bottom: 20px;
-    }
-    #progress-info {
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    #progress-bar-container {
       width: 100%;
-      background-color: #eee;
-      border-radius: 5px;
+      background: #e0e0e0;
+      border-radius: 4px;
       overflow: hidden;
-      height: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
     #progress-bar {
-      height: 100%;
+      height: 20px;
+      background: #4caf50;
       width: 0%;
-      background-color: #4CAF50;
-      transition: width 0.3s ease;
+      transition: width 0.3s;
     }
-    #quiz-container {
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 20px;
-    }
-    #question {
-      font-size: 1.1em;
-      margin-bottom: 15px;
-    }
-    .option-button {
-      display: block;
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 10px;
-      font-size: 1em;
-      cursor: pointer;
-    }
-    #feedback {
+    #progress-text, #score-text {
+      text-align: center;
+      margin: 5px 0;
       font-weight: bold;
-      margin-top: 15px;
-      min-height: 40px;
     }
-    #next-button {
-      margin-top: 20px;
+    .question {
+      margin-bottom: 20px;
+    }
+    .option {
+      margin: 8px 0;
+    }
+    .feedback {
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    #next-button, #submit-button {
+      margin-top: 15px;
       padding: 10px 20px;
       font-size: 1em;
+      border: none;
+      border-radius: 4px;
       cursor: pointer;
+    }
+    #submit-button {
+      background: #2196F3;
+      color: #fff;
+    }
+    #next-button {
+      background: #4caf50;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <h1>OPRA Trial &amp; TNT in Rectal Cancer Quiz</h1>
-  
-  <div id="progress-container">
-    <div id="progress-info">Question 0 of 0 | Score: 0%</div>
-    <div id="progress-bar-container">
+  <div id="quiz-container">
+    <h1>OPRA Trial and Rectal Cancer Treatment Quiz</h1>
+    <div id="progress-container">
       <div id="progress-bar"></div>
     </div>
-  </div>
-  
-  <div id="quiz-container">
-    <div id="question"></div>
-    <div id="options"></div>
-    <div id="feedback"></div>
-    <button id="next-button" style="display: none;">Next Question</button>
+    <div id="progress-text"></div>
+    <div id="score-text"></div>
+    <div id="question-container"></div>
   </div>
 
   <script>
-    // Array of question objects
+    // Array of all quiz questions (51 questions in total)
     const questions = [
+      // Group 1 (7 questions)
       {
         question: "1. What was the primary rationale for investigating total neoadjuvant therapy (TNT) in rectal adenocarcinoma patients?",
         options: {
@@ -90,8 +94,8 @@
           B: "To improve compliance with systemic chemotherapy and treat micrometastasis earlier.",
           C: "To increase the likelihood of achieving a pathological complete response (pCR) compared to standard treatment."
         },
-        correctAnswer: "B",
-        explanation: "Explanation: The primary rationale for TNT was to enhance systemic chemotherapy compliance and target micrometastasis earlier in the disease course, potentially improving long-term outcomes and reducing recurrence risks."
+        correct: "B",
+        explanation: "The primary rationale for TNT was to enhance systemic chemotherapy compliance and target micrometastasis earlier in the disease course, rather than waiting until after surgery, thereby potentially improving long-term outcomes and reducing recurrence risks."
       },
       {
         question: "2. Why was a “watch-and-wait” (WW) approach considered a feasible alternative in selected patients within the trial?",
@@ -100,8 +104,8 @@
           B: "Because total mesorectal excision (TME) has been shown to provide no benefit in rectal adenocarcinoma treatment.",
           C: "Because the standard approach using neoadjuvant chemoradiotherapy alone had a low pathological complete response rate."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: Prior retrospective studies indicated that patients with cCR after neoadjuvant therapy had favorable long-term outcomes without surgery, supporting WW in carefully selected patients."
+        correct: "A",
+        explanation: "Prior retrospective studies indicated that patients with cCR after neoadjuvant therapy had favorable long-term outcomes without surgery, supporting the feasibility of a WW strategy in carefully selected patients."
       },
       {
         question: "3. What was a key difference between the two treatment arms (INCT-CRT vs. CRT-CNCT) in this study?",
@@ -110,8 +114,8 @@
           B: "INCT-CRT patients underwent immediate surgery, whereas CRT-CNCT patients followed a WW approach.",
           C: "CRT-CNCT patients received lower doses of chemotherapy compared to INCT-CRT patients."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The key distinction was the sequencing—one arm received induction chemotherapy before chemoradiotherapy (INCT-CRT), and the other received chemoradiotherapy before consolidation chemotherapy (CRT-CNCT)."
+        correct: "A",
+        explanation: "The key distinction was the sequencing of treatment—one arm received induction chemotherapy before chemoradiotherapy (INCT-CRT), and the other received chemoradiotherapy before consolidation chemotherapy (CRT-CNCT)."
       },
       {
         question: "4. Which outcome measure was the primary endpoint for evaluating the efficacy of the TNT approach in this trial?",
@@ -120,8 +124,8 @@
           B: "Disease-free survival (DFS)",
           C: "Organ preservation rate"
         },
-        correctAnswer: "B",
-        explanation: "Explanation: The primary endpoint was disease-free survival (DFS) to compare outcomes against historical controls."
+        correct: "B",
+        explanation: "The study was designed as two standalone phase II trials, with disease-free survival (DFS) as the primary endpoint to compare outcomes against historical controls."
       },
       {
         question: "5. Based on the trial results, what was a key finding regarding disease-free survival (DFS) between the two TNT treatment arms?",
@@ -130,8 +134,8 @@
           B: "DFS was similar between the two groups and comparable to historical controls.",
           C: "Patients who received INCT-CRT had a significantly worse DFS than those in the CRT-CNCT group."
         },
-        correctAnswer: "B",
-        explanation: "Explanation: The study found no significant difference in DFS between the two groups, with both comparable to the historical 3-year DFS rate (approximately 75%)."
+        correct: "B",
+        explanation: "The study found no significant difference in DFS between the two groups, and both were comparable to the 3-year DFS rate observed historically (approximately 75%)."
       },
       {
         question: "6. What was one major advantage of the CRT-CNCT regimen over INCT-CRT regarding organ preservation?",
@@ -140,8 +144,8 @@
           B: "CRT-CNCT had significantly lower rates of tumor regrowth during the watch-and-wait period.",
           C: "Patients receiving CRT-CNCT had a lower incidence of adverse events compared to INCT-CRT."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The CRT-CNCT arm had a higher rate of organ preservation (53% vs. 41%), likely due to more patients achieving complete response before initiating WW."
+        correct: "A",
+        explanation: "The CRT-CNCT arm had a higher rate of organ preservation (53% vs. 41% in INCT-CRT), likely due to a higher proportion of patients achieving complete response before WW was initiated."
       },
       {
         question: "7. Why was a non-inferiority trial comparing watch-and-wait (WW) with immediate total mesorectal excision (TME) not conducted in this study?",
@@ -150,10 +154,11 @@
           B: "Because existing evidence had already established the superiority of WW over TME in rectal cancer treatment.",
           C: "Because it was unethical to withhold surgery from any rectal cancer patients achieving complete response."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: A large non-inferiority trial randomizing patients to either TME or WW would be difficult to accrue, as many prefer organ preservation when safe."
+        correct: "A",
+        explanation: "A large non-inferiority trial randomizing patients to either TME or WW after achieving cCR would be difficult to accrue, as many patients and clinicians prefer organ preservation if deemed safe."
       },
-      // Group 2
+
+      // Group 2 (12 questions)
       {
         question: "8. What was the rationale for using a phase II trial design instead of a phase III trial in the OPRA study?",
         options: {
@@ -161,8 +166,8 @@
           B: "A phase III trial was deemed unnecessary because previous studies had already established the superiority of TNT over standard treatment.",
           C: "A phase III trial was not feasible due to the small patient population eligible for organ preservation strategies."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The study was designed as two standalone phase II trials to assess preliminary efficacy and feasibility before a potential phase III trial."
+        correct: "A",
+        explanation: "The study was designed as two standalone phase II trials to assess preliminary efficacy and feasibility before potentially advancing to a larger phase III trial."
       },
       {
         question: "9. What was the primary stratification factor used during randomization in the OPRA trial?",
@@ -171,18 +176,18 @@
           B: "Participating institution",
           C: "Distance of the tumor from the anal verge"
         },
-        correctAnswer: "B",
-        explanation: "Explanation: Randomization was stratified by institution to ensure balanced treatment assignment across sites."
+        correct: "B",
+        explanation: "Patients were randomized using the method of random permuted blocks, stratified by institution, to ensure balanced treatment assignment across sites."
       },
       {
         question: "10. Why did the OPRA trial include both INCT-CRT and CRT-CNCT treatment sequences?",
         options: {
-          A: "To compare the effectiveness of different sequencing strategies in achieving organ preservation and DFS.",
+          A: "To compare the effectiveness of different sequencing strategies in achieving organ preservation and disease-free survival.",
           B: "To determine whether one sequence resulted in fewer adverse events.",
           C: "To accommodate patient preference for different chemotherapy regimens."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The study evaluated whether induction chemotherapy before chemoradiotherapy (INCT-CRT) or chemoradiotherapy before consolidation chemotherapy (CRT-CNCT) led to better outcomes."
+        correct: "A",
+        explanation: "The study was designed to evaluate whether induction chemotherapy before chemoradiotherapy (INCT-CRT) or chemoradiotherapy before consolidation chemotherapy (CRT-CNCT) led to better organ preservation and DFS outcomes."
       },
       {
         question: "11. What was the total radiation dose delivered to the primary tumor and involved nodes in the OPRA trial?",
@@ -191,8 +196,8 @@
           B: "4,500 to 5,600 cGy",
           C: "6,000 to 7,000 cGy"
         },
-        correctAnswer: "B",
-        explanation: "Explanation: Patients received 4,500 cGy to regional pelvic nodes and a total dose of 5,000–5,600 cGy to the primary tumor and involved nodes."
+        correct: "B",
+        explanation: "Patients received 4,500 cGy to regional pelvic nodes, with a total dose of 5,000-5,600 cGy delivered to the primary tumor and involved nodes using a sequential or integrated boost strategy."
       },
       {
         question: "12. How was chemotherapy administered during chemoradiotherapy in the OPRA trial?",
@@ -201,8 +206,8 @@
           B: "As capecitabine (825 mg/m² twice daily) or continuous infusion 5-FU (225 mg/m² per day).",
           C: "As an oral metronomic dosing schedule to minimize toxicity."
         },
-        correctAnswer: "B",
-        explanation: "Explanation: During chemoradiotherapy, patients received either capecitabine or continuous infusion 5-FU, based on the oncologist’s preference."
+        correct: "B",
+        explanation: "During chemoradiotherapy, patients received either capecitabine or continuous infusion 5-FU, depending on the preference of their medical oncologist."
       },
       {
         question: "13. What was the method used to assess tumor response before determining eligibility for watch-and-wait (WW) or surgery?",
@@ -211,8 +216,8 @@
           B: "A combination of digital rectal examination, endoscopy, MRI, and CT.",
           C: "Circulating tumor DNA (ctDNA) analysis to detect minimal residual disease."
         },
-        correctAnswer: "B",
-        explanation: "Explanation: A multimodal approach including digital rectal examination, endoscopy, MRI, and CT was used to assess response."
+        correct: "B",
+        explanation: "Tumor response was assessed using a multi-modal approach that included digital rectal examination, endoscopic examination, MRI, and CT scans to determine complete or near-complete response."
       },
       {
         question: "14. How did the OPRA trial define disease-free survival (DFS), the primary endpoint?",
@@ -221,8 +226,8 @@
           B: "The time from initiation of chemoradiotherapy to local recurrence or distant metastasis.",
           C: "The time from treatment completion to the first recurrence of rectal cancer."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: DFS was measured from randomization until locoregional failure, distant metastasis, new colorectal primary, or death from any cause."
+        correct: "A",
+        explanation: "DFS was measured from randomization until locoregional failure, distant metastasis, the development of a new colorectal primary cancer, or death from any cause."
       },
       {
         question: "15. Why were patients with prior pelvic irradiation excluded from the OPRA trial?",
@@ -231,8 +236,8 @@
           B: "Because such patients typically have a higher likelihood of achieving a complete response to chemoradiotherapy.",
           C: "Because prior pelvic radiation makes surgery technically unfeasible."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: Prior pelvic irradiation increases the risk of severe toxicity and confounds treatment response evaluation."
+        correct: "A",
+        explanation: "Prior pelvic irradiation increases the risk of severe toxicity and confounds treatment response, making it difficult to evaluate the efficacy of TNT and organ preservation strategies."
       },
       {
         question: "16. How did the OPRA trial account for differences in tumor response timing between the two treatment arms?",
@@ -241,8 +246,8 @@
           B: "By performing restaging at different time points depending on the treatment sequence.",
           C: "By requiring mandatory biopsies at multiple intervals to confirm response."
         },
-        correctAnswer: "B",
-        explanation: "Explanation: The CRT-CNCT group had a longer interval (approximately 28 weeks) from the end of chemoradiotherapy to restaging compared to the INCT-CRT group (8 weeks)."
+        correct: "B",
+        explanation: "The CRT-CNCT group had a longer interval from the end of chemoradiotherapy to restaging (approximately 28 weeks), compared to the INCT-CRT group (8 weeks), due to the sequence of chemotherapy administration."
       },
       {
         question: "17. What statistical method was used to compare DFS and TME-free survival between the treatment groups?",
@@ -251,8 +256,8 @@
           B: "Bayesian hierarchical modeling to adjust for patient heterogeneity.",
           C: "Logistic regression with propensity score matching."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The study used Kaplan-Meier survival analysis and Cox regression models to compare outcomes."
+        correct: "A",
+        explanation: "The study used Kaplan-Meier survival analysis and Cox regression models to compare DFS and TME-free survival, adjusting for relevant clinical factors."
       },
       {
         question: "18. What was the key reason why DFS did not significantly improve in the OPRA trial compared to historical controls?",
@@ -261,8 +266,8 @@
           B: "TNT may not provide a DFS benefit over standard chemoradiotherapy, TME, and postoperative chemotherapy.",
           C: "Organ preservation in the WW cohort led to increased rates of distant metastases."
         },
-        correctAnswer: "B",
-        explanation: "Explanation: The study found no DFS benefit for TNT compared to historical controls, suggesting TNT alone may not improve DFS over standard approaches."
+        correct: "B",
+        explanation: "The study found no DFS benefit for TNT compared to historical controls, suggesting that TNT alone may not improve DFS over standard chemoradiotherapy, TME, and postoperative chemotherapy."
       },
       {
         question: "19. Why were patients with sustained complete response (cCR) on WW followed with strict surveillance protocols?",
@@ -271,10 +276,11 @@
           B: "To confirm that organ preservation leads to a better quality of life without risk of recurrence.",
           C: "To determine if these patients could avoid further oncologic follow-up after two years."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: Strict surveillance (every 4–6 months initially) was used to monitor for regrowth and allow timely intervention with TME if needed."
+        correct: "A",
+        explanation: "WW patients were followed with frequent surveillance (every 4-6 months for 2 years, then less frequently), to monitor for tumor regrowth and intervene with TME if necessary."
       },
-      // Group 3
+
+      // Group 3 (12 questions)
       {
         question: "20. What was the 3-year disease-free survival (DFS) rate in the OPRA trial for both treatment groups?",
         options: {
@@ -282,8 +288,8 @@
           B: "76% for INCT-CRT and 76% for CRT-CNCT.",
           C: "70% for INCT-CRT and 80% for CRT-CNCT."
         },
-        correctAnswer: "B",
-        explanation: "Explanation: The study reported a 3-year DFS of 76% in both groups, demonstrating similar outcomes."
+        correct: "B",
+        explanation: "The study reported a 3-year DFS of 76% in both groups, showing that sequencing of TNT did not affect DFS outcomes when compared to historical controls."
       },
       {
         question: "21. How did the organ preservation rates compare between the two treatment arms?",
@@ -292,8 +298,8 @@
           B: "The INCT-CRT group had significantly higher organ preservation rates than the CRT-CNCT group.",
           C: "Organ preservation rates were similar between both treatment arms."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The CRT-CNCT arm showed higher organ preservation (53%) compared to INCT-CRT (41%)."
+        correct: "A",
+        explanation: "Organ preservation was higher in the CRT-CNCT group (53%) compared to INCT-CRT (41%), likely due to the more sustained response after consolidation chemotherapy."
       },
       {
         question: "22. What was the main factor associated with achieving organ preservation in the OPRA trial?",
@@ -302,8 +308,8 @@
           B: "The use of induction chemotherapy before chemoradiotherapy.",
           C: "The use of capecitabine rather than infusional fluorouracil during radiation therapy."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: A longer interval before restaging (in CRT-CNCT) was linked to higher rates of organ preservation."
+        correct: "A",
+        explanation: "Patients in the CRT-CNCT group (which had a longer interval from chemoradiotherapy to restaging) had higher rates of organ preservation, supporting the hypothesis that delaying assessment increases response rates."
       },
       {
         question: "23. What proportion of patients in the OPRA trial ultimately underwent total mesorectal excision (TME)?",
@@ -312,8 +318,8 @@
           B: "50%",
           C: "60%"
         },
-        correctAnswer: "B",
-        explanation: "Explanation: Approximately half of the patients eventually underwent TME, either due to incomplete response or regrowth."
+        correct: "B",
+        explanation: "Approximately half of the patients ultimately underwent TME, either due to incomplete response at restaging or tumor regrowth after watch-and-wait."
       },
       {
         question: "24. What was the estimated rate of tumor regrowth among patients who initially followed a watch-and-wait (WW) approach?",
@@ -322,8 +328,8 @@
           B: "25% in both treatment arms.",
           C: "50% in the INCT-CRT group and 35% in the CRT-CNCT group."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The INCT-CRT group had a regrowth rate of 40% compared to 27% in the CRT-CNCT group."
+        correct: "A",
+        explanation: "The INCT-CRT group had a higher tumor regrowth rate (40%) compared to the CRT-CNCT group (27%), suggesting that the sequence of treatment influences long-term tumor control."
       },
       {
         question: "25. How did the overall survival (OS) outcomes compare between the INCT-CRT and CRT-CNCT groups?",
@@ -332,8 +338,8 @@
           B: "The INCT-CRT group had significantly higher OS than the CRT-CNCT group.",
           C: "Overall survival was similar between both groups."
         },
-        correctAnswer: "C",
-        explanation: "Explanation: The study found no significant difference in overall survival between the two arms."
+        correct: "C",
+        explanation: "The study found no significant difference in overall survival between the two treatment arms, indicating that both sequencing approaches were equally effective in long-term survival."
       },
       {
         question: "26. Among patients who underwent surgery after initial watch-and-wait, how did their disease-free survival (DFS) compare to those who had surgery immediately after neoadjuvant therapy?",
@@ -342,8 +348,8 @@
           B: "DFS was comparable between both groups.",
           C: "DFS was significantly better for those who had delayed surgery."
         },
-        correctAnswer: "B",
-        explanation: "Explanation: Patients who had delayed TME after regrowth showed DFS similar to those who had immediate surgery."
+        correct: "B",
+        explanation: "Patients who underwent TME after tumor regrowth had similar DFS to those who had surgery immediately after neoadjuvant therapy, suggesting that delayed surgery after initial WW does not compromise long-term outcomes."
       },
       {
         question: "27. What was the rate of local recurrence-free survival at 3 years in the OPRA trial?",
@@ -352,8 +358,8 @@
           B: "80% for INCT-CRT and 90% for CRT-CNCT.",
           C: "70% for both treatment arms."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: Both groups achieved a high local recurrence-free survival rate of 94% at 3 years."
+        correct: "A",
+        explanation: "The study found high rates of local recurrence-free survival (94%) in both groups, supporting the safety of a watch-and-wait approach for carefully selected patients."
       },
       {
         question: "28. What was the most common type of recurrence observed in the OPRA trial?",
@@ -362,8 +368,8 @@
           B: "Local recurrence in the rectum.",
           C: "New primary colorectal tumors."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: Distant metastasis was the most frequent recurrence event."
+        correct: "A",
+        explanation: "Distant metastasis was the most common recurrence event, occurring in 41 patients, reinforcing the importance of systemic control in rectal cancer treatment."
       },
       {
         question: "29. How did the use of non-operative management (WW) impact sphincter preservation rates in the OPRA trial?",
@@ -372,8 +378,8 @@
           B: "Sphincter preservation rates were the same between WW patients and those who had immediate surgery.",
           C: "Patients who underwent surgery after WW had lower sphincter preservation rates than those who had immediate surgery."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: WW patients had higher sphincter preservation rates as avoiding TME often prevents a permanent colostomy."
+        correct: "A",
+        explanation: "WW patients had significantly higher sphincter preservation rates, as avoiding TME prevented the need for permanent colostomies in many cases."
       },
       {
         question: "30. What was the most significant factor associated with a higher probability of tumor regrowth after WW?",
@@ -382,8 +388,8 @@
           B: "Poor adherence to surveillance protocols.",
           C: "Use of induction chemotherapy before chemoradiotherapy."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: Higher T-stage (T3/T4) and nodal involvement at baseline were linked to increased regrowth risk."
+        correct: "A",
+        explanation: "Patients with higher T-stage (T3/T4) and nodal involvement at baseline had a greater likelihood of tumor regrowth, emphasizing the importance of patient selection for WW."
       },
       {
         question: "31. What conclusion did the OPRA trial draw regarding the role of total neoadjuvant therapy (TNT) in rectal cancer treatment?",
@@ -392,10 +398,11 @@
           B: "TNT does not improve DFS compared to historical controls but enables organ preservation in select patients.",
           C: "TNT increases toxicity without providing significant oncologic benefits."
         },
-        correctAnswer: "B",
-        explanation: "Explanation: While TNT did not improve DFS compared to historical controls, it did facilitate organ preservation without compromising survival."
+        correct: "B",
+        explanation: "The trial found no significant DFS improvement compared to historical controls, but it demonstrated that TNT facilitates organ preservation without compromising survival outcomes."
       },
-      // Group 4
+
+      // Group 4 (5 questions)
       {
         question: "32. What is a major strength of the OPRA trial in assessing the feasibility of a watch-and-wait (WW) approach?",
         options: {
@@ -403,8 +410,8 @@
           B: "The trial included a large phase III cohort, making its findings widely generalizable.",
           C: "The trial allowed patients to self-select their treatment group, enhancing real-world applicability."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: Its randomized, prospective phase II design provides strong internal validity."
+        correct: "A",
+        explanation: "The OPRA trial was a randomized, prospective phase II study, which enhances the validity of its findings regarding WW and total neoadjuvant therapy (TNT). However, it was not a phase III trial, nor did it use patient self-selection, which could introduce bias."
       },
       {
         question: "33. What is a key limitation of the OPRA trial in evaluating long-term oncologic outcomes?",
@@ -413,8 +420,8 @@
           B: "The study did not include a control arm receiving standard neoadjuvant chemoradiotherapy followed by TME, limiting comparisons.",
           C: "The study did not monitor toxicity or quality of life (QoL) outcomes, limiting its applicability to patient-centered care."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: A median follow-up of 3 years may be insufficient to fully evaluate long-term outcomes."
+        correct: "A",
+        explanation: "The median follow-up was 3 years, which may be insufficient to fully assess long-term recurrence rates and survival outcomes. The trial did include comparisons to historical controls and reported QoL metrics, though with some limitations."
       },
       {
         question: "34. How might the study’s design impact the interpretation of disease-free survival (DFS) results?",
@@ -423,8 +430,8 @@
           B: "The study’s use of Kaplan-Meier survival analysis rather than a Bayesian approach may have skewed DFS estimates.",
           C: "The study’s exclusion of patients with early-stage rectal cancer may have artificially lowered DFS rates."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The trial was designed primarily for feasibility and organ preservation rather than to detect a DFS benefit."
+        correct: "A",
+        explanation: "The study was not designed to detect a DFS benefit over historical controls but rather to assess feasibility and organ preservation. This makes it difficult to conclude whether TNT truly improves DFS compared to standard approaches."
       },
       {
         question: "35. What is a potential source of bias in the OPRA trial?",
@@ -433,8 +440,8 @@
           B: "The use of institution-specific randomization introduced systematic selection bias.",
           C: "The inclusion of patients with stage I rectal cancer may have diluted the effect size for TNT."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: Without blinding, evaluators may be subject to bias when assessing response."
+        correct: "A",
+        explanation: "Since the trial was not blinded, clinicians assessing tumor response may have been influenced by knowledge of the treatment sequence, introducing subjective bias in determining eligibility for WW."
       },
       {
         question: "36. How does the OPRA trial contribute to the evolving treatment paradigm for locally advanced rectal cancer?",
@@ -443,19 +450,20 @@
           B: "It conclusively proves that TNT is superior to standard neoadjuvant therapy in terms of DFS and overall survival.",
           C: "It demonstrates that all patients with rectal cancer should avoid TME if a clinical complete response (cCR) is achieved."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The trial shows that TNT can allow for organ preservation safely in appropriately selected patients."
+        correct: "A",
+        explanation: "The trial provides strong prospective data supporting the feasibility of organ preservation using TNT, though it does not show DFS superiority over standard approaches or suggest that TME should be avoided in all cases."
       },
-      // Group 5
+
+      // Group 5 (5 questions)
       {
         question: "37. How should the results of the OPRA trial influence the selection of patients for a watch-and-wait (WW) approach in clinical practice?",
         options: {
           A: "Only patients with clinical complete response (cCR) should be considered for WW, as near-complete responses have higher regrowth rates.",
           B: "WW can be considered for both cCR and near-complete response patients, but careful surveillance is required to monitor for regrowth.",
-          C: "All patients with locally advanced rectal cancer should be offered WW after TNT, as it has no negative impact on DFS."
+          C: "All patients with locally advanced rectal cancer should be offered WW after total neoadjuvant therapy, as it has no negative impact on disease-free survival."
         },
-        correctAnswer: "B",
-        explanation: "Explanation: Both cCR and near-complete responders may be managed with WW; however, strict surveillance is essential."
+        correct: "B",
+        explanation: "The OPRA trial showed that both cCR and near-complete responders could safely undergo WW, but close surveillance is essential due to the risk of tumor regrowth. However, WW is not suitable for all patients, and individual patient selection is crucial."
       },
       {
         question: "38. What is a major consideration for applying the OPRA trial’s findings to clinical practice in a non-trial setting?",
@@ -464,8 +472,8 @@
           B: "The WW strategy is universally applicable and does not require specialized expertise in rectal cancer management.",
           C: "The results suggest that WW should replace TME entirely in all patients with a complete clinical response."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: In practice, less intensive surveillance may delay detection of regrowth compared to the trial’s strict protocols."
+        correct: "A",
+        explanation: "The OPRA trial had a strict surveillance protocol, with frequent endoscopy and MRI, which may not be as feasible in real-world settings, potentially leading to delayed detection of regrowth in non-trial environments."
       },
       {
         question: "39. How should oncologists interpret the lack of a DFS benefit for total neoadjuvant therapy (TNT) in the OPRA trial?",
@@ -474,8 +482,8 @@
           B: "TNT should be abandoned in favor of traditional neoadjuvant chemoradiotherapy followed by surgery, as it does not improve DFS.",
           C: "TNT is only beneficial for patients with low-risk tumors who are likely to achieve a complete response."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: Despite no DFS improvement, TNT’s benefit in organ preservation makes it a viable option."
+        correct: "A",
+        explanation: "Although TNT did not improve DFS compared to historical controls, it allowed for higher organ preservation rates, which is a major quality-of-life benefit without negatively impacting survival outcomes."
       },
       {
         question: "40. Which patient population might benefit the most from the watch-and-wait (WW) strategy validated in the OPRA trial?",
@@ -484,8 +492,8 @@
           B: "Patients with bulky T4 tumors who have a low likelihood of achieving a complete response.",
           C: "Patients with a history of prior pelvic radiation, as they are at high risk for surgical complications."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: WW is especially valuable for distal rectal cancers where TME often results in a permanent colostomy."
+        correct: "A",
+        explanation: "WW is particularly valuable for patients with distal rectal cancer, where TME often results in a permanent colostomy. Avoiding surgery can significantly improve quality of life for these patients."
       },
       {
         question: "41. What is a key real-world barrier to implementing the OPRA trial’s WW approach in routine clinical practice?",
@@ -494,188 +502,239 @@
           B: "The limited availability of total neoadjuvant therapy (TNT) in most clinical settings.",
           C: "The absence of effective imaging techniques to monitor for tumor regrowth."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: Standardizing the definition of cCR and timing for intervention remains a challenge outside of trial settings."
+        correct: "A",
+        explanation: "One challenge in real-world implementation is the subjectivity in defining cCR and determining when to intervene with surgery, which requires experienced multidisciplinary teams."
       },
-      // Group 6
+
+      // Group 6 (5 questions)
       {
-        question: "42. How do the organ preservation rates in the OPRA trial compare to those reported in the CAO/ARO/AIO-12 trial?",
-        options: {
-          A: "The OPRA trial reported a higher organ preservation rate in the CRT-CNCT arm than in the CAO/ARO/AIO-12 trial.",
-          B: "The CAO/ARO/AIO-12 trial showed higher organ preservation rates than the OPRA trial, regardless of treatment sequencing.",
-          C: "Both trials showed similar organ preservation rates, but OPRA demonstrated superior overall survival."
-        },
-        correctAnswer: "A",
-        explanation: "Explanation: OPRA’s CRT-CNCT arm had higher organ preservation rates, although direct comparisons can be challenging since CAO/ARO/AIO-12 focused on pCR."
-      },
-      {
-        question: "43. How do the DFS results of the OPRA trial compare with those of the RAPIDO trial, which also investigated TNT?",
-        options: {
-          A: "RAPIDO showed improved DFS compared to standard treatment, while OPRA found no DFS advantage for TNT over historical controls.",
-          B: "Both OPRA and RAPIDO showed no DFS benefit for TNT, but RAPIDO demonstrated a significant improvement in overall survival.",
-          C: "The OPRA trial had superior DFS results compared to RAPIDO, demonstrating the efficacy of WW."
-        },
-        correctAnswer: "A",
-        explanation: "Explanation: RAPIDO reported improved DFS with TNT compared to standard treatment, whereas OPRA did not show a DFS benefit over historical controls."
-      },
-      {
-        question: "44. How does the watch-and-wait (WW) strategy used in the OPRA trial compare with findings from the International Watch & Wait Database (IWWD)?",
-        options: {
-          A: "Both OPRA and IWWD reported similar tumor regrowth rates, supporting the safety of WW with proper surveillance.",
-          B: "The IWWD showed significantly lower tumor regrowth rates compared to OPRA, suggesting OPRA’s approach was less effective.",
-          C: "The OPRA trial showed better survival outcomes than the IWWD, proving the superiority of its WW protocol."
-        },
-        correctAnswer: "A",
-        explanation: "Explanation: Both sources report regrowth rates in the same ballpark, reinforcing that WW is feasible with strict follow-up."
-      },
-      {
-        question: "45. How do the findings of the OPRA trial regarding chemotherapy sequencing compare to those of the PRODIGE 23 trial?",
-        options: {
-          A: "PRODIGE 23 showed that induction chemotherapy before chemoradiotherapy improved DFS, while OPRA found no DFS benefit for TNT.",
-          B: "Both trials concluded that chemotherapy sequencing had no impact on oncologic outcomes.",
-          C: "OPRA and PRODIGE 23 both demonstrated that chemoradiotherapy should always precede systemic chemotherapy for optimal organ preservation."
-        },
-        correctAnswer: "A",
-        explanation: "Explanation: PRODIGE 23 indicated DFS improvement with induction chemotherapy; OPRA did not see a DFS benefit, although organ preservation was better with CRT-CNCT."
-      },
-      {
-        question: "46. How does the survival data from the OPRA trial compare to the historical survival data from standard chemoradiotherapy followed by TME?",
-        options: {
-          A: "The OPRA trial showed that TNT with selective WW provided comparable survival outcomes to standard CRT and TME.",
-          B: "The OPRA trial demonstrated superior survival compared to historical standard-of-care treatments, proving that TNT should replace TME.",
-          C: "Standard CRT followed by TME had significantly better DFS compared to TNT in the OPRA trial."
-        },
-        correctAnswer: "A",
-        explanation: "Explanation: The survival outcomes in OPRA were comparable to historical data, supporting TNT and WW as safe alternatives."
-      },
-      // Group 7 (Clinical scenarios)
-      {
-        question: "47. A 62-year-old patient with a clinical complete response (cCR) following TNT is hesitant about surgery. Based on OPRA trial findings, what should be the primary consideration when discussing WW?",
+        question: "42. A 62-year-old patient with a clinical complete response (cCR) following total neoadjuvant therapy (TNT) is hesitant about undergoing surgery. Based on OPRA trial findings, what should be the primary consideration when discussing the watch-and-wait (WW) approach?",
         options: {
           A: "WW is a reasonable approach for cCR patients but requires a strict surveillance protocol to monitor for tumor regrowth.",
           B: "WW should be avoided, as the OPRA trial showed that delayed surgery leads to worse oncologic outcomes.",
-          C: "Surgery should always be recommended after TNT, as DFS was not improved with TNT compared to historical controls."
+          C: "Surgery should always be recommended after TNT, as disease-free survival (DFS) was not improved with TNT compared to historical controls."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The trial supports WW in cCR patients, with the caveat of rigorous follow-up to catch any regrowth."
+        correct: "A",
+        explanation: "The OPRA trial demonstrated that WW is a viable option for cCR patients, but it requires close surveillance due to the risk of tumor regrowth. DFS was not negatively impacted by WW, but strict monitoring is essential."
       },
       {
-        question: "48. A patient with a T3N1 rectal adenocarcinoma is choosing between INCT-CRT and CRT-CNCT. According to OPRA trial findings, which approach is more likely to result in organ preservation?",
+        question: "43. A patient with a T3N1 rectal adenocarcinoma is deciding between induction chemotherapy followed by chemoradiotherapy (INCT-CRT) and chemoradiotherapy followed by consolidation chemotherapy (CRT-CNCT). According to OPRA trial findings, which approach is more likely to result in organ preservation?",
         options: {
-          A: "CRT-CNCT, as it was associated with a higher rate of sustained cCR and rectal preservation.",
+          A: "CRT-CNCT, as it was associated with a higher rate of sustained clinical complete response and rectal preservation.",
           B: "INCT-CRT, as delivering chemotherapy before chemoradiotherapy increases response rates.",
           C: "Both approaches result in equivalent organ preservation rates, so the decision should be based on patient preference."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The CRT-CNCT regimen had higher organ preservation rates (53% vs. 41%)."
+        correct: "A",
+        explanation: "The CRT-CNCT arm had a higher rate of organ preservation (53%) compared to INCT-CRT (41%), likely due to the prolonged time interval between chemoradiotherapy and restaging, allowing for greater tumor regression."
       },
       {
-        question: "49. A 55-year-old patient who initially had a cCR after TNT is found to have tumor regrowth at 12-month follow-up MRI. What does the OPRA trial suggest regarding their prognosis?",
+        question: "44. A 55-year-old patient who initially had a clinical complete response after TNT is found to have tumor regrowth at their 12-month follow-up MRI. What does the OPRA trial suggest regarding their prognosis?",
         options: {
           A: "Patients who undergo delayed TME after regrowth have similar DFS to those who had immediate TME after neoadjuvant therapy.",
           B: "Patients with tumor regrowth have significantly worse survival outcomes compared to those who undergo immediate TME.",
           C: "Tumor regrowth suggests systemic disease progression, and chemotherapy should be initiated immediately rather than surgery."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The trial showed that delayed TME after regrowth does not compromise DFS compared to immediate surgery."
+        correct: "A",
+        explanation: "The OPRA trial found that patients who underwent delayed TME after tumor regrowth had DFS rates similar to those who had surgery immediately after neoadjuvant therapy, supporting the safety of WW with proper surveillance and timely surgical intervention when necessary."
       },
       {
-        question: "50. A patient with a 3 cm rectal tumor located 4 cm from the anal verge is concerned about TME’s impact on quality of life. How should the OPRA trial findings influence the discussion?",
+        question: "45. A patient with a 3 cm rectal tumor located 4 cm from the anal verge is concerned about the impact of TME on quality of life. How should the OPRA trial findings influence the discussion?",
         options: {
           A: "WW is a reasonable option if the patient achieves a cCR, as it reduces the likelihood of a permanent colostomy and maintains bowel function.",
           B: "TME is mandatory for all patients with locally advanced rectal cancer, regardless of response to TNT.",
           C: "WW should only be considered for tumors located more than 5 cm from the anal verge, as low-lying tumors have higher recurrence risk."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The findings support WW in cCR patients, which is particularly beneficial for low-lying tumors to avoid a permanent colostomy."
+        correct: "A",
+        explanation: "The OPRA trial demonstrated that patients with a sustained complete response after TNT could safely avoid surgery, which is particularly beneficial for distal rectal tumors where TME would often require a permanent colostomy."
       },
       {
-        question: "51. A multidisciplinary tumor board is discussing whether to adopt a WW protocol for rectal cancer patients after TNT. What is a key real-world challenge based on OPRA trial findings?",
+        question: "46. A multidisciplinary tumor board is discussing whether to adopt a watch-and-wait protocol for rectal cancer patients after TNT. What is a key real-world challenge based on OPRA trial findings?",
         options: {
-          A: "Ensuring rigorous long-term surveillance, as real-world monitoring may be less intensive than in a clinical trial.",
+          A: "Ensuring rigorous long-term surveillance, as real-world monitoring may be less intensive than the trial setting.",
           B: "Lack of evidence supporting organ preservation as a safe strategy, making TME the preferred approach for all patients.",
           C: "The need for additional systemic chemotherapy after TNT to prevent distant metastasis in WW patients."
         },
-        correctAnswer: "A",
-        explanation: "Explanation: The trial’s success depended on very frequent follow-up exams, which may be challenging to implement in routine practice."
+        correct: "A",
+        explanation: "The OPRA trial required frequent rectal MRI, endoscopy, and clinical exams for 5 years, which may be challenging to replicate in real-world settings, leading to the risk of delayed detection of regrowth in non-trial environments."
+      },
+
+      // Group 7 (5 questions)
+      {
+        question: "47. How do the organ preservation rates in the OPRA trial compare to those reported in the CAO/ARO/AIO-12 trial?",
+        options: {
+          A: "The OPRA trial reported a higher organ preservation rate in the CRT-CNCT arm than in the CAO/ARO/AIO-12 trial.",
+          B: "The CAO/ARO/AIO-12 trial showed higher organ preservation rates than the OPRA trial, regardless of treatment sequencing.",
+          C: "Both trials showed similar organ preservation rates, but OPRA demonstrated superior overall survival."
+        },
+        correct: "A",
+        explanation: "The OPRA trial reported higher organ preservation rates in the CRT-CNCT group (53%) compared to CAO/ARO/AIO-12, which focused on pathologic complete response (pCR) rather than organ preservation, making direct comparisons difficult."
+      },
+      {
+        question: "48. How do the DFS results of the OPRA trial compare with those of the RAPIDO trial, which also investigated total neoadjuvant therapy (TNT)?",
+        options: {
+          A: "RAPIDO showed improved DFS compared to standard treatment, while OPRA found no DFS advantage for TNT over historical controls.",
+          B: "Both OPRA and RAPIDO showed no DFS benefit for TNT, but RAPIDO demonstrated a significant improvement in overall survival.",
+          C: "The OPRA trial had superior DFS results compared to RAPIDO, demonstrating the efficacy of WW."
+        },
+        correct: "A",
+        explanation: "The RAPIDO trial demonstrated improved DFS with short-course radiotherapy and TNT compared to standard treatment, whereas OPRA found no significant DFS benefit for TNT over historical controls, though it improved organ preservation rates."
+      },
+      {
+        question: "49. How does the watch-and-wait (WW) strategy used in the OPRA trial compare with findings from the International Watch & Wait Database (IWWD)?",
+        options: {
+          A: "Both OPRA and IWWD reported similar tumor regrowth rates, supporting the safety of WW with proper surveillance.",
+          B: "The IWWD showed significantly lower tumor regrowth rates compared to OPRA, suggesting OPRA’s approach was less effective.",
+          C: "The OPRA trial showed better survival outcomes than the IWWD, proving the superiority of its WW protocol."
+        },
+        correct: "A",
+        explanation: "Both OPRA and IWWD reported tumor regrowth rates around 25-40%, reinforcing that WW is a feasible approach for selected patients but requires strict surveillance. Neither trial showed a survival detriment with delayed surgery after regrowth."
+      },
+      {
+        question: "50. How do the findings of the OPRA trial regarding chemotherapy sequencing compare to those of the PRODIGE 23 trial?",
+        options: {
+          A: "PRODIGE 23 showed that induction chemotherapy before chemoradiotherapy improved DFS, while OPRA did not find a DFS benefit for TNT, though it showed that CRT-CNCT was superior for organ preservation.",
+          B: "Both trials concluded that chemotherapy sequencing had no impact on oncologic outcomes.",
+          C: "OPRA and PRODIGE 23 both demonstrated that chemoradiotherapy should always precede systemic chemotherapy for optimal organ preservation."
+        },
+        correct: "A",
+        explanation: "The PRODIGE 23 trial showed that induction chemotherapy before chemoradiotherapy improved DFS, while OPRA did not find a DFS benefit for TNT, though it showed that CRT-CNCT was superior for organ preservation."
+      },
+      {
+        question: "51. How does the survival data from the OPRA trial compare to the historical survival data from standard chemoradiotherapy followed by total mesorectal excision (TME)?",
+        options: {
+          A: "The OPRA trial showed that TNT with selective WW provided comparable survival outcomes to standard chemoradiotherapy and TME.",
+          B: "The OPRA trial demonstrated superior survival compared to historical standard-of-care treatments, proving that TNT should replace TME.",
+          C: "Standard chemoradiotherapy followed by TME had significantly better DFS compared to TNT in the OPRA trial."
+        },
+        correct: "A",
+        explanation: "The OPRA trial found that DFS and overall survival were comparable to historical data from standard CRT + TME, supporting the safety of TNT and WW without compromising oncologic outcomes."
       }
     ];
-    
+
     let currentQuestionIndex = 0;
     let score = 0;
     const totalQuestions = questions.length;
-    
-    const questionEl = document.getElementById("question");
-    const optionsEl = document.getElementById("options");
-    const feedbackEl = document.getElementById("feedback");
-    const nextButton = document.getElementById("next-button");
-    const progressInfoEl = document.getElementById("progress-info");
-    const progressBarEl = document.getElementById("progress-bar");
-    
-    // Display the current question and update progress
-    function displayQuestion() {
-      // Clear previous options and feedback
-      optionsEl.innerHTML = "";
-      feedbackEl.innerHTML = "";
-      nextButton.style.display = "none";
+
+    const questionContainer = document.getElementById("question-container");
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+    const scoreText = document.getElementById("score-text");
+
+    function loadQuestion() {
+      // Clear container
+      questionContainer.innerHTML = "";
       
-      // Update progress information
-      progressInfoEl.textContent = `Question ${currentQuestionIndex + 1} of ${totalQuestions} | Score: ${totalQuestions ? Math.round((score / totalQuestions) * 100) : 0}%`;
-      progressBarEl.style.width = `${((currentQuestionIndex) / totalQuestions) * 100}%`;
-      
-      // Display the question text
-      const currentQ = questions[currentQuestionIndex];
-      questionEl.textContent = currentQ.question;
-      
-      // Create option buttons
-      for (let key in currentQ.options) {
-        const btn = document.createElement("button");
-        btn.textContent = key + ": " + currentQ.options[key];
-        btn.className = "option-button";
-        btn.onclick = () => selectAnswer(key, btn);
-        optionsEl.appendChild(btn);
+      // Update progress text and bar
+      progressText.textContent = `Question ${currentQuestionIndex + 1} of ${totalQuestions}`;
+      let progressPercent = ((currentQuestionIndex) / totalQuestions) * 100;
+      progressBar.style.width = progressPercent + "%";
+      let currentScorePercent = (currentQuestionIndex === 0 ? 0 : (score / currentQuestionIndex) * 100).toFixed(0);
+      scoreText.textContent = `Current Score: ${currentScorePercent}%`;
+
+      // If quiz is finished, show final score
+      if (currentQuestionIndex >= totalQuestions) {
+        questionContainer.innerHTML = `<h2>Quiz Completed!</h2>
+          <p>Your final score is ${score} out of ${totalQuestions} (${((score/totalQuestions)*100).toFixed(0)}%).</p>`;
+        progressBar.style.width = "100%";
+        return;
       }
-    }
-    
-    // Handle answer selection
-    function selectAnswer(selected, btnClicked) {
-      // Disable all option buttons after an answer is chosen
-      const buttons = document.querySelectorAll(".option-button");
-      buttons.forEach(btn => btn.disabled = true);
       
-      const currentQ = questions[currentQuestionIndex];
-      if (selected === currentQ.correctAnswer) {
+      const currentQuestion = questions[currentQuestionIndex];
+      const qDiv = document.createElement("div");
+      qDiv.className = "question";
+      
+      // Question text
+      const qText = document.createElement("p");
+      qText.innerHTML = currentQuestion.question;
+      qDiv.appendChild(qText);
+      
+      // Options (radio buttons)
+      const form = document.createElement("form");
+      form.id = "quizForm";
+      for (let option in currentQuestion.options) {
+        const label = document.createElement("label");
+        label.className = "option";
+        label.style.display = "block";
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "option";
+        radio.value = option;
+        label.appendChild(radio);
+        label.innerHTML += ` <strong>${option}.</strong> ${currentQuestion.options[option]}`;
+        form.appendChild(label);
+      }
+      qDiv.appendChild(form);
+      
+      // Submit button
+      const submitButton = document.createElement("button");
+      submitButton.id = "submit-button";
+      submitButton.textContent = "Submit";
+      submitButton.type = "button";
+      submitButton.onclick = checkAnswer;
+      qDiv.appendChild(submitButton);
+      
+      questionContainer.appendChild(qDiv);
+    }
+
+    function checkAnswer() {
+      const radios = document.getElementsByName("option");
+      let selected;
+      for (let radio of radios) {
+        if (radio.checked) {
+          selected = radio.value;
+          break;
+        }
+      }
+      if (!selected) {
+        alert("Please select an option.");
+        return;
+      }
+      
+      // Disable the form options
+      const radiosArr = Array.from(radios);
+      radiosArr.forEach(radio => radio.disabled = true);
+      
+      // Remove the submit button
+      document.getElementById("submit-button").disabled = true;
+      
+      const currentQuestion = questions[currentQuestionIndex];
+      const feedbackDiv = document.createElement("div");
+      feedbackDiv.className = "feedback";
+      if (selected === currentQuestion.correct) {
+        feedbackDiv.innerHTML = `<span class="correct">Correct</span>`;
         score++;
-        feedbackEl.style.color = "green";
-        feedbackEl.textContent = "Correct! " + currentQ.explanation;
       } else {
-        feedbackEl.style.color = "red";
-        feedbackEl.textContent = "Incorrect. " + currentQ.explanation;
+        feedbackDiv.innerHTML = `<span class="incorrect">Incorrect</span>`;
       }
-      // Update progress info with new score
-      progressInfoEl.textContent = `Question ${currentQuestionIndex + 1} of ${totalQuestions} | Score: ${Math.round((score / totalQuestions) * 100)}%`;
-      // Show next button
-      nextButton.style.display = "block";
+      
+      // Explanation (always in black)
+      const explanationDiv = document.createElement("div");
+      explanationDiv.style.color = "black";
+      explanationDiv.style.marginTop = "8px";
+      explanationDiv.textContent = currentQuestion.explanation;
+      
+      questionContainer.appendChild(feedbackDiv);
+      questionContainer.appendChild(explanationDiv);
+      
+      // Next Question button
+      const nextButton = document.createElement("button");
+      nextButton.id = "next-button";
+      nextButton.textContent = (currentQuestionIndex === totalQuestions - 1) ? "Finish Quiz" : "Next Question";
+      nextButton.onclick = () => {
+        currentQuestionIndex++;
+        loadQuestion();
+      };
+      questionContainer.appendChild(nextButton);
+      
+      // Update progress bar and score
+      let progressPercent = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+      progressBar.style.width = progressPercent + "%";
+      let currentScorePercent = ((score / (currentQuestionIndex + 1)) * 100).toFixed(0);
+      scoreText.textContent = `Current Score: ${currentScorePercent}%`;
     }
-    
-    // Move to the next question or finish the quiz
-    nextButton.addEventListener("click", () => {
-      currentQuestionIndex++;
-      if (currentQuestionIndex < totalQuestions) {
-        displayQuestion();
-      } else {
-        // Quiz finished: display final score and reset option
-        questionEl.textContent = "Quiz Completed!";
-        optionsEl.innerHTML = "";
-        feedbackEl.innerHTML = `Your final score is ${score} out of ${totalQuestions} (${Math.round((score / totalQuestions) * 100)}%).`;
-        nextButton.style.display = "none";
-        progressBarEl.style.width = "100%";
-        progressInfoEl.textContent = `Question ${totalQuestions} of ${totalQuestions} | Score: ${Math.round((score / totalQuestions) * 100)}%`;
-      }
-    });
-    
+
     // Start the quiz
-    displayQuestion();
+    loadQuestion();
   </script>
 </body>
 </html>
