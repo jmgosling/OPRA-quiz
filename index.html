@@ -1,588 +1,569 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>OPRA & RAPIDO Quizzes With Bonus</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPRA Trial Appraisal Quiz</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      max-width: 600px;
-      font-size: 18px;
-      line-height: 1.5;
-    }
-    h1, h2 {
-      text-align: center;
-    }
-    /* Landing Page */
-    #landing-page {
-      margin-top: 50px;
-      text-align: center;
-    }
-    .quiz-btn {
-      display: inline-block;
-      margin: 15px;
-      padding: 15px 25px;
-      font-size: 18px;
-      cursor: pointer;
-      border: 1px solid #333;
-      border-radius: 4px;
-      background-color: #f5f5f5;
-    }
-    /* Quiz container hidden initially */
-    #quiz-container {
-      display: none;
-    }
-    .question {
-      font-weight: bold;
-      margin-bottom: 1em;
-    }
-    .answers button {
-      display: block;
-      width: 100%;
-      margin: 0.5em 0;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      background: #f5f5f5;
-      cursor: pointer;
-      text-align: left;
-      border-radius: 4px;
-    }
-    .feedback {
-      margin-top: 1em;
-      font-weight: bold;
-    }
-    .explanation {
-      margin-top: 10px;
-      font-weight: normal;
-    }
-    .next-btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 16px;
-      font-size: 16px;
-      cursor: pointer;
-      border: 1px solid #333;
-      border-radius: 4px;
-      background-color: #eee;
-    }
-    .hidden {
-      display: none;
-    }
-    .score {
-      margin-top: 2em;
-      text-align: center;
-      font-weight: bold;
-      font-size: 20px;
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    .question-container { margin-bottom: 20px; }
+    .options { list-style-type: none; padding: 0; }
+    .options li { margin-bottom: 10px; }
+    .feedback { font-weight: bold; margin-top: 10px; }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
+  <h1>OPRA Trial Appraisal Quiz</h1>
+  <div id="quiz">
+    <div id="question-container" class="question-container"></div>
+    <button id="submit-btn">Submit Answer</button>
+    <div id="feedback" class="feedback"></div>
+  </div>
+  <div id="result" class="hidden">
+    <h2>Your Score: <span id="score"></span> out of 50</h2>
+  </div>
 
-<div id="landing-page">
-  <h1>Select a Quiz</h1>
-  <p>Choose one of the following study quizzes:</p>
-  <button class="quiz-btn" onclick="startOPRA()">OPRA Study Quiz</button>
-  <button class="quiz-btn" onclick="startRAPIDO()">RAPIDO Study Quiz</button>
-</div>
+  <script>
+    // 50 questions covering study overview, design, intervention, outcomes, statistics, results, bias, generalizability, limitations, and clinical implications.
+    const questions = [
+      // Category 1: Study Overview and Research Question (6 questions)
+      {
+        question: "1. What is the primary objective of the OPRA trial?",
+        options: [
+          "To assess whether a watch-and-wait strategy after total neoadjuvant therapy can achieve comparable disease‐free survival compared to historical controls.",
+          "To evaluate the effectiveness of adjuvant chemotherapy after surgery.",
+          "To compare two surgical techniques for rectal cancer."
+        ],
+        correct: 0
+      },
+      {
+        question: "2. What hypothesis did the OPRA trial aim to test?",
+        options: [
+          "That adding radiation therapy improves overall survival.",
+          "That total neoadjuvant therapy with selective watch-and-wait can lead to organ preservation without compromising disease-free survival.",
+          "That a shorter course of chemotherapy would be equally effective."
+        ],
+        correct: 1
+      },
+      {
+        question: "3. Which patient population was included in the OPRA trial?",
+        options: [
+          "Patients with stage I rectal cancer.",
+          "Patients with metastatic rectal cancer.",
+          "Patients with stage II or III rectal adenocarcinoma."
+        ],
+        correct: 2
+      },
+      {
+        question: "4. What were the primary inclusion criteria for patients in the OPRA trial?",
+        options: [
+          "Patients older than 18 with stage II or III rectal adenocarcinoma confirmed by biopsy and appropriate imaging.",
+          "Patients with recurrent rectal cancer.",
+          "Patients with evidence of distant metastases."
+        ],
+        correct: 0
+      },
+      {
+        question: "5. What rationale underpins the design of the OPRA trial?",
+        options: [
+          "To minimize the need for surgery by employing a watch-and-wait strategy in patients with a complete or near‐complete response.",
+          "To test a new surgical device.",
+          "To compare different chemotherapy regimens without considering organ preservation."
+        ],
+        correct: 0
+      },
+      {
+        question: "6. In this trial, what does 'organ preservation' mean?",
+        options: [
+          "Avoiding any form of chemotherapy.",
+          "Preserving the rectum by avoiding total mesorectal excision in patients with a complete or near‐complete response.",
+          "Preserving other organs like the liver during treatment."
+        ],
+        correct: 1
+      },
 
-<div id="quiz-container">
-  <h2 id="quiz-title"></h2>
-  <div id="quiz-content"></div>
-</div>
+      // Category 2: Study Design and Methodology (6 questions)
+      {
+        question: "7. What type of trial design was employed in the OPRA trial?",
+        options: [
+          "A randomized, nonblinded, phase II trial with parallel-group design.",
+          "A crossover trial.",
+          "A cluster randomized trial."
+        ],
+        correct: 0
+      },
+      {
+        question: "8. How were patients randomized in the OPRA trial?",
+        options: [
+          "By simple randomization without any stratification.",
+          "Using a computer-generated, block randomization method stratified by institution.",
+          "Based on patient preference."
+        ],
+        correct: 1
+      },
+      {
+        question: "9. Which aspect of the trial design helps minimize selection bias?",
+        options: [
+          "An open-label design.",
+          "Block randomization stratified by institution.",
+          "Allowing patients to choose their treatment arm."
+        ],
+        correct: 1
+      },
+      {
+        question: "10. What is the significance of using a phase II trial design in the OPRA trial?",
+        options: [
+          "To provide definitive evidence for regulatory approval.",
+          "To explore efficacy and safety before proceeding to a larger phase III trial.",
+          "To only focus on toxicity."
+        ],
+        correct: 1
+      },
+      {
+        question: "11. How was allocation concealment ensured in the trial?",
+        options: [
+          "By using a clinical research database with random permuted blocks.",
+          "By openly assigning patients based on their admission order.",
+          "There was no allocation concealment."
+        ],
+        correct: 0
+      },
+      {
+        question: "12. What role does power analysis play in the trial design?",
+        options: [
+          "It ensures the sample size is adequate to detect a clinically meaningful difference in disease‐free survival.",
+          "It determines the duration of the study.",
+          "It only applies to secondary outcomes."
+        ],
+        correct: 0
+      },
 
-<script>
-// ==================== OPRA MAIN QUESTIONS ====================
-const opraMain = [
-  {
-    question: "1. What was the PRIMARY endpoint of the OPRA trial?",
-    answers: [
-      "TME-free survival (organ preservation)",
-      "Overall survival (OS)",
-      "Local regrowth rate",
-      "Disease-free survival (DFS)",
-      "Pathologic complete response (pCR)"
-    ],
-    correct: 3,
-    explanation: "OPRA officially designated DFS as the primary endpoint. Organ preservation was a secondary outcome."
-  },
-  {
-    question: "2. Which patients did OPRA recruit?",
-    answers: [
-      "Early-stage rectal cancer only",
-      "Metastatic rectal cancer (stage IV)",
-      "Locally advanced rectal cancer (stage II/III)",
-      "Rectal cancer with no margin involvement",
-      "Patients with complete clinical response at baseline"
-    ],
-    correct: 2,
-    explanation: "OPRA enrolled stage II or III rectal adenocarcinoma for evaluating total neoadjuvant therapy (TNT) plus watch-and-wait in cCR cases."
-  },
-  {
-    question: "3. What was the main difference between induction vs consolidation TNT arms in OPRA?",
-    answers: [
-      "One arm had immunotherapy only",
-      "Timing of chemotherapy relative to chemoradiation (before vs after)",
-      "Variation in total radiotherapy dose",
-      "One arm used advanced targeted agents",
-      "No difference was studied"
-    ],
-    correct: 1,
-    explanation: "Patients were randomized to induction chemo → chemoradiotherapy or chemoradiotherapy → consolidation chemo."
-  },
-  {
-    question: "4. What happened if a patient in OPRA achieved a complete clinical response (cCR)?",
-    answers: [
-      "Immediate surgery was mandatory",
-      "Nonoperative management (watch-and-wait) with close follow-up",
-      "Permanent stoma to prevent recurrence",
-      "Excluded from any further treatments",
-      "Routine extended resections"
-    ],
-    correct: 1,
-    explanation: "Patients with cCR or near-cCR were placed on a strict watch-and-wait approach instead of immediate TME."
-  },
-  {
-    question: "5. How long after TNT completion did OPRA typically wait before deciding on surgery vs continued watch-and-wait?",
-    answers: [
-      "2 weeks",
-      "8-12 weeks",
-      "6 months",
-      "No set interval was used",
-      "24 weeks"
-    ],
-    correct: 1,
-    explanation: "OPRA generally restaged around 8-12 weeks post-TNT to decide if the patient needed TME or could continue watch-and-wait."
-  },
-  {
-    question: "6. Which key oncological outcomes did OPRA track for watch-and-wait patients?",
-    answers: [
-      "Permanent stoma formation rate",
-      "Local regrowth rates and disease-free survival",
-      "Overall stoma-free survival only",
-      "Cost-effectiveness of the watch-and-wait approach",
-      "Time to sexual dysfunction"
-    ],
-    correct: 1,
-    explanation: "Local regrowth (especially after cCR) and DFS were central metrics for those managed nonoperatively."
-  },
-  {
-    question: "7. What was the recommended action if local regrowth was detected under watch-and-wait in OPRA?",
-    answers: [
-      "Continue observation until symptomatic",
-      "Second full course of TNT only",
-      "Immediate salvage surgical resection if technically feasible",
-      "Palliative care exclusively",
-      "End the study protocol"
-    ],
-    correct: 2,
-    explanation: "OPRA recommended prompt salvage TME if local regrowth occurred."
-  },
-  {
-    question: "8. OPRA’s key finding about organ preservation was what?",
-    answers: [
-      "Nearly all patients ultimately required surgery",
-      "Organ preservation success was low in both arms",
-      "A large proportion of patients achieved organ preservation, especially in consolidation chemo arm",
-      "Only T4 tumors were organ-preserved",
-      "Organ preservation always led to inferior survival"
-    ],
-    correct: 2,
-    explanation: "Organ preservation was achieved in almost half the cohort, particularly with consolidation chemo, with no major survival penalty."
-  },
-  {
-    question: "9. Regarding survival in OPRA, which statement is correct?",
-    answers: [
-      "Watch-and-wait drastically worsened overall survival",
-      "Local regrowth always spread systemically",
-      "Watch-and-wait had similar DFS to standard TME under close monitoring",
-      "They did not measure DFS or OS in OPRA",
-      "All watch-and-wait patients died by 3 years"
-    ],
-    correct: 2,
-    explanation: "Close surveillance and salvage resection helped watch-and-wait patients maintain comparable DFS to immediate TME."
-  },
-  {
-    question: "10. How can a colorectal surgeon use OPRA’s findings in practice?",
-    answers: [
-      "Offer a universal watch-and-wait policy to all rectal cancers",
-      "Stop using TNT or radiotherapy entirely",
-      "Select patients with cCR for strict nonoperative management with salvage if needed",
-      "Always do TME to avoid any risk of regrowth",
-      "Use short-course RT for all patients"
-    ],
-    correct: 2,
-    explanation: "OPRA supports a watch-and-wait strategy for carefully selected rectal cancer patients with cCR, with close follow-up."
-  }
-];
+      // Category 3: Intervention and Comparator (6 questions)
+      {
+        question: "13. What are the two treatment regimens compared in the OPRA trial?",
+        options: [
+          "INCT-CRT (induction chemotherapy followed by chemoradiotherapy) versus CRT-CNCT (chemoradiotherapy followed by consolidation chemotherapy).",
+          "Chemotherapy versus radiation alone.",
+          "Surgical resection versus chemotherapy."
+        ],
+        correct: 0
+      },
+      {
+        question: "14. Which treatment approach in the OPRA trial includes a watch-and-wait strategy?",
+        options: [
+          "Both arms include a watch-and-wait option based on tumor response.",
+          "Only the INCT-CRT arm.",
+          "Only the CRT-CNCT arm."
+        ],
+        correct: 0
+      },
+      {
+        question: "15. What is the primary purpose of delivering chemotherapy before surgery in the OPRA trial?",
+        options: [
+          "To improve compliance with systemic therapy and treat micrometastases.",
+          "To delay surgery indefinitely.",
+          "To reduce the cost of treatment."
+        ],
+        correct: 0
+      },
+      {
+        question: "16. In the context of this trial, what does the 'comparator' group refer to?",
+        options: [
+          "A group receiving a placebo treatment.",
+          "The control group receiving standard treatment components against which the experimental approach is compared.",
+          "A group that receives no treatment."
+        ],
+        correct: 1
+      },
+      {
+        question: "17. Which detail is critical when outlining the intervention in the trial?",
+        options: [
+          "The type of imaging used for staging.",
+          "The dosage, frequency, and duration of chemotherapy and radiotherapy.",
+          "The brand of the drugs used."
+        ],
+        correct: 1
+      },
+      {
+        question: "18. How does the trial ensure that the comparator is appropriately matched with the intervention?",
+        options: [
+          "By ensuring both groups receive similar chemotherapy regimens and radiotherapy doses, with the difference being the sequence of therapy.",
+          "By giving one group additional drugs.",
+          "By only focusing on one treatment arm."
+        ],
+        correct: 0
+      },
 
-const opraBonus = [
-  {
-    question: "BONUS OPRA Q1: How was local regrowth typically detected under watch-and-wait?",
-    answers: [
-      "Purely by patient symptoms",
-      "Routine MRI & endoscopic surveillance at scheduled intervals",
-      "Only discovered at autopsy",
-      "Biopsy of every local node monthly",
-      "They never actually monitored local regrowth"
-    ],
-    correct: 1,
-    explanation: "Surveillance included endoscopy and MRI at regular intervals to detect local regrowth."
-  },
-  {
-    question: "BONUS OPRA Q2: Which TNT sequence appeared to yield higher organ preservation?",
-    answers: [
-      "Induction chemo before chemoradiotherapy",
-      "Consolidation chemo after chemoradiotherapy",
-      "They had identical organ preservation rates",
-      "Short-course RT was used instead",
-      "No difference was seen in OPRA"
-    ],
-    correct: 1,
-    explanation: "Consolidation chemo arms tended to have higher organ preservation, although not the sole factor."
-  },
-  {
-    question: "BONUS OPRA Q3: Approximately what 3-year TME-free survival was observed in the consolidation arm?",
-    answers: [
-      "46%",
-      "50%",
-      "53%",
-      "58%",
-      "62%"
-    ],
-    correct: 2,
-    explanation: "In the consolidation arm, OPRA reported TME-free survival around 53% at 3 years."
-  }
-];
+      // Category 4: Outcome Measures (6 questions)
+      {
+        question: "19. What was the primary outcome measure in the OPRA trial?",
+        options: [
+          "Overall survival at 5 years.",
+          "Disease‐free survival (DFS) at 3 years.",
+          "Response rate after initial chemotherapy."
+        ],
+        correct: 1
+      },
+      {
+        question: "20. Which outcome is considered a secondary endpoint in the trial?",
+        options: [
+          "TME-free survival (organ preservation rate).",
+          "Immediate tumor response.",
+          "Cost-effectiveness of the treatment."
+        ],
+        correct: 0
+      },
+      {
+        question: "21. How is disease-free survival (DFS) defined in the OPRA trial?",
+        options: [
+          "The time from randomization to the occurrence of any event including locoregional failure, distant metastasis, a new colorectal primary, or death.",
+          "The time from surgery to recurrence.",
+          "The overall survival time of the patient."
+        ],
+        correct: 0
+      },
+      {
+        question: "22. Which of the following is a clinically relevant outcome assessed in the trial?",
+        options: [
+          "Patient satisfaction with the clinic environment.",
+          "Local recurrence-free survival.",
+          "The number of days spent in the hospital."
+        ],
+        correct: 1
+      },
+      {
+        question: "23. Why is it important to measure both primary and secondary outcomes?",
+        options: [
+          "To only validate the primary endpoint.",
+          "To provide a comprehensive assessment of treatment efficacy and safety.",
+          "To complicate the study design."
+        ],
+        correct: 1
+      },
+      {
+        question: "24. Why is the validity and reliability of outcome assessment methods crucial?",
+        options: [
+          "They ensure that the study's results are accurate and reproducible.",
+          "They determine the study budget.",
+          "They affect only the statistical analysis."
+        ],
+        correct: 0
+      },
 
-// ==================== RAPIDO MAIN QUESTIONS ====================
-const rapidoMain = [
-  {
-    question: "1. What was the main goal of the RAPIDO trial?",
-    answers: [
-      "Compare watch-and-wait vs total mesorectal excision in rectal cancer",
-      "Reduce disease-related treatment failure (DrTF) with short-course RT and chemo (TNT)",
-      "Assess immunotherapy alone in rectal cancer",
-      "Compare robotic vs laparoscopic TME",
-      "Analyze long-term stoma rates only"
-    ],
-    correct: 1,
-    explanation: "RAPIDO aimed to lower DrTF by using short-course radiotherapy followed by systemic chemotherapy before TME in high-risk rectal cancer."
-  },
-  {
-    question: "2. Which two approaches did RAPIDO compare?",
-    answers: [
-      "Immediate surgery vs palliative care",
-      "Short-course RT + chemo (TNT) vs standard long-course chemoradiotherapy (with optional postop chemo)",
-      "Long-course RT + watch-and-wait only",
-      "Proton therapy vs photon therapy",
-      "Chemotherapy alone vs TME alone"
-    ],
-    correct: 1,
-    explanation: "RAPIDO compared short-course RT plus chemo (a TNT approach) versus conventional long-course chemoradiotherapy ± optional adjuvant chemotherapy."
-  },
-  {
-    question: "3. What specific patient population was RAPIDO designed for?",
-    answers: [
-      "Only T1 rectal tumors",
-      "Stage IV rectal cancer with liver mets",
-      "High-risk locally advanced rectal cancer (e.g., T4, N2, EMVI+, threatened margins)",
-      "Rectal cancer with negative margins only",
-      "Metastatic colon cancer"
-    ],
-    correct: 2,
-    explanation: "RAPIDO focused on locally advanced rectal cancers with high-risk features per MRI."
-  },
-  {
-    question: "4. After 5 years, which outcome was significantly improved in the TNT (short-course RT + chemo) arm?",
-    answers: [
-      "Local recurrence was much lower",
-      "Disease-related treatment failure (DrTF) and distant metastases were reduced",
-      "Overall survival doubled",
-      "No improvement was found",
-      "Pathologic complete response was zero"
-    ],
-    correct: 1,
-    explanation: "The TNT approach lowered disease-related treatment failure and distant metastases at 5 years, even though local recurrence was modestly higher."
-  },
-  {
-    question: "5. What happened to locoregional failure (LRF) at 5 years in the short-course RT + chemo group compared to standard?",
-    answers: [
-      "LRF was significantly lower",
-      "LRF was the same in both arms",
-      "Slightly higher LRF in the TNT group",
-      "Nearly 100% local control in TNT",
-      "Both arms had zero local recurrences"
-    ],
-    correct: 2,
-    explanation: "Although the TNT approach improved systemic control, it led to a small but notable increase in local recurrence at 5 years."
-  },
-  {
-    question: "6. Which factor contributed to the higher local recurrence in the TNT arm?",
-    answers: [
-      "Excessive immunotherapy use",
-      "Major reduction in TME surgeries",
-      "Higher incidence of mesorectal breach and some older 3D-CRT techniques",
-      "Inadequate follow-up protocols",
-      "Massive variation in RT dose"
-    ],
-    correct: 2,
-    explanation: "Data showed more mesorectal breaches and possible geometric misses with older 3D-CRT in the TNT group, raising local recurrence."
-  },
-  {
-    question: "7. In RAPIDO, what is an 'early locoregional failure (eLRF)'?",
-    answers: [
-      "LRF after R0 resection and 2 years of follow-up",
-      "Regrowth in a watch-and-wait scenario",
-      "No resection or an R2 resection in poor responders (often with distant mets)",
-      "LRF discovered after 5 years post-TNT",
-      "A trivial data point in the trial"
-    ],
-    correct: 2,
-    explanation: "eLRF was defined as no (or R2) resection because the tumor was deemed unresectable or widely progressed before definitive surgery."
-  },
-  {
-    question: "8. Which composite endpoint captured local and systemic progressions in RAPIDO?",
-    answers: [
-      "Overall stoma rate (OSR)",
-      "Disease-related treatment failure (DrTF)",
-      "Patient-reported QoL",
-      "Pathologic complete response (pCR)",
-      "Time to local re-growth"
-    ],
-    correct: 1,
-    explanation: "The trial's primary endpoint was disease-related treatment failure, combining locoregional failure, distant mets, and new primaries or death."
-  },
-  {
-    question: "9. At 5 years, how did overall survival (OS) compare between TNT and standard therapy in RAPIDO?",
-    answers: [
-      "TNT had significantly worse OS",
-      "TNT significantly boosted OS",
-      "No significant difference in OS",
-      "OS was near 100% in both arms",
-      "OS was unmeasured in the trial"
-    ],
-    correct: 2,
-    explanation: "Despite improved distant control and a small rise in LRF, OS did not differ significantly between short-course TNT and standard therapy."
-  },
-  {
-    question: "10. What key lesson can be drawn from RAPIDO for future rectal cancer management?",
-    answers: [
-      "Short-course RT + chemo improves systemic outcomes but local control must be carefully managed",
-      "Long-course CRT is obsolete",
-      "Neoadjuvant therapy has no role in advanced rectal cancer",
-      "All patients should skip TME surgery",
-      "A watch-and-wait policy was the main endpoint of RAPIDO"
-    ],
-    correct: 0,
-    explanation: "While TNT reduces metastases and DrTF, local recurrence can be slightly higher. The takeaway is to monitor local control carefully."
-  }
-];
+      // Category 5: Statistical Analysis (6 questions)
+      {
+        question: "25. What statistical method was primarily used to analyze survival data in the OPRA trial?",
+        options: [
+          "ANOVA.",
+          "Kaplan–Meier survival analysis combined with Cox regression models.",
+          "Simple linear regression."
+        ],
+        correct: 1
+      },
+      {
+        question: "26. What does an intention-to-treat analysis imply in the context of this trial?",
+        options: [
+          "Only patients who completed the treatment are analyzed.",
+          "All patients are analyzed in the groups to which they were originally assigned, regardless of treatment adherence.",
+          "Patients who dropped out are excluded from the analysis."
+        ],
+        correct: 1
+      },
+      {
+        question: "27. How does the trial address missing or incomplete data?",
+        options: [
+          "By ignoring all missing data.",
+          "By using pre-specified methods for handling missing data as part of the analysis plan.",
+          "By assuming missing data are equivalent to treatment failure."
+        ],
+        correct: 1
+      },
+      {
+        question: "28. Why are subgroup and sensitivity analyses important in clinical trials?",
+        options: [
+          "They allow evaluation of the robustness and consistency of the study findings across different patient groups.",
+          "They are not important in clinical trials.",
+          "They only help in budget planning."
+        ],
+        correct: 0
+      },
+      {
+        question: "29. What does a two-sided type I error of 5% signify in this study?",
+        options: [
+          "The probability of a false negative result is 5%.",
+          "A 5% chance of rejecting the null hypothesis when it is actually true.",
+          "It is related only to the sample size calculation."
+        ],
+        correct: 1
+      },
+      {
+        question: "30. What is the primary role of the statistical analysis plan in the trial?",
+        options: [
+          "To determine which patients receive treatment.",
+          "To predefine the methods for data analysis and ensure correct interpretation of results.",
+          "To decide the marketing strategy for the treatment."
+        ],
+        correct: 1
+      },
 
-const rapidoBonus = [
-  {
-    question: "BONUS RAPIDO Q1: How was 'disease-related treatment failure' (DrTF) defined?",
-    answers: [
-      "Only local recurrence",
-      "Only distant metastases",
-      "A composite of locoregional failure, distant mets, new primary tumor, or death",
-      "Any infection after TME",
-      "No formal definition was given"
-    ],
-    correct: 2,
-    explanation: "DrTF included local or distant relapse, new primary, or death from disease."
-  },
-  {
-    question: "BONUS RAPIDO Q2: Why might older 3D-CRT usage increase local recurrence risk?",
-    answers: [
-      "It omits radiation entirely",
-      "It doesn't target enough volume or can have geographic misses",
-      "It uses extremely high doses that cause tumor hype",
-      "It is purely palliative",
-      "No difference from modern IMRT"
-    ],
-    correct: 1,
-    explanation: "3D-CRT can lead to suboptimal coverage, resulting in missed tumor regions if not precisely planned."
-  },
-  {
-    question: "BONUS RAPIDO Q3: Which group primarily benefited from short-course RT + chemo in terms of distant control?",
-    answers: [
-      "Early T1 patients with no node involvement",
-      "High-risk rectal cancers (T4, N2, EMVI+, threatened margins)",
-      "All patients equally, no difference in distant mets",
-      "Only patients with poor performance status",
-      "Stage IV with multiple metastases"
-    ],
-    correct: 1,
-    explanation: "High-risk LARC features saw improved distant metastasis outcomes with TNT in RAPIDO."
-  }
-];
+      // Category 6: Results and Interpretation (5 questions)
+      {
+        question: "31. What did the OPRA trial find regarding the 3-year disease-free survival (DFS) rates?",
+        options: [
+          "DFS rates were significantly higher than historical controls.",
+          "DFS rates were similar to the historical rate of 75% in both treatment arms.",
+          "DFS was not measured in the trial."
+        ],
+        correct: 1
+      },
+      {
+        question: "32. How were the baseline characteristics of patients in the two treatment arms described?",
+        options: [
+          "They were imbalanced with significant differences.",
+          "They were well balanced, ensuring comparability between groups.",
+          "They were not reported in the study."
+        ],
+        correct: 1
+      },
+      {
+        question: "33. Which finding related to organ preservation was observed in the OPRA trial?",
+        options: [
+          "Organ preservation rates were higher in the CRT-CNCT group compared to the INCT-CRT group.",
+          "No patients achieved organ preservation.",
+          "Organ preservation was not an endpoint."
+        ],
+        correct: 0
+      },
+      {
+        question: "34. What does 'local recurrence-free survival' measure?",
+        options: [
+          "The time until the cancer recurs in the original tumor area.",
+          "The time until distant metastasis occurs.",
+          "The overall survival time of the patient."
+        ],
+        correct: 0
+      },
+      {
+        question: "35. Why is it important to differentiate between statistical and clinical significance?",
+        options: [
+          "Because a statistically significant result may not always be meaningful in a clinical context.",
+          "Because clinical significance is not important in trials.",
+          "Because both terms mean the same thing."
+        ],
+        correct: 0
+      },
 
-// ----------------- QUIZ LOGIC -------------------
-let currentQuiz = [];
-let bonusQuiz = [];
-let currentIndex = 0;
-let score = 0;
-let attemptCount = 0;       // 0 or 1 to track attempts
-let mainQuizDone = false;   // After finishing main 10 Q
-let quizTitle = "";
-let bonusActive = false;    // Are we in bonus questions?
+      // Category 7: Internal Validity and Bias (5 questions)
+      {
+        question: "36. What is a common source of bias that the OPRA trial aimed to minimize?",
+        options: [
+          "Selection bias.",
+          "Color bias.",
+          "Taste bias."
+        ],
+        correct: 0
+      },
+      {
+        question: "37. Which tool is mentioned as useful for assessing bias in clinical trials?",
+        options: [
+          "The Cochrane Risk of Bias tool.",
+          "The Kaplan–Meier method.",
+          "A random number generator."
+        ],
+        correct: 0
+      },
+      {
+        question: "38. How did the study attempt to reduce performance bias?",
+        options: [
+          "By using a nonblinded design while ensuring objective endpoints were measured.",
+          "By blinding all participants, clinicians, and assessors completely.",
+          "By ignoring potential biases."
+        ],
+        correct: 0
+      },
+      {
+        question: "39. Which aspect of the methodology contributes to internal validity?",
+        options: [
+          "Robust randomization and allocation concealment.",
+          "Lack of statistical analysis.",
+          "Unclear inclusion criteria."
+        ],
+        correct: 0
+      },
+      {
+        question: "40. Why is it important to identify potential sources of attrition bias?",
+        options: [
+          "Because dropout rates can affect the reliability of the study’s findings.",
+          "Because it helps reduce study cost.",
+          "Because it is irrelevant to the outcomes."
+        ],
+        correct: 0
+      },
 
-function startOPRA() {
-  quizTitle = "OPRA Study Quiz";
-  currentQuiz = opraMain;
-  bonusQuiz = opraBonus;
-  initQuiz();
-}
+      // Category 8: External Validity (Generalizability) (4 questions)
+      {
+        question: "41. What does external validity refer to in clinical research?",
+        options: [
+          "The ability to generalize the study findings to broader patient populations and settings.",
+          "The precision of the study measurements.",
+          "The internal consistency of the trial."
+        ],
+        correct: 0
+      },
+      {
+        question: "42. Which factor enhances the external validity of the OPRA trial?",
+        options: [
+          "Strict inclusion criteria and multicenter collaboration.",
+          "Excluding most patient subgroups.",
+          "Including data from a single institution only."
+        ],
+        correct: 0
+      },
+      {
+        question: "43. How does the OPRA trial compare its results to existing evidence?",
+        options: [
+          "It ignores previous studies.",
+          "It places the results in the context of current literature and practice guidelines.",
+          "It compares only with historical controls without further context."
+        ],
+        correct: 1
+      },
+      {
+        question: "44. Why is generalizability important for clinical trials?",
+        options: [
+          "It determines whether the findings can be applied to real-world settings.",
+          "It is only important for laboratory experiments.",
+          "It does not affect clinical practice."
+        ],
+        correct: 0
+      },
 
-function startRAPIDO() {
-  quizTitle = "RAPIDO Study Quiz";
-  currentQuiz = rapidoMain;
-  bonusQuiz = rapidoBonus;
-  initQuiz();
-}
+      // Category 9: Study Limitations and Strengths (4 questions)
+      {
+        question: "45. What is one major limitation mentioned in the OPRA trial?",
+        options: [
+          "The potential for tumor regrowth during the watch-and-wait strategy.",
+          "An overly large sample size.",
+          "The use of multiple treatment centers."
+        ],
+        correct: 0
+      },
+      {
+        question: "46. How do study limitations affect interpretation of trial results?",
+        options: [
+          "They provide context for understanding potential confounders and uncertainties in the findings.",
+          "They have no impact on interpretation.",
+          "They always invalidate the study results."
+        ],
+        correct: 0
+      },
+      {
+        question: "47. Which of the following is considered a strength of the OPRA trial?",
+        options: [
+          "Its rigorous design including randomization and multicenter collaboration.",
+          "Its single-center, observational design.",
+          "The absence of any statistical analysis."
+        ],
+        correct: 0
+      },
+      {
+        question: "48. Why is it important to consider confounders when appraising a clinical trial?",
+        options: [
+          "Because confounders can influence observed effects and lead to biased conclusions.",
+          "Because confounders increase the sample size.",
+          "Because they make the study more expensive."
+        ],
+        correct: 0
+      },
 
-function initQuiz() {
-  // Hide landing
-  document.getElementById('landing-page').style.display = 'none';
-  // Show quiz
-  document.getElementById('quiz-container').style.display = 'block';
-  // Reset
-  currentIndex = 0;
-  score = 0;
-  mainQuizDone = false;
-  bonusActive = false;
-  attemptCount = 0;
-  document.getElementById('quiz-title').innerText = quizTitle;
-  renderQuestion();
-}
-
-// Render question or show final scoreboard
-function renderQuestion() {
-  const quizContent = document.getElementById('quiz-content');
-  
-  // If we're on the main quiz
-  if(!bonusActive) {
-    if(currentIndex >= currentQuiz.length) {
-      // Finished the main 10
-      mainQuizDone = true;
-      // Check if user scored 8 or more
-      if(score >= 8) {
-        // Start bonus
-        bonusActive = true;
-        quizContent.innerHTML = `
-          <div class="score">You got ${score} out of ${currentQuiz.length} correct!</div>
-          <p>Congratulations! You qualify for 3 bonus questions!</p>
-          <button class="next-btn" onclick="renderBonus()">Proceed to Bonus</button>
-        `;
-      } else {
-        // No bonus
-        quizContent.innerHTML = `
-          <div class="score">You scored ${score} out of ${currentQuiz.length}.</div>
-          <p>You needed at least 8 correct to unlock bonus questions.</p>
-        `;
+      // Category 10: Conclusions and Clinical Implications (2 questions)
+      {
+        question: "49. What is a key clinical implication derived from the OPRA trial?",
+        options: [
+          "That total neoadjuvant therapy with selective watch-and-wait can offer rectal preservation without compromising oncologic outcomes.",
+          "That surgery should always be performed regardless of response.",
+          "That chemotherapy is not effective in rectal cancer."
+        ],
+        correct: 0
+      },
+      {
+        question: "50. How can the findings of the OPRA trial inform future research?",
+        options: [
+          "By encouraging further investigation into nonoperative management strategies and refining patient selection criteria.",
+          "By suggesting that no further research is needed.",
+          "By recommending a complete abandonment of chemotherapy."
+        ],
+        correct: 0
       }
-      return;
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questionContainer = document.getElementById('question-container');
+    const submitButton = document.getElementById('submit-btn');
+    const feedbackDiv = document.getElementById('feedback');
+    const resultDiv = document.getElementById('result');
+    const scoreSpan = document.getElementById('score');
+
+    function showQuestion() {
+      feedbackDiv.textContent = "";
+      const currentQuestion = questions[currentQuestionIndex];
+      let html = `<h2>Question ${currentQuestionIndex + 1}:</h2>`;
+      html += `<p>${currentQuestion.question}</p>`;
+      html += '<ul class="options">';
+      currentQuestion.options.forEach((option, index) => {
+        html += `<li>
+                  <label>
+                    <input type="radio" name="option" value="${index}">
+                    ${option}
+                  </label>
+                 </li>`;
+      });
+      html += '</ul>';
+      questionContainer.innerHTML = html;
     }
-  } else {
-    // We are in the bonus quiz
-    if(currentIndex >= bonusQuiz.length) {
-      // finished bonus
-      quizContent.innerHTML = `
-        <div class="score">
-          Main Quiz Score: ${score - getBonusScore()} / 10<br>
-          Bonus Score: ${getBonusScore()} / ${bonusQuiz.length}<br><br>
-          Total Score: ${score}
-        </div>
-        <p>Great job finishing the bonus questions!</p>
-      `;
-      return;
+
+    function showResult() {
+      document.getElementById('quiz').classList.add('hidden');
+      resultDiv.classList.remove('hidden');
+      scoreSpan.textContent = score;
     }
-  }
 
-  // Show question
-  attemptCount = 0; // reset attempt for new question
-  let qObj = bonusActive ? bonusQuiz[currentIndex] : currentQuiz[currentIndex];
-  let answersHtml = qObj.answers.map((ans, idx) => {
-    return `<button onclick="checkAnswer(${idx})">${ans}</button>`;
-  }).join('');
+    submitButton.addEventListener('click', function() {
+      const options = document.getElementsByName('option');
+      let selected = -1;
+      for (const option of options) {
+        if (option.checked) {
+          selected = parseInt(option.value);
+          break;
+        }
+      }
+      if (selected === -1) {
+        alert("Please select an answer!");
+        return;
+      }
+      const currentQuestion = questions[currentQuestionIndex];
+      if (selected === currentQuestion.correct) {
+        feedbackDiv.textContent = "Correct!";
+        score += 1;
+      } else {
+        feedbackDiv.textContent = "Incorrect!";
+      }
+      // Pause briefly before moving to the next question
+      setTimeout(function() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+          showQuestion();
+        } else {
+          showResult();
+        }
+      }, 1000);
+    });
 
-  quizContent.innerHTML = `
-    <div class="question">${qObj.question}</div>
-    <div class="answers">${answersHtml}</div>
-    <div id="feedback" class="feedback hidden"></div>
-  `;
-}
-
-function checkAnswer(selectedIndex) {
-  const feedbackEl = document.getElementById('feedback');
-  if(!feedbackEl) return; // safety
-  
-  let qObj = bonusActive ? bonusQuiz[currentIndex] : currentQuiz[currentIndex];
-  
-  if(attemptCount === 0) {
-    // First attempt
-    if(selectedIndex === qObj.correct) {
-      // +1 point
-      score += 1;
-      feedbackEl.innerHTML = `<span style="color: green;">Correct (1 mark)!</span>`;
-      showExplanationAndNext(qObj.explanation);
-    } else {
-      // Wrong, let's allow second attempt
-      attemptCount = 1;
-      feedbackEl.innerHTML = `<span style="color: red;">Incorrect. Try again!</span>`;
-      feedbackEl.classList.remove('hidden');
-    }
-  } else {
-    // Second attempt
-    if(selectedIndex === qObj.correct) {
-      // +0.5 point
-      score += 0.5;
-      feedbackEl.innerHTML = `<span style="color: green;">Correct on second attempt (+0.5)!</span>`;
-    } else {
-      feedbackEl.innerHTML = `<span style="color: red;">Incorrect again (0 marks).<br>
-       Correct answer was: ${qObj.answers[qObj.correct]}</span>`;
-    }
-    showExplanationAndNext(qObj.explanation);
-  }
-}
-
-// Show explanation & Next Q button
-function showExplanationAndNext(expl) {
-  const feedbackEl = document.getElementById('feedback');
-  feedbackEl.innerHTML += `
-    <div class="explanation">${expl}</div>
-    <button class="next-btn" onclick="nextQuestion()">Next Question</button>
-  `;
-  feedbackEl.classList.remove('hidden');
-}
-
-// Move to next question
-function nextQuestion() {
-  currentIndex++;
-  renderQuestion();
-}
-
-// Counting how many bonus points user earned
-function getBonusScore() {
-  // The main quiz is 10 questions total. Each can yield up to 1 point 
-  // if correct on first attempt or 0.5 on second. We'll do a simple approach: 
-  // if total score is above 10, anything above 10 is from the bonus round.
-  let mainMax = 10;
-  if(score <= mainMax) return 0; 
-  return (score - mainMax);
-}
-
-function renderBonus() {
-  const quizContent = document.getElementById('quiz-content');
-  // Start bonus
-  currentIndex = 0;
-  bonusActive = true;
-  renderQuestion();
-}
-</script>
-
+    // Start the quiz
+    showQuestion();
+  </script>
 </body>
 </html>
