@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>OPRA Trial Appraisal Quiz (50 Questions) - Plausible Distractors</title>
+  <title>OPRA Trial Appraisal Quiz (20 Questions)</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
     h1 { color: #333; }
@@ -25,511 +25,211 @@
     <button id="next-btn" class="hidden">Next Question</button>
   </div>
   <div id="result" class="hidden">
-    <h2>Your Score: <span id="score"></span> out of 50</h2>
+    <h2>Your Score: <span id="score"></span> out of 20</h2>
   </div>
 
   <script>
-    // Array of 50 questions with more plausible distractors.
+    // Array of 20 questions with provided answer options, correct answer index, and explanation.
     const questions = [
       {
-        question: "1. What is the primary objective of the OPRA trial?",
+        question: "1. What was the primary objective of the OPRA trial?",
         options: [
-          "To assess if a watch‐and‐wait strategy after TNT yields DFS similar to historical controls.",
-          "To determine if surgery can be completely omitted.",
-          "To compare different surgical resection techniques."
+          "To determine if chemoradiotherapy alone could replace surgery in rectal adenocarcinoma",
+          "To compare disease-free survival (DFS) in patients treated with total neoadjuvant therapy (TNT) followed by selective watch-and-wait or total mesorectal excision (TME)",
+          "To assess the efficacy of immunotherapy in rectal adenocarcinoma"
         ],
-        correct: 0,
-        explanation: "The paper’s aim is to test if organ preservation via watch‐and‐wait maintains DFS. It states: “Organ preservation is achievable in half of the patients with rectal cancer treated with total neoadjuvant therapy, without detriment in survival compared with historical controls.”"
+        correct: 1, // Answer B
+        explanation: "The OPRA trial aimed to evaluate the oncologic outcomes of TNT followed by either selective watch-and-wait or TME in rectal adenocarcinoma patients."
       },
       {
-        question: "2. What hypothesis did the OPRA trial test?",
+        question: "2. What was the design of the OPRA trial?",
         options: [
-          "That TNT with watch‐and‐wait maintains DFS while preserving the rectum.",
-          "That more chemotherapy cycles improve overall survival.",
-          "That radiation alone can cure rectal cancer."
+          "A prospective, randomized, double-blind, phase III trial",
+          "A retrospective cohort study",
+          "A randomized, nonblinded, phase II trial"
         ],
-        correct: 0,
-        explanation: "The trial hypothesized that TNT with selective watch‐and‐wait can preserve the rectum without compromising DFS, as noted: “...without an apparent detriment in survival compared with historical controls.”"
+        correct: 2, // Answer C
+        explanation: "The OPRA trial was a phase II randomized, nonblinded study conducted at 18 U.S. institutions."
       },
       {
-        question: "3. Which patient group was enrolled?",
+        question: "3. How were patients in the OPRA trial stratified before randomization?",
         options: [
-          "Patients with stage I rectal cancer.",
-          "Patients with stage II or III rectal adenocarcinoma.",
-          "Patients with metastatic rectal cancer."
+          "By age and gender",
+          "By institution",
+          "By chemotherapy regimen"
         ],
-        correct: 1,
-        explanation: "Eligibility was for stage II or III disease. The paper states: “Eligible patients were older than 18 years and had clinical stage II or III rectal adenocarcinoma.”"
+        correct: 1, // Answer B
+        explanation: "Patients were stratified by institution using a method of random permuted blocks."
       },
       {
-        question: "4. What was a key inclusion criterion?",
+        question: "4. Which treatment sequence was NOT compared in the OPRA trial?",
         options: [
-          "Age over 18 with stage II/III rectal adenocarcinoma confirmed by biopsy and imaging.",
-          "Any patient presenting with rectal pain.",
-          "Patients with previous pelvic radiation."
+          "Induction chemotherapy followed by chemoradiotherapy (INCT-CRT)",
+          "Chemoradiotherapy followed by consolidation chemotherapy (CRT-CNCT)",
+          "Surgery followed by adjuvant chemoradiotherapy"
         ],
-        correct: 0,
-        explanation: "Inclusion required confirmed stage II/III rectal adenocarcinoma. The paper notes: “Eligible patients were older than 18 years and had clinical stage II or III rectal adenocarcinoma.”"
+        correct: 2, // Answer C
+        explanation: "The trial compared INCT-CRT and CRT-CNCT, but not surgery followed by adjuvant therapy."
       },
       {
-        question: "5. Why was a nonsurgical approach explored?",
+        question: "5. What was the median follow-up time for patients in the OPRA trial?",
         options: [
-          "To reduce morbidity from surgery and preserve the rectum.",
-          "To completely eliminate chemotherapy.",
-          "To shorten the treatment duration significantly."
+          "1 year",
+          "2 years",
+          "3 years"
         ],
-        correct: 0,
-        explanation: "The rationale was to avoid surgical morbidity. The paper explains there is “a strong incentive to explore nonsurgical treatment options.”"
+        correct: 2, // Answer C
+        explanation: "The median follow-up duration for the OPRA trial was three years."
       },
       {
-        question: "6. In this trial, what does 'organ preservation' refer to?",
+        question: "6. What chemotherapy regimens were used in the OPRA trial?",
         options: [
-          "Avoiding TME in patients who respond well to TNT.",
-          "Preserving all organs regardless of treatment.",
-          "Using a less invasive surgical technique."
+          "FOLFOX and CAPEOX",
+          "Cisplatin and Etoposide",
+          "Paclitaxel and Carboplatin"
         ],
-        correct: 0,
-        explanation: "‘Organ preservation’ means sparing the rectum if a complete or near‐complete response is achieved. The paper states: “Organ preservation is achievable in half of the patients…”"
+        correct: 0, // Answer A
+        explanation: "Patients received either FOLFOX (fluorouracil, leucovorin, and oxaliplatin) or CAPEOX (capecitabine and oxaliplatin)."
       },
       {
-        question: "7. What trial design was used?",
+        question: "7. What was the total dose of radiation therapy given to the primary tumor and involved nodes?",
         options: [
-          "A prospective, randomized, multicenter phase II trial.",
-          "A retrospective study.",
-          "A single-center observational pilot."
+          "4,500 cGy",
+          "5,000-5,600 cGy",
+          "6,000 cGy"
         ],
-        correct: 0,
-        explanation: "The study was a prospective, randomized, multicenter phase II trial, as described in the paper."
+        correct: 1, // Answer B
+        explanation: "Radiation therapy was administered at 4,500 cGy to pelvic nodes and 5,000-5,600 cGy to the primary tumor."
       },
       {
-        question: "8. How was randomization performed?",
+        question: "8. What percentage of patients achieved rectal preservation at 3 years?",
         options: [
-          "Using computer-generated block randomization stratified by institution.",
-          "By drawing lots manually.",
-          "Patients chose their treatment arm."
+          "35%",
+          "53%",
+          "67%"
         ],
-        correct: 0,
-        explanation: "Randomization was computer-generated and stratified. The paper states: “Random assignment was stratified per institution and accomplished by the method of random permuted block.”"
+        correct: 1, // Answer B
+        explanation: "53% of patients in the intention-to-treat analysis preserved their rectum at three years."
       },
       {
-        question: "9. Which element minimizes selection bias?",
+        question: "9. What was a key finding regarding disease-free survival (DFS) between the two treatment arms?",
         options: [
-          "Stratified block randomization.",
-          "An open-label design.",
-          "Patient self-selection."
+          "DFS was significantly improved in CRT-CNCT compared to INCT-CRT",
+          "DFS was equivalent between CRT-CNCT and INCT-CRT",
+          "DFS was worse in both groups compared to standard treatment"
         ],
-        correct: 0,
-        explanation: "Stratified block randomization minimizes bias. The paper indicates this method was used to ensure fair assignment."
+        correct: 1, // Answer B
+        explanation: "The order of chemoradiation and chemotherapy did not affect DFS."
       },
       {
-        question: "10. What is the purpose of a phase II trial here?",
+        question: "10. What was the recurrence rate of tumors in the watch-and-wait group?",
         options: [
-          "To evaluate preliminary efficacy and safety before a larger phase III trial.",
-          "To confirm definitive efficacy for approval.",
-          "To solely assess treatment toxicity."
+          "10%",
+          "27%",
+          "40%"
         ],
-        correct: 0,
-        explanation: "Phase II trials test preliminary efficacy and safety. The paper was “designed as two stand-alone phase II studies.”"
+        correct: 2, // Answer C
+        explanation: "The tumor regrowth rate was 40% in the INCT-CRT group and 27% in the CRT-CNCT group."
       },
       {
-        question: "11. How was allocation concealment achieved?",
+        question: "11. What was the main reason patients required total mesorectal excision (TME) after initial watch-and-wait?",
         options: [
-          "Through a centralized database with block randomization.",
-          "By publishing assignments openly.",
-          "No allocation concealment was used."
+          "Development of distant metastasis",
+          "Local tumor regrowth",
+          "Treatment toxicity"
         ],
-        correct: 0,
-        explanation: "Allocation concealment was maintained using a central database and block randomization, as described in the paper."
+        correct: 1, // Answer B
+        explanation: "Patients undergoing watch-and-wait required TME due to tumor regrowth rather than distant metastasis."
       },
       {
-        question: "12. Why is power analysis important?",
+        question: "12. What proportion of patients undergoing immediate surgery had a pathologic complete response (pCR)?",
         options: [
-          "It ensures enough participants to detect a meaningful DFS difference.",
-          "It helps decide the study’s overall budget.",
-          "It is used only for side-effect assessment."
+          "5%",
+          "10%",
+          "20%"
         ],
-        correct: 0,
-        explanation: "Power analysis ensures adequate sample size. The paper required “101 patients evaluable for the primary end point per group to have 85% power.”"
+        correct: 1, // Answer B
+        explanation: "About 10% of patients undergoing immediate TME had a pCR."
       },
       {
-        question: "13. Which two regimens were compared?",
+        question: "13. How were tumor responses assessed in the OPRA trial?",
         options: [
-          "INCT-CRT (chemo then CRT) versus CRT-CNCT (CRT then consolidation chemo).",
-          "Chemoradiation versus surgery alone.",
-          "Different radiation dosages."
+          "Biopsy alone",
+          "MRI, digital rectal exam, and endoscopy",
+          "CT scan only"
         ],
-        correct: 0,
-        explanation: "The two regimens compared were INCT-CRT and CRT-CNCT, as specified in the paper."
+        correct: 1, // Answer B
+        explanation: "Tumor response was evaluated using MRI, digital rectal examination, and endoscopy."
       },
       {
-        question: "14. Which arm offered a watch-and-wait option?",
+        question: "14. What was the most common toxicity-related cause of treatment discontinuation?",
         options: [
-          "Both arms, based on tumor response.",
-          "Only the INCT-CRT arm.",
-          "Only the CRT-CNCT arm."
+          "Neutropenia",
+          "Gastrointestinal toxicity",
+          "Neuropathy"
         ],
-        correct: 0,
-        explanation: "Both arms allowed a watch-and-wait strategy based on tumor response, according to the paper."
+        correct: 0, // Answer A
+        explanation: "Neutropenia was the leading cause of treatment discontinuation."
       },
       {
-        question: "15. Why was chemotherapy administered before surgery?",
+        question: "15. What is a major advantage of the watch-and-wait strategy?",
         options: [
-          "To treat micrometastases and improve treatment compliance.",
-          "To entirely replace the need for surgery.",
-          "To significantly shorten the treatment course."
+          "Reduced local recurrence",
+          "Avoidance of major surgery",
+          "Shorter duration of therapy"
         ],
-        correct: 0,
-        explanation: "Chemotherapy was given to treat micrometastases and improve compliance, as noted in the paper."
+        correct: 1, // Answer B
+        explanation: "The watch-and-wait approach allows patients to avoid major surgery if they achieve a complete response."
       },
       {
-        question: "16. What does the 'comparator' refer to?",
+        question: "16. What was the local recurrence-free survival rate in the study?",
         options: [
-          "The standard treatment regimen used for comparison.",
-          "A placebo control group.",
-          "A group receiving no treatment."
+          "60%",
+          "78%",
+          "90%"
         ],
-        correct: 0,
-        explanation: "The comparator is the standard approach against which the experimental method is measured, per the paper."
+        correct: 1, // Answer B
+        explanation: "The local recurrence-free survival rate was 78%."
       },
       {
-        question: "17. What treatment details were critical in the intervention?",
+        question: "17. What imaging technique was NOT used for follow-up in the watch-and-wait group?",
         options: [
-          "The dosage, frequency, and duration of chemo and radiotherapy.",
-          "Only the type of chemotherapy used.",
-          "The manufacturer of the drugs."
+          "MRI",
+          "PET scan",
+          "Endoscopy"
         ],
-        correct: 0,
-        explanation: "Detailed treatment protocols are crucial. The paper specifies “4 months of infusional fluorouracil-leucovorin-oxaliplatin or capecitabine-oxaliplatin.”"
+        correct: 1, // Answer B
+        explanation: "MRI and endoscopy were used for follow-up; PET scans were not part of standard follow-up."
       },
       {
-        question: "18. How did the study ensure treatments were comparable?",
+        question: "18. What was the main limitation of the OPRA trial?",
         options: [
-          "By using similar chemo and radiotherapy protocols in both groups.",
-          "By giving one group extra doses.",
-          "By allowing patients to choose adjustments."
+          "Small sample size",
+          "Lack of randomization",
+          "Short follow-up period"
         ],
-        correct: 0,
-        explanation: "Both groups were treated similarly, as the paper notes the proportions receiving FOLFOX or CAPEOX were similar in both arms."
+        correct: 2, // Answer C
+        explanation: "The follow-up period was relatively short, making long-term outcomes uncertain."
       },
       {
-        question: "19. What was the primary outcome measure?",
+        question: "19. Which factor was associated with higher organ preservation in the trial?",
         options: [
-          "3-year disease-free survival (DFS).",
-          "Overall survival at 5 years.",
-          "Tumor response rate immediately post-treatment."
+          "Chemoradiotherapy followed by consolidation chemotherapy (CRT-CNCT)",
+          "Induction chemotherapy followed by chemoradiotherapy (INCT-CRT)",
+          "Surgery followed by adjuvant therapy"
         ],
-        correct: 0,
-        explanation: "The primary outcome was 3-year DFS. The paper defines DFS as “the interval from random assignment to the first occurrence of ...”"
+        correct: 0, // Answer A
+        explanation: "The CRT-CNCT sequence was associated with a higher rate of organ preservation."
       },
       {
-        question: "20. Which secondary outcome was assessed?",
+        question: "20. What percentage of patients refused TME despite tumor regrowth?",
         options: [
-          "TME-free survival (organ preservation rate).",
-          "Immediate tumor shrinkage.",
-          "Patient-reported quality of life only."
+          "5%",
+          "10%",
+          "15%"
         ],
-        correct: 0,
-        explanation: "TME-free survival was the secondary endpoint. The paper clearly states: “the secondary end point was TME-free survival.”"
-      },
-      {
-        question: "21. How is DFS defined in the study?",
-        options: [
-          "Time from randomization to the first event (recurrence or death).",
-          "Time from surgery to local recurrence.",
-          "Overall survival regardless of events."
-        ],
-        correct: 0,
-        explanation: "DFS is defined as time from randomization to an event. The paper states: “the interval from random assignment to the first occurrence of locoregional failure, distant metastasis, a new invasive colorectal primary, or death from any cause.”"
-      },
-      {
-        question: "22. Which outcome assesses local disease control?",
-        options: [
-          "Local recurrence-free survival.",
-          "Progression-free survival overall.",
-          "Overall survival rates."
-        ],
-        correct: 0,
-        explanation: "Local recurrence-free survival measures local control. The paper reports Kaplan–Meier estimates for this endpoint."
-      },
-      {
-        question: "23. Why measure both primary and secondary outcomes?",
-        options: [
-          "To provide a comprehensive evaluation of efficacy and safety.",
-          "To unnecessarily complicate the study design.",
-          "Because one measure is usually unreliable."
-        ],
-        correct: 0,
-        explanation: "Measuring both offers a full picture, as the paper evaluates DFS along with organ preservation."
-      },
-      {
-        question: "24. Why is reliability of outcome assessment crucial?",
-        options: [
-          "It ensures the results are accurate and reproducible.",
-          "It mainly influences the study budget.",
-          "It is only important for statistical significance."
-        ],
-        correct: 0,
-        explanation: "Accurate and reproducible assessments are key. The paper advises to “evaluate the validity and reliability of measurement tools used.”"
-      },
-      {
-        question: "25. What statistical method was used for survival analysis?",
-        options: [
-          "Cox regression with Kaplan–Meier curves.",
-          "Simple linear regression.",
-          "A chi-square test."
-        ],
-        correct: 0,
-        explanation: "Survival was analyzed using Cox regression and Kaplan–Meier curves, as stated in the paper."
-      },
-      {
-        question: "26. What does intention-to-treat analysis mean?",
-        options: [
-          "All randomized patients are analyzed in their original groups regardless of adherence.",
-          "Only patients who complete treatment are included.",
-          "Patients who drop out are removed from the analysis."
-        ],
-        correct: 0,
-        explanation: "Intention-to-treat means analyzing patients as randomized. The paper uses an “intention-to-treat principle.”"
-      },
-      {
-        question: "27. How were missing data handled?",
-        options: [
-          "Using pre-specified methods for missing or incomplete data.",
-          "By excluding all patients with missing data.",
-          "Missing data were ignored altogether."
-        ],
-        correct: 0,
-        explanation: "The study employed pre-specified methods for missing data, as noted in the discussion of handling missing data."
-      },
-      {
-        question: "28. Why are subgroup and sensitivity analyses important?",
-        options: [
-          "They assess the robustness of the results across different groups.",
-          "They are only used to increase sample size.",
-          "They replace the primary analysis if needed."
-        ],
-        correct: 0,
-        explanation: "These analyses test consistency. The paper states they help evaluate the robustness of findings."
-      },
-      {
-        question: "29. What does a two-sided type I error of 5% indicate?",
-        options: [
-          "A 5% risk of falsely rejecting the null hypothesis.",
-          "A 5% chance of a false negative.",
-          "It is used only for sample size calculation."
-        ],
-        correct: 0,
-        explanation: "It indicates a 5% risk of a false-positive result. The design specified a two-sided type I error of 5%."
-      },
-      {
-        question: "30. What is the role of the statistical analysis plan?",
-        options: [
-          "To predefine methods for data analysis and ensure proper interpretation.",
-          "To determine the treatment allocation.",
-          "To set the study budget."
-        ],
-        correct: 0,
-        explanation: "The analysis plan predefines the methods. The paper instructs to “review the statistical methods used to compare groups.”"
-      },
-      {
-        question: "31. What were the 3-year DFS rates found?",
-        options: [
-          "76% in both treatment arms.",
-          "85% in one arm and 70% in the other.",
-          "They varied widely between groups."
-        ],
-        correct: 0,
-        explanation: "The trial reported 3-year DFS of 76% for both arms, as stated in the paper."
-      },
-      {
-        question: "32. How were the baseline characteristics described?",
-        options: [
-          "They were well balanced between groups.",
-          "They were notably different.",
-          "They were not reported."
-        ],
-        correct: 0,
-        explanation: "Baseline characteristics were well balanced, ensuring comparability, as noted in the paper."
-      },
-      {
-        question: "33. Which group had a higher organ preservation rate?",
-        options: [
-          "The CRT-CNCT group.",
-          "The INCT-CRT group.",
-          "Both had the same rate."
-        ],
-        correct: 0,
-        explanation: "The CRT-CNCT group achieved a higher organ preservation rate, per the paper’s findings."
-      },
-      {
-        question: "34. What does local recurrence-free survival measure?",
-        options: [
-          "The time until the tumor recurs locally.",
-          "The time until distant metastasis.",
-          "Overall patient survival."
-        ],
-        correct: 0,
-        explanation: "It measures the time until local recurrence, as illustrated by the Kaplan–Meier curves in the paper."
-      },
-      {
-        question: "35. Why distinguish between statistical and clinical significance?",
-        options: [
-          "Because a statistically significant result may not be clinically meaningful.",
-          "Because they are essentially identical.",
-          "Because only one is considered in trial conclusions."
-        ],
-        correct: 0,
-        explanation: "Statistical significance does not always equate to clinical importance, as contrasted in the paper."
-      },
-      {
-        question: "36. Which bias was the trial keen to minimize?",
-        options: [
-          "Selection bias.",
-          "Irrelevant measurement bias.",
-          "Bias due to patient preference."
-        ],
-        correct: 0,
-        explanation: "The trial aimed to minimize selection bias among others, as discussed in the paper."
-      },
-      {
-        question: "37. Which tool is recommended for bias assessment?",
-        options: [
-          "The Cochrane Risk of Bias tool.",
-          "A simple scoring system.",
-          "The Kaplan–Meier method."
-        ],
-        correct: 0,
-        explanation: "The paper recommends the Cochrane Risk of Bias tool (or Jadad score) for assessing bias."
-      },
-      {
-        question: "38. How was performance bias addressed?",
-        options: [
-          "By using objective outcome assessments in a nonblinded design.",
-          "By fully blinding all study personnel.",
-          "Performance bias was not considered."
-        ],
-        correct: 0,
-        explanation: "Objective outcome assessments help reduce performance bias, as noted in the paper’s discussion on blinding."
-      },
-      {
-        question: "39. What enhances internal validity?",
-        options: [
-          "Robust randomization and allocation concealment.",
-          "Including many study sites without standard protocols.",
-          "Loose inclusion criteria."
-        ],
-        correct: 0,
-        explanation: "Internal validity is enhanced by robust randomization and concealment, as emphasized in the paper."
-      },
-      {
-        question: "40. Why is attrition bias important to consider?",
-        options: [
-          "Because dropouts can affect the reliability of the study’s findings.",
-          "Because it only influences secondary outcomes.",
-          "Because it is generally negligible."
-        ],
-        correct: 0,
-        explanation: "Attrition bias can impact the reliability of results, as mentioned in the paper’s bias considerations."
-      },
-      {
-        question: "41. What does external validity refer to?",
-        options: [
-          "The ability to generalize findings to other populations and settings.",
-          "The consistency of the study’s internal methods.",
-          "The precision of measurement tools."
-        ],
-        correct: 0,
-        explanation: "External validity refers to how well results generalize, as discussed in the paper."
-      },
-      {
-        question: "42. Which factor improves external validity?",
-        options: [
-          "Conducting the trial at multiple centers across varied populations.",
-          "Limiting the study to a single specialized center.",
-          "Using very strict inclusion criteria that limit diversity."
-        ],
-        correct: 0,
-        explanation: "A multicenter approach improves generalizability, as the trial was conducted at “18 US institutions.”"
-      },
-      {
-        question: "43. How does the trial compare its findings to previous evidence?",
-        options: [
-          "It compares results with historical controls and current literature.",
-          "It does not reference previous studies.",
-          "It only compares its internal subgroups."
-        ],
-        correct: 0,
-        explanation: "The trial contextualizes its findings with historical data, as stated in the paper."
-      },
-      {
-        question: "44. Why is generalizability important?",
-        options: [
-          "It determines if the results apply in real-world settings.",
-          "It is only a theoretical concern.",
-          "It has no impact on clinical practice."
-        ],
-        correct: 0,
-        explanation: "Generalizability is crucial for applying findings broadly, as emphasized in the paper."
-      },
-      {
-        question: "45. What is a major limitation mentioned?",
-        options: [
-          "The potential for tumor regrowth during the watch-and-wait period.",
-          "An excessively large sample size.",
-          "Significant imbalance in baseline characteristics."
-        ],
-        correct: 0,
-        explanation: "A key limitation is the risk of tumor regrowth, with the paper noting a considerable percentage of regrowth."
-      },
-      {
-        question: "46. How do limitations affect interpretation of results?",
-        options: [
-          "They provide context for potential confounders and uncertainties.",
-          "They completely invalidate the findings.",
-          "They are not relevant if the study is well-powered."
-        ],
-        correct: 0,
-        explanation: "Limitations help frame the results, as noted by the paper’s discussion of confounders."
-      },
-      {
-        question: "47. Which is considered a strength of the trial?",
-        options: [
-          "Its rigorous design and multicenter collaboration.",
-          "Its limited geographical scope.",
-          "The absence of detailed statistical analysis."
-        ],
-        correct: 0,
-        explanation: "A major strength is its rigorous, multicenter design, as highlighted in the paper."
-      },
-      {
-        question: "48. Why must confounders be considered?",
-        options: [
-          "They can bias the observed effects and lead to erroneous conclusions.",
-          "They only affect laboratory experiments.",
-          "They generally increase the sample size."
-        ],
-        correct: 0,
-        explanation: "Confounders may distort results, as noted in the paper’s appraisal of potential biases."
-      },
-      {
-        question: "49. What is a key clinical implication derived from the trial?",
-        options: [
-          "TNT with selective watch-and-wait may allow rectal preservation without compromising DFS.",
-          "Surgery is mandatory for all patients regardless of response.",
-          "Chemotherapy has little effect on rectal cancer outcomes."
-        ],
-        correct: 0,
-        explanation: "The implication is that organ preservation is possible without compromising DFS, as stated in the paper."
-      },
-      {
-        question: "50. How can these findings guide future research?",
-        options: [
-          "They encourage further investigation into nonoperative management and refining selection criteria.",
-          "They indicate that no further research is necessary.",
-          "They suggest that current treatment methods should be abandoned."
-        ],
-        correct: 0,
-        explanation: "The findings prompt additional research in nonoperative management, as noted in the paper."
+        correct: 1, // Answer B
+        explanation: "About 10% of patients refused TME despite tumor regrowth."
       }
     ];
 
@@ -547,7 +247,7 @@
       feedbackDiv.innerHTML = "";
       nextButton.classList.add('hidden');
       submitButton.classList.remove('hidden');
-
+      
       const currentQuestion = questions[currentQuestionIndex];
       let html = `<h2>Question ${currentQuestionIndex + 1}:</h2>`;
       html += `<p>${currentQuestion.question}</p>`;
