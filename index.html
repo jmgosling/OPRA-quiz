@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>OPRA Trial Appraisal Quiz</title>
+  <title>OPRA Trial Appraisal Quiz (50 Questions)</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
     h1 { color: #333; }
@@ -25,26 +25,32 @@
   </div>
 
   <script>
-    // 50 questions covering study overview, design, intervention, outcomes, statistics, results, bias, generalizability, limitations, and clinical implications.
+    // 50 questions covering 10 appraisal aspects.
+    // Each question object includes:
+    // - question: The question text.
+    // - options: Array of three answer options.
+    // - correct: The index (0,1,2) of the correct option.
+    // - explanation: A short paragraph explaining the answer with a direct quote from the paper.
     const questions = [
-      // Category 1: Study Overview and Research Question (6 questions)
       {
         question: "1. What is the primary objective of the OPRA trial?",
         options: [
-          "To assess whether a watch-and-wait strategy after total neoadjuvant therapy can achieve comparable disease‐free survival compared to historical controls.",
+          "To assess whether a watch-and-wait strategy after TNT achieves comparable DFS to historical controls.",
           "To evaluate the effectiveness of adjuvant chemotherapy after surgery.",
           "To compare two surgical techniques for rectal cancer."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "This question focuses on the trial's main aim. The paper states: “Organ preservation is achievable in half of the patients with rectal cancer treated with total neoadjuvant therapy, without detriment in survival compared with historical controls.”"
       },
       {
         question: "2. What hypothesis did the OPRA trial aim to test?",
         options: [
           "That adding radiation therapy improves overall survival.",
-          "That total neoadjuvant therapy with selective watch-and-wait can lead to organ preservation without compromising disease-free survival.",
-          "That a shorter course of chemotherapy would be equally effective."
+          "That TNT with selective watch-and-wait maintains DFS while preserving the rectum.",
+          "That a shorter course of chemotherapy is equally effective."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "The trial tested whether TNT combined with a watch-and-wait strategy can preserve the rectum without compromising DFS. The paper notes outcomes were achieved “without an apparent detriment in survival compared with historical controls.”"
       },
       {
         question: "3. Which patient population was included in the OPRA trial?",
@@ -53,448 +59,478 @@
           "Patients with metastatic rectal cancer.",
           "Patients with stage II or III rectal adenocarcinoma."
         ],
-        correct: 2
+        correct: 2,
+        explanation: "Eligible patients were defined clearly. The paper states: “Eligible patients were older than 18 years and had clinical stage II or III rectal adenocarcinoma.”"
       },
       {
         question: "4. What were the primary inclusion criteria for patients in the OPRA trial?",
         options: [
-          "Patients older than 18 with stage II or III rectal adenocarcinoma confirmed by biopsy and appropriate imaging.",
+          "Patients older than 18 with stage II/III rectal adenocarcinoma confirmed by biopsy and imaging.",
           "Patients with recurrent rectal cancer.",
-          "Patients with evidence of distant metastases."
+          "Patients with distant metastases."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Inclusion criteria ensured a homogeneous study group. The paper notes: “Eligible patients were older than 18 years and had clinical stage II or III rectal adenocarcinoma.”"
       },
       {
         question: "5. What rationale underpins the design of the OPRA trial?",
         options: [
-          "To minimize the need for surgery by employing a watch-and-wait strategy in patients with a complete or near‐complete response.",
+          "To explore nonsurgical treatment options for rectal cancer.",
           "To test a new surgical device.",
-          "To compare different chemotherapy regimens without considering organ preservation."
+          "To compare different chemotherapy regimens without organ preservation."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "The trial was designed to explore a nonsurgical approach. The paper explains there is “a strong incentive to explore nonsurgical treatment options.”"
       },
       {
         question: "6. In this trial, what does 'organ preservation' mean?",
         options: [
           "Avoiding any form of chemotherapy.",
-          "Preserving the rectum by avoiding total mesorectal excision in patients with a complete or near‐complete response.",
+          "Preserving the rectum by avoiding total mesorectal excision.",
           "Preserving other organs like the liver during treatment."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "‘Organ preservation’ refers to sparing the rectum. The concept is captured when the paper states, “Organ preservation is achievable in half of the patients…”"
       },
-
-      // Category 2: Study Design and Methodology (6 questions)
       {
         question: "7. What type of trial design was employed in the OPRA trial?",
         options: [
-          "A randomized, nonblinded, phase II trial with parallel-group design.",
+          "A randomized, nonblinded, multicenter phase II trial.",
           "A crossover trial.",
           "A cluster randomized trial."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "The design was explicitly stated as a phase II trial. The paper describes it as “a prospective, randomized, multicenter phase II trial.”"
       },
       {
         question: "8. How were patients randomized in the OPRA trial?",
         options: [
-          "By simple randomization without any stratification.",
-          "Using a computer-generated, block randomization method stratified by institution.",
+          "Simple randomization without stratification.",
+          "Using computer-generated, block randomization stratified by institution.",
           "Based on patient preference."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "Randomization was rigorously done. The paper states: “Random assignment was stratified per institution and accomplished by the method of random permuted block.”"
       },
       {
         question: "9. Which aspect of the trial design helps minimize selection bias?",
         options: [
-          "An open-label design.",
-          "Block randomization stratified by institution.",
-          "Allowing patients to choose their treatment arm."
+          "Open-label design.",
+          "Stratified block randomization.",
+          "Allowing patient treatment choice."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "Stratified block randomization helps minimize bias. As noted: “Random assignment was stratified per institution...”"
       },
       {
         question: "10. What is the significance of using a phase II trial design in the OPRA trial?",
         options: [
           "To provide definitive evidence for regulatory approval.",
-          "To explore efficacy and safety before proceeding to a larger phase III trial.",
+          "To explore efficacy and safety before a larger phase III trial.",
           "To only focus on toxicity."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "Phase II trials evaluate preliminary efficacy and safety. The paper was “designed as two stand-alone phase II studies.”"
       },
       {
         question: "11. How was allocation concealment ensured in the trial?",
         options: [
-          "By using a clinical research database with random permuted blocks.",
-          "By openly assigning patients based on their admission order.",
+          "Using a clinical research database with block randomization.",
+          "Openly assigning patients by admission order.",
           "There was no allocation concealment."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Allocation concealment was maintained via the research database. The paper explains: “Random assignment was stratified per institution and accomplished by the method of random permuted block.”"
       },
       {
         question: "12. What role does power analysis play in the trial design?",
         options: [
-          "It ensures the sample size is adequate to detect a clinically meaningful difference in disease‐free survival.",
-          "It determines the duration of the study.",
-          "It only applies to secondary outcomes."
+          "It ensures sample size is adequate to detect a difference in DFS.",
+          "It determines study duration.",
+          "It applies only to secondary outcomes."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Power analysis ensures the study can detect clinically meaningful differences. The paper required “101 patients evaluable for the primary end point per group to have 85% power.”"
       },
-
-      // Category 3: Intervention and Comparator (6 questions)
       {
         question: "13. What are the two treatment regimens compared in the OPRA trial?",
         options: [
-          "INCT-CRT (induction chemotherapy followed by chemoradiotherapy) versus CRT-CNCT (chemoradiotherapy followed by consolidation chemotherapy).",
+          "INCT-CRT versus CRT-CNCT.",
           "Chemotherapy versus radiation alone.",
           "Surgical resection versus chemotherapy."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "The trial compared INCT-CRT with CRT-CNCT. The paper details: “patients underwent induction chemotherapy followed by CRT (INCT-CRT) or CRT followed by consolidation chemotherapy (CRT-CNCT).”"
       },
       {
         question: "14. Which treatment approach in the OPRA trial includes a watch-and-wait strategy?",
         options: [
-          "Both arms include a watch-and-wait option based on tumor response.",
+          "Both arms offer watch-and-wait based on tumor response.",
           "Only the INCT-CRT arm.",
           "Only the CRT-CNCT arm."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Both treatment arms provided a watch-and-wait option. The paper mentions patients were offered “watch-and-wait on the basis of tumor response.”"
       },
       {
         question: "15. What is the primary purpose of delivering chemotherapy before surgery in the OPRA trial?",
         options: [
-          "To improve compliance with systemic therapy and treat micrometastases.",
+          "To improve compliance and treat micrometastasis.",
           "To delay surgery indefinitely.",
-          "To reduce the cost of treatment."
+          "To reduce treatment cost."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Chemotherapy upfront aims to treat micrometastases and improve compliance. The paper states it “aims to improve compliance with systemic chemotherapy and treat micrometastasis.”"
       },
       {
         question: "16. In the context of this trial, what does the 'comparator' group refer to?",
         options: [
-          "A group receiving a placebo treatment.",
-          "The control group receiving standard treatment components against which the experimental approach is compared.",
+          "A group receiving placebo.",
+          "The standard treatment components compared with the experimental approach.",
           "A group that receives no treatment."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "The comparator is the standard approach. Outcomes are compared “with historical controls.”"
       },
       {
         question: "17. Which detail is critical when outlining the intervention in the trial?",
         options: [
-          "The type of imaging used for staging.",
           "The dosage, frequency, and duration of chemotherapy and radiotherapy.",
-          "The brand of the drugs used."
+          "The type of imaging used for staging.",
+          "The brand of drugs used."
         ],
-        correct: 1
+        correct: 0,
+        explanation: "Precise treatment details are key. The paper states: “Patients received 4 months of infusional fluorouracil-leucovorin-oxaliplatin or capecitabine-oxaliplatin.”"
       },
       {
         question: "18. How does the trial ensure that the comparator is appropriately matched with the intervention?",
         options: [
-          "By ensuring both groups receive similar chemotherapy regimens and radiotherapy doses, with the difference being the sequence of therapy.",
+          "By using similar chemotherapy and radiotherapy regimens in both groups.",
           "By giving one group additional drugs.",
-          "By only focusing on one treatment arm."
+          "By focusing on only one treatment arm."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Matching is achieved by similar treatment protocols. The paper notes that “the proportion of patients receiving either [FOLFOX or CAPEOX] was similar in both groups.”"
       },
-
-      // Category 4: Outcome Measures (6 questions)
       {
         question: "19. What was the primary outcome measure in the OPRA trial?",
         options: [
           "Overall survival at 5 years.",
-          "Disease‐free survival (DFS) at 3 years.",
-          "Response rate after initial chemotherapy."
+          "3-year disease-free survival (DFS).",
+          "Response rate after chemotherapy."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "The primary endpoint was 3-year DFS. The paper defines DFS as “the interval from random assignment to the first occurrence of locoregional failure, distant metastasis, a new invasive colorectal primary, or death from any cause.”"
       },
       {
         question: "20. Which outcome is considered a secondary endpoint in the trial?",
         options: [
           "TME-free survival (organ preservation rate).",
           "Immediate tumor response.",
-          "Cost-effectiveness of the treatment."
+          "Cost-effectiveness of treatment."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "TME-free survival is a secondary endpoint. The paper clearly states: “the secondary end point was TME-free survival.”"
       },
       {
         question: "21. How is disease-free survival (DFS) defined in the OPRA trial?",
         options: [
-          "The time from randomization to the occurrence of any event including locoregional failure, distant metastasis, a new colorectal primary, or death.",
-          "The time from surgery to recurrence.",
-          "The overall survival time of the patient."
+          "Time from randomization to the first event including locoregional failure, metastasis, a new primary, or death.",
+          "Time from surgery to recurrence.",
+          "Overall survival time."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "DFS is defined as the time from randomization until a defined event occurs. The paper states it is “the interval from random assignment to the first occurrence of locoregional failure, distant metastasis, a new invasive colorectal primary, or death from any cause.”"
       },
       {
         question: "22. Which of the following is a clinically relevant outcome assessed in the trial?",
         options: [
           "Patient satisfaction with the clinic environment.",
           "Local recurrence-free survival.",
-          "The number of days spent in the hospital."
+          "Number of days in hospital."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "Local recurrence-free survival is an important clinical outcome. The paper reports Kaplan–Meier estimates for “local recurrence-free survival.”"
       },
       {
         question: "23. Why is it important to measure both primary and secondary outcomes?",
         options: [
-          "To only validate the primary endpoint.",
-          "To provide a comprehensive assessment of treatment efficacy and safety.",
+          "To provide a comprehensive assessment of efficacy and safety.",
+          "To validate only the primary endpoint.",
           "To complicate the study design."
         ],
-        correct: 1
+        correct: 0,
+        explanation: "Measuring both outcomes offers a full picture. The paper implies this by evaluating DFS and organ preservation to “provide additional context to the primary outcomes.”"
       },
       {
         question: "24. Why is the validity and reliability of outcome assessment methods crucial?",
         options: [
-          "They ensure that the study's results are accurate and reproducible.",
+          "They ensure accurate and reproducible results.",
           "They determine the study budget.",
           "They affect only the statistical analysis."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Accurate outcomes depend on reliable tools. The paper advises to “evaluate the validity and reliability of measurement tools used.”"
       },
-
-      // Category 5: Statistical Analysis (6 questions)
       {
         question: "25. What statistical method was primarily used to analyze survival data in the OPRA trial?",
         options: [
           "ANOVA.",
-          "Kaplan–Meier survival analysis combined with Cox regression models.",
+          "Cox regression with Kaplan–Meier curves.",
           "Simple linear regression."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "Survival data were analyzed using survival methods. The paper states outcomes were “analyzed using Cox regression and summarized using Kaplan–Meier curves.”"
       },
       {
-        question: "26. What does an intention-to-treat analysis imply in the context of this trial?",
+        question: "26. What does an intention-to-treat analysis imply in this trial?",
         options: [
-          "Only patients who completed the treatment are analyzed.",
-          "All patients are analyzed in the groups to which they were originally assigned, regardless of treatment adherence.",
-          "Patients who dropped out are excluded from the analysis."
+          "Only patients who complete treatment are analyzed.",
+          "All patients are analyzed as originally assigned, regardless of adherence.",
+          "Dropouts are excluded from analysis."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "Intention-to-treat means analyzing patients as randomized. The paper uses an “intention-to-treat principle” to maintain group assignment."
       },
       {
         question: "27. How does the trial address missing or incomplete data?",
         options: [
-          "By ignoring all missing data.",
-          "By using pre-specified methods for handling missing data as part of the analysis plan.",
-          "By assuming missing data are equivalent to treatment failure."
+          "By ignoring missing data.",
+          "By pre-specifying methods to handle missing or incomplete data.",
+          "By assuming missing data equals treatment failure."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "Pre-specified methods ensure proper handling. The paper instructs: “Handling Missing Data: Understand the approach to missing or incomplete data.”"
       },
       {
         question: "28. Why are subgroup and sensitivity analyses important in clinical trials?",
         options: [
-          "They allow evaluation of the robustness and consistency of the study findings across different patient groups.",
-          "They are not important in clinical trials.",
-          "They only help in budget planning."
+          "They assess the robustness of findings across patient groups.",
+          "They are not important.",
+          "They only help in budgeting."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "These analyses test the consistency of results. The paper states to “evaluate the robustness of findings through sensitivity analyses.”"
       },
       {
         question: "29. What does a two-sided type I error of 5% signify in this study?",
         options: [
-          "The probability of a false negative result is 5%.",
-          "A 5% chance of rejecting the null hypothesis when it is actually true.",
-          "It is related only to the sample size calculation."
+          "A 5% risk of a false negative.",
+          "A 5% chance of falsely rejecting the null hypothesis.",
+          "It relates only to sample size."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "A two-sided 5% error means a 5% risk of a false-positive result. The design specified “a two-sided type I error of 5%.”"
       },
       {
         question: "30. What is the primary role of the statistical analysis plan in the trial?",
         options: [
-          "To determine which patients receive treatment.",
-          "To predefine the methods for data analysis and ensure correct interpretation of results.",
-          "To decide the marketing strategy for the treatment."
+          "To determine patient treatment.",
+          "To predefine methods for data analysis and ensure correct interpretation.",
+          "To decide marketing strategy."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "The analysis plan sets the methodology. The paper instructs to “review the statistical methods used to compare groups.”"
       },
-
-      // Category 6: Results and Interpretation (5 questions)
       {
-        question: "31. What did the OPRA trial find regarding the 3-year disease-free survival (DFS) rates?",
+        question: "31. What did the OPRA trial find regarding the 3-year DFS rates?",
         options: [
           "DFS rates were significantly higher than historical controls.",
-          "DFS rates were similar to the historical rate of 75% in both treatment arms.",
-          "DFS was not measured in the trial."
+          "DFS rates were 76% in both treatment arms.",
+          "DFS was not measured."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "The trial reported identical 3-year DFS rates. The paper states: “Three-year DFS was 76% ... for both groups.”"
       },
       {
-        question: "32. How were the baseline characteristics of patients in the two treatment arms described?",
+        question: "32. How were the baseline characteristics of the two arms described?",
         options: [
-          "They were imbalanced with significant differences.",
-          "They were well balanced, ensuring comparability between groups.",
-          "They were not reported in the study."
+          "They were imbalanced.",
+          "They were well balanced.",
+          "They were not reported."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "Balanced baseline characteristics support comparability. The paper notes that “the baseline and clinical characteristics were well balanced between the groups.”"
       },
       {
-        question: "33. Which finding related to organ preservation was observed in the OPRA trial?",
+        question: "33. Which finding related to organ preservation was observed?",
         options: [
-          "Organ preservation rates were higher in the CRT-CNCT group compared to the INCT-CRT group.",
+          "Higher in the CRT-CNCT group than the INCT-CRT group.",
           "No patients achieved organ preservation.",
           "Organ preservation was not an endpoint."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Organ preservation was higher in one arm. The paper reports that the rectum was preserved in a higher proportion in the CRT-CNCT group."
       },
       {
         question: "34. What does 'local recurrence-free survival' measure?",
         options: [
-          "The time until the cancer recurs in the original tumor area.",
-          "The time until distant metastasis occurs.",
-          "The overall survival time of the patient."
+          "Time until local cancer recurrence.",
+          "Time until distant metastasis.",
+          "Overall patient survival."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "It measures the time until cancer recurs locally. The endpoint is described in the Kaplan–Meier curves for “local recurrence-free survival.”"
       },
       {
-        question: "35. Why is it important to differentiate between statistical and clinical significance?",
+        question: "35. Why differentiate between statistical and clinical significance?",
         options: [
-          "Because a statistically significant result may not always be meaningful in a clinical context.",
-          "Because clinical significance is not important in trials.",
-          "Because both terms mean the same thing."
+          "Because statistical significance may not be clinically meaningful.",
+          "They mean the same thing.",
+          "Clinical significance is irrelevant."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "A statistically significant result might not have practical impact. The paper contrasts “clinical significance vs. statistical significance.”"
       },
-
-      // Category 7: Internal Validity and Bias (5 questions)
       {
-        question: "36. What is a common source of bias that the OPRA trial aimed to minimize?",
+        question: "36. What common source of bias did the trial aim to minimize?",
         options: [
           "Selection bias.",
           "Color bias.",
           "Taste bias."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Minimizing bias is critical. The paper instructs to “identify any sources of bias (selection, performance, detection, attrition).”"
       },
       {
-        question: "37. Which tool is mentioned as useful for assessing bias in clinical trials?",
+        question: "37. Which tool is mentioned for assessing bias?",
         options: [
           "The Cochrane Risk of Bias tool.",
           "The Kaplan–Meier method.",
           "A random number generator."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "The Cochrane Risk of Bias tool is recommended. The paper advises: “Consider using tools like the Cochrane Risk of Bias tool or Jadad score.”"
       },
       {
         question: "38. How did the study attempt to reduce performance bias?",
         options: [
-          "By using a nonblinded design while ensuring objective endpoints were measured.",
-          "By blinding all participants, clinicians, and assessors completely.",
-          "By ignoring potential biases."
+          "By using objective outcome assessments in a nonblinded design.",
+          "By fully blinding everyone.",
+          "By ignoring bias."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Objective outcome assessments help reduce bias. The paper asks to “consider the impact of blinding on bias reduction.”"
       },
       {
-        question: "39. Which aspect of the methodology contributes to internal validity?",
+        question: "39. Which aspect contributes to internal validity?",
         options: [
           "Robust randomization and allocation concealment.",
           "Lack of statistical analysis.",
           "Unclear inclusion criteria."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Robust methods enhance internal validity. The paper emphasizes that biases should be “minimized by the study design.”"
       },
       {
         question: "40. Why is it important to identify potential sources of attrition bias?",
         options: [
-          "Because dropout rates can affect the reliability of the study’s findings.",
-          "Because it helps reduce study cost.",
-          "Because it is irrelevant to the outcomes."
+          "Because dropouts can affect reliability of findings.",
+          "Because it reduces study cost.",
+          "Because it is irrelevant."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Attrition bias can skew results. The paper instructs to “identify any sources of bias (selection, performance, detection, attrition).”"
       },
-
-      // Category 8: External Validity (Generalizability) (4 questions)
       {
-        question: "41. What does external validity refer to in clinical research?",
+        question: "41. What does external validity refer to?",
         options: [
-          "The ability to generalize the study findings to broader patient populations and settings.",
-          "The precision of the study measurements.",
-          "The internal consistency of the trial."
+          "The ability to generalize findings to other populations and settings.",
+          "The precision of study measurements.",
+          "Internal consistency."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "External validity is about generalizability. The paper asks to “determine if the study findings can be generalized to other populations or settings.”"
       },
       {
-        question: "42. Which factor enhances the external validity of the OPRA trial?",
+        question: "42. Which factor enhances external validity in the OPRA trial?",
         options: [
           "Strict inclusion criteria and multicenter collaboration.",
           "Excluding most patient subgroups.",
-          "Including data from a single institution only."
+          "Data from a single institution."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Multicenter collaboration improves generalizability. The paper notes the trial was conducted at “18 US institutions.”"
       },
       {
-        question: "43. How does the OPRA trial compare its results to existing evidence?",
+        question: "43. How does the trial compare its results to existing evidence?",
         options: [
           "It ignores previous studies.",
-          "It places the results in the context of current literature and practice guidelines.",
-          "It compares only with historical controls without further context."
+          "It compares results with historical controls and current literature.",
+          "It only compares within its own groups."
         ],
-        correct: 1
+        correct: 1,
+        explanation: "Results are contextualized with past data. The paper compares outcomes “with historical controls.”"
       },
       {
         question: "44. Why is generalizability important for clinical trials?",
         options: [
-          "It determines whether the findings can be applied to real-world settings.",
-          "It is only important for laboratory experiments.",
+          "It shows if findings apply to real-world settings.",
+          "It is only for laboratory studies.",
           "It does not affect clinical practice."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Generalizability determines real-world applicability. The paper stresses the need to “determine if the study findings can be generalized to other populations or settings.”"
       },
-
-      // Category 9: Study Limitations and Strengths (4 questions)
       {
         question: "45. What is one major limitation mentioned in the OPRA trial?",
         options: [
-          "The potential for tumor regrowth during the watch-and-wait strategy.",
+          "The risk of tumor regrowth during the watch-and-wait period.",
           "An overly large sample size.",
-          "The use of multiple treatment centers."
+          "The use of multiple centers."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "A key limitation is tumor regrowth. The paper reports that “40% in the INCT-CRT group... developed tumor regrowth.”"
       },
       {
-        question: "46. How do study limitations affect interpretation of trial results?",
+        question: "46. How do study limitations affect interpretation of results?",
         options: [
-          "They provide context for understanding potential confounders and uncertainties in the findings.",
-          "They have no impact on interpretation.",
-          "They always invalidate the study results."
+          "They provide context for potential confounders.",
+          "They have no impact.",
+          "They always invalidate the results."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Limitations help understand uncertainties. The paper advises to “discuss potential confounders or factors that may have influenced the results.”"
       },
       {
         question: "47. Which of the following is considered a strength of the OPRA trial?",
         options: [
-          "Its rigorous design including randomization and multicenter collaboration.",
-          "Its single-center, observational design.",
-          "The absence of any statistical analysis."
+          "Its rigorous design and multicenter collaboration.",
+          "Its single-center design.",
+          "The absence of statistical analysis."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "A major strength is its robust, multicenter design. The paper highlights “a rigorous design, multicenter collaboration.”"
       },
       {
-        question: "48. Why is it important to consider confounders when appraising a clinical trial?",
+        question: "48. Why is it important to consider confounders when appraising a trial?",
         options: [
-          "Because confounders can influence observed effects and lead to biased conclusions.",
-          "Because confounders increase the sample size.",
-          "Because they make the study more expensive."
+          "They can bias observed effects and lead to erroneous conclusions.",
+          "They increase sample size.",
+          "They make the study more expensive."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "Confounders may distort results. The paper instructs to “discuss potential confounders or factors that may have influenced the results.”"
       },
-
-      // Category 10: Conclusions and Clinical Implications (2 questions)
       {
         question: "49. What is a key clinical implication derived from the OPRA trial?",
         options: [
-          "That total neoadjuvant therapy with selective watch-and-wait can offer rectal preservation without compromising oncologic outcomes.",
-          "That surgery should always be performed regardless of response.",
-          "That chemotherapy is not effective in rectal cancer."
+          "TNT with selective watch-and-wait may preserve the rectum without compromising DFS.",
+          "Surgery should always be performed regardless of response.",
+          "Chemotherapy is not effective in rectal cancer."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "A major implication is the potential for rectal preservation. The paper states: “Organ preservation is achievable... without detriment in survival compared with historical controls.”"
       },
       {
         question: "50. How can the findings of the OPRA trial inform future research?",
         options: [
-          "By encouraging further investigation into nonoperative management strategies and refining patient selection criteria.",
+          "By encouraging further investigation into nonoperative management and refining selection criteria.",
           "By suggesting that no further research is needed.",
-          "By recommending a complete abandonment of chemotherapy."
+          "By recommending complete abandonment of chemotherapy."
         ],
-        correct: 0
+        correct: 0,
+        explanation: "The findings pave the way for future studies. The paper advises to “note any areas where further investigation is warranted.”"
       }
     ];
 
@@ -508,7 +544,7 @@
     const scoreSpan = document.getElementById('score');
 
     function showQuestion() {
-      feedbackDiv.textContent = "";
+      feedbackDiv.innerHTML = "";
       const currentQuestion = questions[currentQuestionIndex];
       let html = `<h2>Question ${currentQuestionIndex + 1}:</h2>`;
       html += `<p>${currentQuestion.question}</p>`;
@@ -546,12 +582,12 @@
       }
       const currentQuestion = questions[currentQuestionIndex];
       if (selected === currentQuestion.correct) {
-        feedbackDiv.textContent = "Correct!";
+        feedbackDiv.innerHTML = "Correct!<br>" + currentQuestion.explanation;
         score += 1;
       } else {
-        feedbackDiv.textContent = "Incorrect!";
+        feedbackDiv.innerHTML = "Incorrect!<br>" + currentQuestion.explanation;
       }
-      // Pause briefly before moving to the next question
+      // Pause briefly (2 seconds) before moving to the next question
       setTimeout(function() {
         currentQuestionIndex++;
         if (currentQuestionIndex < questions.length) {
@@ -559,7 +595,7 @@
         } else {
           showResult();
         }
-      }, 1000);
+      }, 2000);
     });
 
     // Start the quiz
