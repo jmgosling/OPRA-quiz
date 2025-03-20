@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>OPRA Trial and Rectal Cancer Treatment Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rectal Cancer Treatment &amp; OPRA Trial Quiz</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+      background: #f9f9f9;
+      line-height: 1.6;
     }
-    #quiz-container {
+    .quiz-container {
       max-width: 800px;
       margin: 0 auto;
       background: #fff;
@@ -19,34 +22,61 @@
     }
     h1 {
       text-align: center;
+      margin-bottom: 20px;
     }
-    #progress-container {
+    .progress {
+      margin-bottom: 20px;
+    }
+    .progress-bar {
       width: 100%;
-      background: #e0e0e0;
-      border-radius: 4px;
+      background: #ddd;
+      border-radius: 5px;
       overflow: hidden;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
-    #progress-bar {
+    .progress-bar-fill {
       height: 20px;
       background: #4caf50;
       width: 0%;
       transition: width 0.3s;
     }
-    #progress-text, #score-text {
+    .progress-text {
       text-align: center;
-      margin: 5px 0;
       font-weight: bold;
     }
     .question {
       margin-bottom: 20px;
     }
-    .option {
-      margin: 8px 0;
+    .options {
+      margin-bottom: 20px;
     }
-    .feedback {
-      font-size: 1.1em;
+    .option {
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #submit-btn {
+      background: #2196F3;
+      color: #fff;
       margin-top: 10px;
+      width: 100%;
+    }
+    #next-btn {
+      background: #4caf50;
+      color: #fff;
+      margin-top: 20px;
+      display: none;
+      width: 100%;
+    }
+    #feedback {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
     }
     .correct {
       color: green;
@@ -54,39 +84,42 @@
     .incorrect {
       color: red;
     }
-    #next-button, #submit-button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 1em;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+    .explanation {
+      color: #000;
+      margin-top: 10px;
+      font-weight: normal;
     }
-    #submit-button {
-      background: #2196F3;
-      color: #fff;
-    }
-    #next-button {
-      background: #4caf50;
-      color: #fff;
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="quiz-container">
-    <h1>OPRA Trial and Rectal Cancer Treatment Quiz</h1>
-    <div id="progress-container">
-      <div id="progress-bar"></div>
+  <div class="quiz-container">
+    <h1>Rectal Cancer Treatment &amp; OPRA Trial Quiz</h1>
+    <div class="progress">
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+      </div>
+      <div class="progress-text" id="progress-text">Question 0 of 0 | Score: 0%</div>
     </div>
-    <div id="progress-text"></div>
-    <div id="score-text"></div>
-    <div id="question-container"></div>
+    <div id="question-container">
+      <!-- Question and options will be inserted here -->
+    </div>
+    <div id="feedback"></div>
+    <button id="submit-btn">Submit Answer</button>
+    <button id="next-btn">Next Question</button>
   </div>
 
   <script>
-    // Array of all quiz questions (51 questions in total)
+    // All questions array (51 questions) with text, options, correct answer and explanation.
     const questions = [
-      // Group 1 (7 questions)
       {
         question: "1. What was the primary rationale for investigating total neoadjuvant therapy (TNT) in rectal adenocarcinoma patients?",
         options: {
@@ -157,8 +190,7 @@
         correct: "A",
         explanation: "A large non-inferiority trial randomizing patients to either TME or WW after achieving cCR would be difficult to accrue, as many patients and clinicians prefer organ preservation if deemed safe."
       },
-
-      // Group 2 (12 questions)
+      // Block 2 – OPRA trial design (Questions 8–19)
       {
         question: "8. What was the rationale for using a phase II trial design instead of a phase III trial in the OPRA study?",
         options: {
@@ -279,8 +311,7 @@
         correct: "A",
         explanation: "WW patients were followed with frequent surveillance (every 4-6 months for 2 years, then less frequently), to monitor for tumor regrowth and intervene with TME if necessary."
       },
-
-      // Group 3 (12 questions)
+      // Block 3 – OPRA trial outcomes (Questions 20–31)
       {
         question: "20. What was the 3-year disease-free survival (DFS) rate in the OPRA trial for both treatment groups?",
         options: {
@@ -299,7 +330,7 @@
           C: "Organ preservation rates were similar between both treatment arms."
         },
         correct: "A",
-        explanation: "Organ preservation was higher in the CRT-CNCT group (53%) compared to INCT-CRT (41%), likely due to the more sustained response after consolidation chemotherapy."
+        explanation: "Organ preservation was higher in the CRT-CNCT group (53%) compared to INCT-CRT (41%), likely due to the prolonged time interval between chemoradiotherapy and restaging, allowing for greater tumor regression."
       },
       {
         question: "22. What was the main factor associated with achieving organ preservation in the OPRA trial?",
@@ -349,7 +380,7 @@
           C: "DFS was significantly better for those who had delayed surgery."
         },
         correct: "B",
-        explanation: "Patients who underwent TME after tumor regrowth had similar DFS to those who had surgery immediately after neoadjuvant therapy, suggesting that delayed surgery after initial WW does not compromise long-term outcomes."
+        explanation: "Patients who underwent TME after tumor regrowth had DFS rates similar to those who had surgery immediately after neoadjuvant therapy, suggesting that delayed surgery after initial WW does not compromise long-term outcomes."
       },
       {
         question: "27. What was the rate of local recurrence-free survival at 3 years in the OPRA trial?",
@@ -401,8 +432,7 @@
         correct: "B",
         explanation: "The trial found no significant DFS improvement compared to historical controls, but it demonstrated that TNT facilitates organ preservation without compromising survival outcomes."
       },
-
-      // Group 4 (5 questions)
+      // Block 4 – Strengths and limitations (Questions 32–36)
       {
         question: "32. What is a major strength of the OPRA trial in assessing the feasibility of a watch-and-wait (WW) approach?",
         options: {
@@ -411,7 +441,7 @@
           C: "The trial allowed patients to self-select their treatment group, enhancing real-world applicability."
         },
         correct: "A",
-        explanation: "The OPRA trial was a randomized, prospective phase II study, which enhances the validity of its findings regarding WW and total neoadjuvant therapy (TNT). However, it was not a phase III trial, nor did it use patient self-selection, which could introduce bias."
+        explanation: "The OPRA trial was a randomized, prospective phase II study, which enhances the validity of its findings regarding WW and total neoadjuvant therapy (TNT)."
       },
       {
         question: "33. What is a key limitation of the OPRA trial in evaluating long-term oncologic outcomes?",
@@ -421,7 +451,7 @@
           C: "The study did not monitor toxicity or quality of life (QoL) outcomes, limiting its applicability to patient-centered care."
         },
         correct: "A",
-        explanation: "The median follow-up was 3 years, which may be insufficient to fully assess long-term recurrence rates and survival outcomes. The trial did include comparisons to historical controls and reported QoL metrics, though with some limitations."
+        explanation: "The median follow-up was 3 years, which may be insufficient to fully assess long-term recurrence rates and survival outcomes."
       },
       {
         question: "34. How might the study’s design impact the interpretation of disease-free survival (DFS) results?",
@@ -431,7 +461,7 @@
           C: "The study’s exclusion of patients with early-stage rectal cancer may have artificially lowered DFS rates."
         },
         correct: "A",
-        explanation: "The study was not designed to detect a DFS benefit over historical controls but rather to assess feasibility and organ preservation. This makes it difficult to conclude whether TNT truly improves DFS compared to standard approaches."
+        explanation: "The study was not designed to detect a DFS benefit over historical controls but rather to assess feasibility and organ preservation."
       },
       {
         question: "35. What is a potential source of bias in the OPRA trial?",
@@ -451,10 +481,9 @@
           C: "It demonstrates that all patients with rectal cancer should avoid TME if a clinical complete response (cCR) is achieved."
         },
         correct: "A",
-        explanation: "The trial provides strong prospective data supporting the feasibility of organ preservation using TNT, though it does not show DFS superiority over standard approaches or suggest that TME should be avoided in all cases."
+        explanation: "The trial provides strong prospective data supporting the feasibility of organ preservation using TNT, though it does not show DFS superiority over standard approaches."
       },
-
-      // Group 5 (5 questions)
+      // Block 5 – Clinical application (Questions 37–41)
       {
         question: "37. How should the results of the OPRA trial influence the selection of patients for a watch-and-wait (WW) approach in clinical practice?",
         options: {
@@ -463,7 +492,7 @@
           C: "All patients with locally advanced rectal cancer should be offered WW after total neoadjuvant therapy, as it has no negative impact on disease-free survival."
         },
         correct: "B",
-        explanation: "The OPRA trial showed that both cCR and near-complete responders could safely undergo WW, but close surveillance is essential due to the risk of tumor regrowth. However, WW is not suitable for all patients, and individual patient selection is crucial."
+        explanation: "The OPRA trial showed that both cCR and near-complete responders could safely undergo WW, but close surveillance is essential due to the risk of tumor regrowth."
       },
       {
         question: "38. What is a major consideration for applying the OPRA trial’s findings to clinical practice in a non-trial setting?",
@@ -473,7 +502,7 @@
           C: "The results suggest that WW should replace TME entirely in all patients with a complete clinical response."
         },
         correct: "A",
-        explanation: "The OPRA trial had a strict surveillance protocol, with frequent endoscopy and MRI, which may not be as feasible in real-world settings, potentially leading to delayed detection of regrowth in non-trial environments."
+        explanation: "The OPRA trial had a strict surveillance protocol, with frequent endoscopy and MRI, which may be challenging to replicate in real-world settings."
       },
       {
         question: "39. How should oncologists interpret the lack of a DFS benefit for total neoadjuvant therapy (TNT) in the OPRA trial?",
@@ -483,7 +512,7 @@
           C: "TNT is only beneficial for patients with low-risk tumors who are likely to achieve a complete response."
         },
         correct: "A",
-        explanation: "Although TNT did not improve DFS compared to historical controls, it allowed for higher organ preservation rates, which is a major quality-of-life benefit without negatively impacting survival outcomes."
+        explanation: "Although TNT did not improve DFS compared to historical controls, it allowed for higher organ preservation rates, which is a major quality-of-life benefit."
       },
       {
         question: "40. Which patient population might benefit the most from the watch-and-wait (WW) strategy validated in the OPRA trial?",
@@ -493,7 +522,7 @@
           C: "Patients with a history of prior pelvic radiation, as they are at high risk for surgical complications."
         },
         correct: "A",
-        explanation: "WW is particularly valuable for patients with distal rectal cancer, where TME often results in a permanent colostomy. Avoiding surgery can significantly improve quality of life for these patients."
+        explanation: "WW is particularly valuable for patients with distal rectal cancer, where TME often results in a permanent colostomy, thereby improving quality of life."
       },
       {
         question: "41. What is a key real-world barrier to implementing the OPRA trial’s WW approach in routine clinical practice?",
@@ -505,17 +534,16 @@
         correct: "A",
         explanation: "One challenge in real-world implementation is the subjectivity in defining cCR and determining when to intervene with surgery, which requires experienced multidisciplinary teams."
       },
-
-      // Group 6 (5 questions)
+      // Block 6 – Case scenarios (Questions 42–46)
       {
         question: "42. A 62-year-old patient with a clinical complete response (cCR) following total neoadjuvant therapy (TNT) is hesitant about undergoing surgery. Based on OPRA trial findings, what should be the primary consideration when discussing the watch-and-wait (WW) approach?",
         options: {
           A: "WW is a reasonable approach for cCR patients but requires a strict surveillance protocol to monitor for tumor regrowth.",
           B: "WW should be avoided, as the OPRA trial showed that delayed surgery leads to worse oncologic outcomes.",
-          C: "Surgery should always be recommended after TNT, as disease-free survival (DFS) was not improved with TNT compared to historical controls."
+          C: "Surgery should always be recommended after TNT, as DFS was not improved with TNT compared to historical controls."
         },
         correct: "A",
-        explanation: "The OPRA trial demonstrated that WW is a viable option for cCR patients, but it requires close surveillance due to the risk of tumor regrowth. DFS was not negatively impacted by WW, but strict monitoring is essential."
+        explanation: "The OPRA trial demonstrated that WW is a viable option for cCR patients, but it requires close surveillance due to the risk of tumor regrowth."
       },
       {
         question: "43. A patient with a T3N1 rectal adenocarcinoma is deciding between induction chemotherapy followed by chemoradiotherapy (INCT-CRT) and chemoradiotherapy followed by consolidation chemotherapy (CRT-CNCT). According to OPRA trial findings, which approach is more likely to result in organ preservation?",
@@ -525,7 +553,7 @@
           C: "Both approaches result in equivalent organ preservation rates, so the decision should be based on patient preference."
         },
         correct: "A",
-        explanation: "The CRT-CNCT arm had a higher rate of organ preservation (53%) compared to INCT-CRT (41%), likely due to the prolonged time interval between chemoradiotherapy and restaging, allowing for greater tumor regression."
+        explanation: "The CRT-CNCT arm had a higher rate of organ preservation (53%) compared to INCT-CRT (41%), likely due to the prolonged time interval allowing for greater tumor regression."
       },
       {
         question: "44. A 55-year-old patient who initially had a clinical complete response after TNT is found to have tumor regrowth at their 12-month follow-up MRI. What does the OPRA trial suggest regarding their prognosis?",
@@ -535,7 +563,7 @@
           C: "Tumor regrowth suggests systemic disease progression, and chemotherapy should be initiated immediately rather than surgery."
         },
         correct: "A",
-        explanation: "The OPRA trial found that patients who underwent delayed TME after tumor regrowth had DFS rates similar to those who had surgery immediately after neoadjuvant therapy, supporting the safety of WW with proper surveillance and timely surgical intervention when necessary."
+        explanation: "The OPRA trial found that patients who underwent delayed TME after tumor regrowth had DFS rates similar to those who had immediate TME, supporting the safety of WW with timely intervention."
       },
       {
         question: "45. A patient with a 3 cm rectal tumor located 4 cm from the anal verge is concerned about the impact of TME on quality of life. How should the OPRA trial findings influence the discussion?",
@@ -545,7 +573,7 @@
           C: "WW should only be considered for tumors located more than 5 cm from the anal verge, as low-lying tumors have higher recurrence risk."
         },
         correct: "A",
-        explanation: "The OPRA trial demonstrated that patients with a sustained complete response after TNT could safely avoid surgery, which is particularly beneficial for distal rectal tumors where TME would often require a permanent colostomy."
+        explanation: "The OPRA trial demonstrated that patients with a sustained complete response after TNT could safely avoid surgery, which is particularly beneficial for distal rectal tumors."
       },
       {
         question: "46. A multidisciplinary tumor board is discussing whether to adopt a watch-and-wait protocol for rectal cancer patients after TNT. What is a key real-world challenge based on OPRA trial findings?",
@@ -555,10 +583,9 @@
           C: "The need for additional systemic chemotherapy after TNT to prevent distant metastasis in WW patients."
         },
         correct: "A",
-        explanation: "The OPRA trial required frequent rectal MRI, endoscopy, and clinical exams for 5 years, which may be challenging to replicate in real-world settings, leading to the risk of delayed detection of regrowth in non-trial environments."
+        explanation: "The OPRA trial required frequent rectal MRI, endoscopy, and clinical exams for 5 years, which may be challenging to replicate in real-world settings."
       },
-
-      // Group 7 (5 questions)
+      // Block 7 – Comparison with other trials (Questions 47–51)
       {
         question: "47. How do the organ preservation rates in the OPRA trial compare to those reported in the CAO/ARO/AIO-12 trial?",
         options: {
@@ -567,7 +594,7 @@
           C: "Both trials showed similar organ preservation rates, but OPRA demonstrated superior overall survival."
         },
         correct: "A",
-        explanation: "The OPRA trial reported higher organ preservation rates in the CRT-CNCT group (53%) compared to CAO/ARO/AIO-12, which focused on pathologic complete response (pCR) rather than organ preservation, making direct comparisons difficult."
+        explanation: "The OPRA trial reported higher organ preservation rates in the CRT-CNCT group (53%) compared to CAO/ARO/AIO-12, which focused on pCR rather than organ preservation."
       },
       {
         question: "48. How do the DFS results of the OPRA trial compare with those of the RAPIDO trial, which also investigated total neoadjuvant therapy (TNT)?",
@@ -577,7 +604,7 @@
           C: "The OPRA trial had superior DFS results compared to RAPIDO, demonstrating the efficacy of WW."
         },
         correct: "A",
-        explanation: "The RAPIDO trial demonstrated improved DFS with short-course radiotherapy and TNT compared to standard treatment, whereas OPRA found no significant DFS benefit for TNT over historical controls, though it improved organ preservation rates."
+        explanation: "The RAPIDO trial demonstrated improved DFS with short-course radiotherapy and TNT compared to standard treatment, whereas OPRA found no significant DFS benefit for TNT over historical controls."
       },
       {
         question: "49. How does the watch-and-wait (WW) strategy used in the OPRA trial compare with findings from the International Watch & Wait Database (IWWD)?",
@@ -587,17 +614,17 @@
           C: "The OPRA trial showed better survival outcomes than the IWWD, proving the superiority of its WW protocol."
         },
         correct: "A",
-        explanation: "Both OPRA and IWWD reported tumor regrowth rates around 25-40%, reinforcing that WW is a feasible approach for selected patients but requires strict surveillance. Neither trial showed a survival detriment with delayed surgery after regrowth."
+        explanation: "Both OPRA and IWWD reported tumor regrowth rates around 25-40%, reinforcing that WW is a feasible approach for selected patients with strict surveillance."
       },
       {
         question: "50. How do the findings of the OPRA trial regarding chemotherapy sequencing compare to those of the PRODIGE 23 trial?",
         options: {
-          A: "PRODIGE 23 showed that induction chemotherapy before chemoradiotherapy improved DFS, while OPRA did not find a DFS benefit for TNT, though it showed that CRT-CNCT was superior for organ preservation.",
+          A: "PRODIGE 23 showed that induction chemotherapy before chemoradiotherapy improved DFS, while OPRA did not find a DFS benefit for TNT.",
           B: "Both trials concluded that chemotherapy sequencing had no impact on oncologic outcomes.",
           C: "OPRA and PRODIGE 23 both demonstrated that chemoradiotherapy should always precede systemic chemotherapy for optimal organ preservation."
         },
         correct: "A",
-        explanation: "The PRODIGE 23 trial showed that induction chemotherapy before chemoradiotherapy improved DFS, while OPRA did not find a DFS benefit for TNT, though it showed that CRT-CNCT was superior for organ preservation."
+        explanation: "The PRODIGE 23 trial showed that induction chemotherapy before chemoradiotherapy improved DFS, while OPRA did not find a DFS benefit for TNT, although it did show higher organ preservation with CRT-CNCT."
       },
       {
         question: "51. How does the survival data from the OPRA trial compare to the historical survival data from standard chemoradiotherapy followed by total mesorectal excision (TME)?",
@@ -610,131 +637,105 @@
         explanation: "The OPRA trial found that DFS and overall survival were comparable to historical data from standard CRT + TME, supporting the safety of TNT and WW without compromising oncologic outcomes."
       }
     ];
-
-    let currentQuestionIndex = 0;
+    
+    let currentQuestion = 0;
     let score = 0;
     const totalQuestions = questions.length;
-
+    
     const questionContainer = document.getElementById("question-container");
-    const progressBar = document.getElementById("progress-bar");
+    const submitBtn = document.getElementById("submit-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const feedbackDiv = document.getElementById("feedback");
+    const progressBarFill = document.getElementById("progress-bar-fill");
     const progressText = document.getElementById("progress-text");
-    const scoreText = document.getElementById("score-text");
-
-    function loadQuestion() {
-      // Clear container
-      questionContainer.innerHTML = "";
+    
+    // Display current question and options
+    function displayQuestion() {
+      // Clear previous content
+      feedbackDiv.innerHTML = "";
+      nextBtn.style.display = "none";
+      submitBtn.style.display = "block";
       
-      // Update progress text and bar
-      progressText.textContent = `Question ${currentQuestionIndex + 1} of ${totalQuestions}`;
-      let progressPercent = ((currentQuestionIndex) / totalQuestions) * 100;
-      progressBar.style.width = progressPercent + "%";
-      let currentScorePercent = (currentQuestionIndex === 0 ? 0 : (score / currentQuestionIndex) * 100).toFixed(0);
-      scoreText.textContent = `Current Score: ${currentScorePercent}%`;
-
-      // If quiz is finished, show final score
-      if (currentQuestionIndex >= totalQuestions) {
-        questionContainer.innerHTML = `<h2>Quiz Completed!</h2>
-          <p>Your final score is ${score} out of ${totalQuestions} (${((score/totalQuestions)*100).toFixed(0)}%).</p>`;
-        progressBar.style.width = "100%";
-        return;
+      // Get current question object
+      const q = questions[currentQuestion];
+      // Build HTML for question
+      let html = `<div class="question"><p>${q.question}</p></div>`;
+      html += '<div class="options">';
+      for (let key in q.options) {
+        html += `
+          <div class="option">
+            <input type="radio" name="option" id="option_${key}" value="${key}">
+            <label for="option_${key}"><strong>${key}.</strong> ${q.options[key]}</label>
+          </div>
+        `;
       }
+      html += '</div>';
+      questionContainer.innerHTML = html;
       
-      const currentQuestion = questions[currentQuestionIndex];
-      const qDiv = document.createElement("div");
-      qDiv.className = "question";
-      
-      // Question text
-      const qText = document.createElement("p");
-      qText.innerHTML = currentQuestion.question;
-      qDiv.appendChild(qText);
-      
-      // Options (radio buttons)
-      const form = document.createElement("form");
-      form.id = "quizForm";
-      for (let option in currentQuestion.options) {
-        const label = document.createElement("label");
-        label.className = "option";
-        label.style.display = "block";
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "option";
-        radio.value = option;
-        label.appendChild(radio);
-        label.innerHTML += ` <strong>${option}.</strong> ${currentQuestion.options[option]}`;
-        form.appendChild(label);
-      }
-      qDiv.appendChild(form);
-      
-      // Submit button
-      const submitButton = document.createElement("button");
-      submitButton.id = "submit-button";
-      submitButton.textContent = "Submit";
-      submitButton.type = "button";
-      submitButton.onclick = checkAnswer;
-      qDiv.appendChild(submitButton);
-      
-      questionContainer.appendChild(qDiv);
+      // Update progress text
+      progressText.innerText = `Question ${currentQuestion + 1} of ${totalQuestions} | Score: ${score > 0 ? Math.round((score / (currentQuestion)) * 100) : 0}%`;
+      // Update progress bar width
+      let progressPercent = ((currentQuestion) / totalQuestions) * 100;
+      progressBarFill.style.width = progressPercent + "%";
     }
-
+    
+    // Check answer and provide feedback
     function checkAnswer() {
-      const radios = document.getElementsByName("option");
-      let selected;
-      for (let radio of radios) {
-        if (radio.checked) {
-          selected = radio.value;
+      const options = document.getElementsByName("option");
+      let selected = "";
+      for (let opt of options) {
+        if (opt.checked) {
+          selected = opt.value;
           break;
         }
       }
-      if (!selected) {
-        alert("Please select an option.");
+      if (selected === "") {
+        alert("Please select an answer before submitting.");
         return;
       }
+      // Disable submit button to prevent resubmission
+      submitBtn.style.display = "none";
       
-      // Disable the form options
-      const radiosArr = Array.from(radios);
-      radiosArr.forEach(radio => radio.disabled = true);
-      
-      // Remove the submit button
-      document.getElementById("submit-button").disabled = true;
-      
-      const currentQuestion = questions[currentQuestionIndex];
-      const feedbackDiv = document.createElement("div");
-      feedbackDiv.className = "feedback";
-      if (selected === currentQuestion.correct) {
-        feedbackDiv.innerHTML = `<span class="correct">Correct</span>`;
+      const q = questions[currentQuestion];
+      let feedbackHtml = "";
+      if (selected === q.correct) {
+        feedbackHtml += `<div class="correct">Correct</div>`;
         score++;
       } else {
-        feedbackDiv.innerHTML = `<span class="incorrect">Incorrect</span>`;
+        feedbackHtml += `<div class="incorrect">Incorrect</div>`;
       }
+      feedbackHtml += `<div class="explanation">${q.explanation}</div>`;
+      feedbackDiv.innerHTML = feedbackHtml;
       
-      // Explanation (always in black)
-      const explanationDiv = document.createElement("div");
-      explanationDiv.style.color = "black";
-      explanationDiv.style.marginTop = "8px";
-      explanationDiv.textContent = currentQuestion.explanation;
-      
-      questionContainer.appendChild(feedbackDiv);
-      questionContainer.appendChild(explanationDiv);
-      
-      // Next Question button
-      const nextButton = document.createElement("button");
-      nextButton.id = "next-button";
-      nextButton.textContent = (currentQuestionIndex === totalQuestions - 1) ? "Finish Quiz" : "Next Question";
-      nextButton.onclick = () => {
-        currentQuestionIndex++;
-        loadQuestion();
-      };
-      questionContainer.appendChild(nextButton);
-      
-      // Update progress bar and score
-      let progressPercent = ((currentQuestionIndex + 1) / totalQuestions) * 100;
-      progressBar.style.width = progressPercent + "%";
-      let currentScorePercent = ((score / (currentQuestionIndex + 1)) * 100).toFixed(0);
-      scoreText.textContent = `Current Score: ${currentScorePercent}%`;
+      // Show Next Question button if there are more questions
+      nextBtn.style.display = "block";
+      // Update progress text (score percentage based on answered questions)
+      let answered = currentQuestion + 1;
+      progressText.innerText = `Question ${answered} of ${totalQuestions} | Score: ${Math.round((score / answered) * 100)}%`;
     }
-
-    // Start the quiz
-    loadQuestion();
+    
+    // Move to next question or finish quiz
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion >= totalQuestions) {
+        // End of quiz
+        questionContainer.innerHTML = `<h2>Quiz Completed!</h2>
+          <p>Your final score is ${Math.round((score / totalQuestions) * 100)}% (${score} out of ${totalQuestions}).</p>`;
+        feedbackDiv.innerHTML = "";
+        submitBtn.style.display = "none";
+        nextBtn.style.display = "none";
+        progressBarFill.style.width = "100%";
+        progressText.innerText = `Question ${totalQuestions} of ${totalQuestions} | Score: ${Math.round((score / totalQuestions) * 100)}%`;
+      } else {
+        displayQuestion();
+      }
+    }
+    
+    submitBtn.addEventListener("click", checkAnswer);
+    nextBtn.addEventListener("click", nextQuestion);
+    
+    // Initialize quiz
+    displayQuestion();
   </script>
 </body>
 </html>
