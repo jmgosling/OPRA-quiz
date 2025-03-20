@@ -11,6 +11,7 @@
     .options li { margin-bottom: 10px; }
     .feedback { font-weight: bold; margin-top: 10px; }
     .hidden { display: none; }
+    button { padding: 10px 20px; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -18,6 +19,7 @@
   <div id="quiz">
     <div id="question-container" class="question-container"></div>
     <button id="submit-btn">Submit Answer</button>
+    <button id="next-btn" class="hidden">Next Question</button>
     <div id="feedback" class="feedback"></div>
   </div>
   <div id="result" class="hidden">
@@ -25,12 +27,8 @@
   </div>
 
   <script>
-    // 50 questions covering 10 appraisal aspects.
-    // Each question object includes:
-    // - question: The question text.
-    // - options: Array of three answer options.
-    // - correct: The index (0,1,2) of the correct option.
-    // - explanation: A short paragraph explaining the answer with a direct quote from the paper.
+    // Array of 50 questions covering all appraisal aspects.
+    // Each question includes: question, options, correct index, and an explanation with a direct quote.
     const questions = [
       {
         question: "1. What is the primary objective of the OPRA trial?",
@@ -120,7 +118,7 @@
           "Allowing patient treatment choice."
         ],
         correct: 1,
-        explanation: "Stratified block randomization helps minimize bias. As noted: “Random assignment was stratified per institution...”"
+        explanation: "Stratified block randomization helps minimize bias. As noted: “Random assignment was stratified per institution…”"
       },
       {
         question: "10. What is the significance of using a phase II trial design in the OPRA trial?",
@@ -539,12 +537,17 @@
 
     const questionContainer = document.getElementById('question-container');
     const submitButton = document.getElementById('submit-btn');
+    const nextButton = document.getElementById('next-btn');
     const feedbackDiv = document.getElementById('feedback');
     const resultDiv = document.getElementById('result');
     const scoreSpan = document.getElementById('score');
 
     function showQuestion() {
       feedbackDiv.innerHTML = "";
+      // Hide the Next button and show the Submit button for a new question.
+      nextButton.classList.add('hidden');
+      submitButton.classList.remove('hidden');
+
       const currentQuestion = questions[currentQuestionIndex];
       let html = `<h2>Question ${currentQuestionIndex + 1}:</h2>`;
       html += `<p>${currentQuestion.question}</p>`;
@@ -587,15 +590,18 @@
       } else {
         feedbackDiv.innerHTML = "Incorrect!<br>" + currentQuestion.explanation;
       }
-      // Pause briefly (2 seconds) before moving to the next question
-      setTimeout(function() {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-          showQuestion();
-        } else {
-          showResult();
-        }
-      }, 2000);
+      // After answer submission, hide the Submit button and show the Next button.
+      submitButton.classList.add('hidden');
+      nextButton.classList.remove('hidden');
+    });
+
+    nextButton.addEventListener('click', function() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
     });
 
     // Start the quiz
