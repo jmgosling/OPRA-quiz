@@ -43,6 +43,14 @@
       background-color: #4caf50;
       color: #fff;
     }
+    .retry-btn {
+      background-color: #FFA500;
+      color: #fff;
+    }
+    .home-btn {
+      background-color: #888;
+      color: #fff;
+    }
     .progress-container {
       margin-bottom: 1em;
     }
@@ -130,17 +138,19 @@
   <div class="button-container">
     <button class="submit-btn" id="submitBtn">Submit</button>
     <button class="next-btn" id="nextBtn" style="display:none;">Next Question</button>
+    <button class="retry-btn" id="retryBtn" style="display:none;">Retry Missed Questions</button>
+    <button class="home-btn" id="homeBtn" style="display:none;">Return to Home</button>
   </div>
 </div>
 
 <script>
 // ======================
 // QUIZ QUESTION DATABASE
+// (Same from earlier code)
 // ======================
 
 // CORRECTED RAPIDO 5-Year Follow-up Quiz (27 questions):
 const questionsRapido = [
-  // 1
   {
     question: "1) Which primary clinical challenge in locally advanced rectal cancer motivated the concept of total neoadjuvant treatment (TNT) in the RAPIDO trial?",
     options: [
@@ -151,7 +161,6 @@ const questionsRapido = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nEven though local control improved significantly after the introduction of preoperative RT and TME, distant metastases remained a persistent problem. TNT was introduced to reduce systemic relapse."
   },
-  // 2
   {
     question: "2) One key reason short-course radiotherapy (scRT) was selected for the experimental arm was:",
     options: [
@@ -162,7 +171,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nShort-course RT shortens the time to full-dose chemotherapy, aligning with the TNT concept to tackle micrometastatic disease earlier."
   },
-  // 3
   {
     question: "3) In the context of the RAPIDO trial’s rationale, what was the primary goal of administering systemic chemotherapy before surgery?",
     options: [
@@ -173,7 +181,6 @@ const questionsRapido = [
     correctIndex: 2,
     explanation: "Correct Answer: C\nSystemic chemotherapy early on was meant to reduce the overall risk of distant spread, the main cause of treatment failure."
   },
-  // 4
   {
     question: "4) Which baseline high-risk features on MRI qualified patients for enrollment in the RAPIDO trial?",
     options: [
@@ -184,7 +191,6 @@ const questionsRapido = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nPatients needed at least one high-risk MRI finding (cT4, N2, EMVI+, large lateral nodes, or MRF+)."
   },
-  // 5
   {
     question: "5) In the experimental (EXP) arm, what was the sequence of treatments?",
     options: [
@@ -195,7 +201,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nThe EXP arm used TNT: 5×5 Gy RT, then CAPOX/FOLFOX4, then TME surgery."
   },
-  // 6 (corrected)
   {
     question: "6) In the standard-care (STD) arm of the RAPIDO trial, patients could receive postoperative chemotherapy based on:",
     options: [
@@ -206,7 +211,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nLong-course chemoradiotherapy was followed by surgery, and postoperative chemotherapy (8 cycles CAPOX or 12 FOLFOX4) was optional per hospital policy, though strongly recommended."
   },
-  // 7
   {
     question: "7) How was tumor response assessed in the RAPIDO trial before TME surgery?",
     options: [
@@ -217,7 +221,6 @@ const questionsRapido = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nPatients underwent MRI of the pelvis and CT of the thorax/abdomen for restaging before surgery, consistent with standard protocols."
   },
-  // 8
   {
     question: "8) Which statement best reflects the radiation techniques used in the RAPIDO trial?",
     options: [
@@ -228,7 +231,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nCenters used various approaches; IMRT/VMAT was commonly used in long-course CRT, while 3D-CRT was typical for short-course RT."
   },
-  // 9 (corrected)
   {
     question: "9) Which best describes the surgical procedure mandated by the protocol for most patients in both arms?",
     options: [
@@ -239,7 +241,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nTME was the standard surgical approach for resectable disease, with the choice of sphincter-saving or APR depending on tumor location and response."
   },
-  // 10
   {
     question: "10) At a median follow-up of about 5.6 years, which statement accurately reflects the difference in locoregional failure (LRF) between arms?",
     options: [
@@ -250,7 +251,6 @@ const questionsRapido = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nLRF was 11.7% (EXP) vs. 8.1% (STD) at five years (P=0.07), slightly favoring the STD arm."
   },
-  // 11
   {
     question: "11) Regarding early locoregional failures (eLRF), defined as no resection or R2 resection (except organ preservation):",
     options: [
@@ -261,7 +261,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\neLRFs were rare and occurred at similar rates (10 patients each arm). Most eLRF cases also had distant metastases."
   },
-  // 12
   {
     question: "12) When focusing on locoregional recurrence (LRR) after an R0/R1 resection, what was observed in the EXP arm vs. STD?",
     options: [
@@ -272,7 +271,6 @@ const questionsRapido = [
     correctIndex: 2,
     explanation: "Correct Answer: C\nLRR was indeed higher in the EXP group (10.2% vs. 6.1%)."
   },
-  // 13
   {
     question: "13) Which factor was associated with an increased risk of LRR in patients receiving the experimental treatment?",
     options: [
@@ -283,7 +281,6 @@ const questionsRapido = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nIn the EXP group, 3D-CRT correlated with higher LRR, possibly due to coverage or planning differences."
   },
-  // 14
   {
     question: "14) Which outcome did the five-year follow-up confirm regarding disease-related treatment failure (DrTF) and distant metastases (DM)?",
     options: [
@@ -294,7 +291,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nEven at five years, DrTF and DM remained significantly lower in the EXP arm."
   },
-  // 15
   {
     question: "15) In terms of overall survival (OS) at five years, what was reported?",
     options: [
@@ -305,7 +301,6 @@ const questionsRapido = [
     correctIndex: 2,
     explanation: "Correct Answer: C\nNo significant OS difference emerged (81.7% vs. 80.2%; P=0.50)."
   },
-  // 16
   {
     question: "16) Which of the following is most clearly a strength of this trial?",
     options: [
@@ -316,7 +311,6 @@ const questionsRapido = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nRAPIDO was a large, multicenter international study, making results generalizable for high-risk rectal cancer."
   },
-  // 17
   {
     question: "17) Which limitation might partly explain the higher LRR in the experimental group?",
     options: [
@@ -327,7 +321,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nOne potential limitation is that scRT was more commonly planned with 3D-CRT, which may have led to more geographic misses and higher LRR."
   },
-  // 18 (corrected)
   {
     question: "18) One recognized shortcoming in analyzing LRR and LRF in the five-year results was:",
     options: [
@@ -338,7 +331,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nThe trial was not powered for LRF/LRR analyses, making definitive conclusions about local failure rates more challenging."
   },
-  // 19
   {
     question: "19) What does the study imply about the use of TNT (short-course RT + chemo) in rectal cancer care?",
     options: [
@@ -349,7 +341,6 @@ const questionsRapido = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nTNT reduces DM significantly but may have a slightly higher LRR risk, requiring careful technique."
   },
-  // 20
   {
     question: "20) Given the findings, how might clinicians mitigate the risk of local recurrence when using TNT?",
     options: [
@@ -360,7 +351,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nMonitoring response and refining radiotherapy and surgery can reduce locoregional failures."
   },
-  // 21 (corrected)
   {
     question: "21) Why might results at five years still justify TNT approaches in some centers despite an increased LRR rate?",
     options: [
@@ -371,7 +361,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nTNT’s systemic benefits (reduced DM) are crucial. Many centers accept a slightly higher local recurrence if overall outcomes improve, especially with refined local therapy."
   },
-  // 22
   {
     question: "22) In a patient with cT3N2 rectal cancer and no sign of distant disease, how might the RAPIDO results guide therapy?",
     options: [
@@ -382,7 +371,6 @@ const questionsRapido = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nTNT can address both local and systemic risk factors in cT3N2 disease; short-course RT plus chemo, then re-assessment, is a valid approach."
   },
-  // 23
   {
     question: "23) A patient on the EXP regimen shows poor tumor response mid-chemotherapy. What lesson from the trial might inform next steps?",
     options: [
@@ -393,7 +381,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nIdentifying non-responders early may help avert local progression by moving to surgery sooner or changing strategy."
   },
-  // 24
   {
     question: "24) In patients for whom short-course RT is planned, what practical change might improve locoregional control according to the RAPIDO authors?",
     options: [
@@ -404,7 +391,6 @@ const questionsRapido = [
     correctIndex: 2,
     explanation: "Correct Answer: C\nBetter RT planning (e.g. IMRT/VMAT) may reduce LRR by avoiding under-coverage of the target area."
   },
-  // 25
   {
     question: "25) How do RAPIDO’s results compare with historical trials like Polish II and TROG concerning short-course vs. long-course RT?",
     options: [
@@ -415,7 +401,6 @@ const questionsRapido = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nRAPIDO combined scRT with upfront full chemotherapy. Previous short-/long-course comparisons lacked this comprehensive TNT approach."
   },
-  // 26
   {
     question: "26) In comparison to the PRODIGE 23 trial, which also utilized a TNT approach, RAPIDO is distinct because:",
     options: [
@@ -426,7 +411,6 @@ const questionsRapido = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nRAPIDO gave 5×5 Gy followed by chemo, while PRODIGE 23 used a different sequence (long-course CRT plus induction chemo)."
   },
-  // 27
   {
     question: "27) What key message might a meta-analysis of RAPIDO and similar TNT studies highlight?",
     options: [
@@ -594,7 +578,6 @@ const questionsOpra = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nBoth arms had similar incidence of grade ≥3 adverse events, with no major differences in completion rates."
   },
-  // IV. Strengths & Limitations
   {
     question: "16) What is one major strength of the OPRA Trial design?",
     options: [
@@ -625,7 +608,6 @@ const questionsOpra = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nOPRA was a phase II trial with moderate enrollment, so it could not definitively surpass the historical DFS reference of 75%."
   },
-  // V. Interpretation & Real-World Application
   {
     question: "19) How might clinicians view a ~50% organ-preservation rate in the context of OPRA’s results?",
     options: [
@@ -656,7 +638,6 @@ const questionsOpra = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nNo survival disadvantage was seen in patients who underwent TME after local regrowth, reassuring clinicians about delayed surgery if cCR was initially achieved."
   },
-  // VI. How the Study Influences Real-World Decision Making
   {
     question: "22) In a busy oncology clinic, how might OPRA’s findings alter standard care for rectal cancer?",
     options: [
@@ -687,7 +668,6 @@ const questionsOpra = [
     correctIndex: 0,
     explanation: "Correct Answer: A\nOPRA allowed watch-and-wait in near-cCR, with close follow-up to detect residual disease or early regrowth."
   },
-  // VII. Comparing Its Findings With Similar Studies (5 Questions)
   {
     question: "25) How do OPRA’s findings align with the RAPIDO Trial’s overarching message?",
     options: [
@@ -743,11 +723,15 @@ const questionsOpra = [
 // ============
 // QUIZ ENGINE
 // ============
+
 let currentQuestionIndex = 0;
 let score = 0;
 let totalQuestions = 0;
 let selectedQuiz = null;
 let quizTitleEl = null;
+let isRetryMode = false;        // Distinguishes normal run vs. "retry missed"
+let missedQuestions = [];       // Will store the question objects for the ones answered incorrectly
+let isSecondPass = false;       // True if user has chosen "Retry Missed Questions"
 
 const questionContainer = document.getElementById("questionContainer");
 const optionsContainer = document.getElementById("optionsContainer");
@@ -755,12 +739,14 @@ const feedbackEl = document.getElementById("feedback");
 const explanationEl = document.getElementById("explanation");
 const submitBtn = document.getElementById("submitBtn");
 const nextBtn = document.getElementById("nextBtn");
+const retryBtn = document.getElementById("retryBtn");
+const homeBtn = document.getElementById("homeBtn");
 const progressFill = document.getElementById("progressFill");
 const progressText = document.getElementById("progressText");
 quizTitleEl = document.getElementById("quizTitle");
 
+// Start Quiz: pick RAPIDO or OPRA from radio, show quiz container
 function startQuiz() {
-  // Determine which radio is selected
   const rapidoSelected = document.getElementById('rapidoQuiz').checked;
   const opraSelected = document.getElementById('opraQuiz').checked;
 
@@ -775,7 +761,7 @@ function startQuiz() {
     return;
   }
 
-  // Hide the initial choice UI
+  // Hide the initial choice UI, show the quiz container
   document.querySelector('.intro').style.display = "none";
   document.getElementById('quizContainer').style.display = "block";
 
@@ -783,6 +769,9 @@ function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
   totalQuestions = selectedQuiz.length;
+  missedQuestions = [];
+  isRetryMode = false;
+  isSecondPass = false;
 
   loadQuestion();
 }
@@ -794,12 +783,12 @@ function loadQuestion() {
   explanationEl.textContent = "";
   nextBtn.style.display = "none";
   submitBtn.style.display = "inline-block";
+  retryBtn.style.display = "none";
+  homeBtn.style.display = "none";
 
-  // Display the question
   const qObj = selectedQuiz[currentQuestionIndex];
   questionContainer.textContent = qObj.question;
 
-  // Render the radio options
   optionsContainer.innerHTML = "";
   for (let i = 0; i < qObj.options.length; i++) {
     const label = document.createElement('label');
@@ -809,7 +798,6 @@ function loadQuestion() {
     input.type = 'radio';
     input.name = 'option';
     input.value = i.toString();
-
     label.appendChild(input);
     label.appendChild(document.createTextNode(' ' + qObj.options[i]));
     optionsContainer.appendChild(label);
@@ -822,8 +810,9 @@ function updateProgressBar() {
   const questionNumber = currentQuestionIndex + 1;
   const quizProgressPercent = (questionNumber / totalQuestions) * 100;
 
+  // Score among the answered so far
   let scorePercent = 0;
-  const answeredSoFar = questionNumber - 1; // user hasn't submitted this question yet
+  const answeredSoFar = questionNumber - 1;
   if (answeredSoFar > 0) {
     scorePercent = (score / answeredSoFar) * 100;
   }
@@ -855,7 +844,12 @@ function checkAnswer() {
   } else {
     feedbackEl.textContent = "Incorrect!";
     feedbackEl.classList.add("incorrect");
+    // Store the missed question for potential retry
+    if (!isSecondPass) {
+      missedQuestions.push(qObj);
+    }
   }
+
   explanationEl.textContent = qObj.explanation;
 
   submitBtn.style.display = "none";
@@ -875,19 +869,64 @@ function goToNextQuestion() {
 
 function endQuiz() {
   const finalScorePercent = (score / totalQuestions) * 100;
+
   questionContainer.textContent = "Quiz Completed!";
   optionsContainer.innerHTML = "";
-  feedbackEl.textContent = `You answered ${score} out of ${totalQuestions} questions correctly.`;
   feedbackEl.classList.remove('incorrect', 'correct');
   feedbackEl.classList.add('correct');
-  explanationEl.textContent = `Your final score: ${finalScorePercent.toFixed(0)}%.`;
-  submitBtn.style.display = 'none';
-  nextBtn.style.display = 'none';
+
+  if (!isSecondPass) {
+    // First pass completed
+    feedbackEl.textContent = `You answered ${score} out of ${totalQuestions} questions correctly.`;
+    explanationEl.textContent = `Your final score: ${finalScorePercent.toFixed(0)}%.`;
+    submitBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+
+    // If user missed any questions, show "Retry Missed" button
+    if (missedQuestions.length > 0) {
+      retryBtn.style.display = 'inline-block';
+    }
+    homeBtn.style.display = 'inline-block';
+  } else {
+    // Second pass (retry mode) completed
+    feedbackEl.textContent = `Retry Attempt Completed: You answered ${score} out of ${totalQuestions} missed questions correctly.`;
+    explanationEl.textContent = `Your final score: ${finalScorePercent.toFixed(0)}%.`;
+    submitBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+    retryBtn.style.display = 'none';
+    homeBtn.style.display = 'inline-block';
+  }
+
+  // Fill the progress bar to 100%, final
   progressFill.style.width = '100%';
   progressText.textContent = `All questions answered! Final score: ${finalScorePercent.toFixed(0)}%.`;
 }
 
-// Event listeners
+// Called by "Retry Missed Questions" button
+retryBtn.addEventListener('click', function() {
+  // Only do this if there are missed questions
+  if (missedQuestions.length === 0) {
+    alert("No missed questions to retry.");
+    return;
+  }
+
+  // Switch to second pass
+  isSecondPass = true;
+  score = 0;
+  selectedQuiz = missedQuestions;
+  totalQuestions = missedQuestions.length;
+  currentQuestionIndex = 0;
+  missedQuestions = []; // We won't do repeated loops
+
+  loadQuestion();
+});
+
+function returnHome() {
+  // Simple approach: reload the page to reset
+  location.reload();
+}
+
+homeBtn.addEventListener('click', returnHome);
 submitBtn.addEventListener('click', checkAnswer);
 nextBtn.addEventListener('click', goToNextQuestion);
 </script>
