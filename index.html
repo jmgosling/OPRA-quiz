@@ -1430,9 +1430,9 @@ function loadQuestion() {
 function updateProgressBar() {
   const questionNumber = currentQuestionIndex + 1;
   const quizProgressPercent = (questionNumber / totalQuestions) * 100;
-
+progressText.textContent = `Question ${questionNumber} of ${totalQuestions}`;
   progressFill.style.width = quizProgressPercent + '%';
-  progressText.textContent = `Question ${questionNumber} of ${totalQuestions}';
+  
 }
 
 function checkAnswer() {
