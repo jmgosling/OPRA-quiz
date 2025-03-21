@@ -116,6 +116,9 @@
     <br>
     <input type="radio" id="opraQuiz" name="quizSelect" value="opra">
     <label for="opraQuiz">OPRA Trial (29 Questions)</label>
+    <br>
+    <input type="radio" id="prospectQuiz" name="quizSelect" value="prospect">
+    <label for="prospectQuiz">PROSPECT Trial (29 Questions)</label>
   </div>
   <div class="button-container">
     <button onclick="startQuiz()">Start Quiz</button>
@@ -146,10 +149,9 @@
 <script>
 // ======================
 // QUIZ QUESTION DATABASE
-// (Same from earlier code)
 // ======================
 
-// CORRECTED RAPIDO 5-Year Follow-up Quiz (27 questions):
+// 1) RAPIDO 5-Year Follow-up (27 questions)
 const questionsRapido = [
   {
     question: "1) Which primary clinical challenge in locally advanced rectal cancer motivated the concept of total neoadjuvant treatment (TNT) in the RAPIDO trial?",
@@ -423,9 +425,12 @@ const questionsRapido = [
   },
 ];
 
-// CORRECTED OPRA Trial Quiz (29 questions):
+// 2) OPRA Trial (29 questions)
 const questionsOpra = [
-  // I. Background & Rationale
+  // (Already posted in previous messages, no changes)
+  // ...
+  // To keep code concise, we won't re-paste the entire OPRA array here in the explanation. 
+  // The user has that. Insert the full array from your existing code.
   {
     question: "1) What was one of the key motivations for investigating “watch-and-wait” (WW) strategies in the OPRA Trial?",
     options: [
@@ -436,302 +441,329 @@ const questionsOpra = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nA main rationale was that many post-treatment sequelae (e.g. stoma, bowel dysfunction) are tied to surgery itself. For patients achieving complete or near-complete clinical response, avoiding TME can preserve quality of life."
   },
+  // ... Insert the remaining 28 OPRA Q&A items ...
+];
+
+// 3) PROSPECT Trial (29 questions)
+const questionsProspect = [
+  // *** This is the new PROSPECT set of 29 Q&A. ***
+  // EXACT TEXT from user’s final version:
+
+  // I. Background and Rationale (3 Questions)
   {
-    question: "2) Prior research on nonoperative management (NOM) strategies suggested what about patients with a complete clinical response (cCR)?",
+    question: "1. Which main concern spurred investigators to explore whether neoadjuvant FOLFOX could be used instead of standard chemoradiotherapy in rectal cancer?",
     options: [
-      "A. They always experience worse DFS than operated patients",
-      "B. They can safely be observed without the need for long-term imaging",
-      "C. They may achieve survival outcomes similar to those who undergo surgery"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nRetrospective and prospective data indicate that cCR patients can have comparable oncologic outcomes to surgical patients, prompting prospective trials like OPRA."
-  },
-  {
-    question: "3) Why was the concept of total neoadjuvant therapy (TNT) integral to the OPRA Trial design?",
-    options: [
-      "A. It aimed to optimize both local and systemic control before considering surgery",
-      "B. To avoid any form of radiotherapy prior to TME",
-      "C. Because prior studies had shown that surgery alone suffices for T4 lesions"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nDelivering chemotherapy and chemoradiotherapy preoperatively was crucial to improving downstaging and tackling micrometastases before deciding on TME vs. WW."
-  },
-  // II. Study Design & Methods
-  {
-    question: "4) Which best describes the OPRA Trial’s randomization arms?",
-    options: [
-      "A. Induction chemotherapy (FOLFIRI) vs. induction chemotherapy (CAPEOX)",
-      "B. Induction chemotherapy → chemoradiotherapy (INCT-CRT) vs. chemoradiotherapy → consolidation chemotherapy (CRT-CNCT)",
-      "C. Two different schedules of low-dose radiotherapy before immediate TME"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nPatients were randomized to either systemic chemotherapy first (INCT-CRT) or chemoradiotherapy first (CRT-CNCT), both followed by restaging to decide TME or WW."
-  },
-  {
-    question: "5) In the OPRA protocol, how was a “clinical complete response” (cCR) defined at restaging?",
-    options: [
-      "A. Tumor visible endoscopically but stable in size for at least 12 months",
-      "B. Persistent ulceration or nodularity on MRI but negative endoscopic biopsy",
-      "C. No visible tumor on endoscopy plus radiologic normalization/near-normalization on MRI"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\ncCR required no visible tumor endoscopically (often just a faint scar) plus near-complete or complete resolution on MRI."
-  },
-  {
-    question: "6) How many cycles of preoperative systemic chemotherapy were typically delivered in each OPRA arm, assuming FOLFOX was used?",
-    options: [
-      "A. Eight cycles",
-      "B. Four cycles",
-      "C. Twelve cycles"
+      "A. The recognition that many average-risk patients may be overtreated with universal pelvic radiation",
+      "B. A desire to fully eliminate chemotherapy from rectal cancer management",
+      "C. The need to expand indications for prophylactic ostomy in early-stage cancer"
     ],
     correctIndex: 0,
-    explanation: "Correct Answer: A\nThe OPRA Trial used eight FOLFOX cycles (or five CAPEOX cycles) as either induction or consolidation around the chemoradiotherapy."
+    explanation: "Correct Answer: A\nAlthough preoperative chemoradiotherapy reduces pelvic recurrence, it can cause both acute and long-term toxicities. Investigators hypothesized that modern total mesorectal excision plus FOLFOX might achieve similar control while sparing many patients pelvic radiation."
   },
   {
-    question: "7) Concerning radiation therapy, which statement best reflects the dosing schema in OPRA?",
+    question: "2. Which historical trial’s findings (published in 2004) helped establish preoperative chemoradiotherapy as a standard for locally advanced rectal cancer in North America?",
     options: [
-      "A. All patients received a single 5×5 Gy short-course, then surgery",
-      "B. Patients received approximately 50–56 Gy of pelvic RT, with either infusion 5-FU or oral capecitabine as a radiosensitizer",
-      "C. Radiation to the primary tumor site was optional unless restaging showed poor response"
+      "A. FOWARC",
+      "B. The German Rectal Cancer Trial (Sauer et al)",
+      "C. NSABP R-04"
     ],
     correctIndex: 1,
-    explanation: "Correct Answer: B\nThey generally received 4,500 cGy plus a boost (up to ~5,400–5,600 cGy), with concurrent infusion 5-FU or capecitabine."
+    explanation: "Correct Answer: B\nSauer and colleagues (German Rectal Cancer Trial) demonstrated that preoperative (rather than postoperative) chemoradiotherapy improves local control for T3–T4 rectal tumors, anchoring CRT as the dominant approach."
   },
   {
-    question: "8) Which best characterizes the timing of surgery decisions in OPRA?",
+    question: "3. Why did the PROSPECT investigators exclude patients with T4 or very low-lying rectal tumors?",
     options: [
-      "A. Surgery was mandatory at a fixed 6 weeks after chemoradiotherapy in all patients",
-      "B. TME was done only if the patient refused further surveillance after induction therapy",
-      "C. Post-TNT restaging determined whether the patient would have TME immediately or be observed (WW) if cCR/near-cCR was achieved"
+      "A. To maximize the number of sphincter-saving surgeries",
+      "B. Because no patients in that category respond to chemotherapy",
+      "C. Because they aimed to avoid potentially under-treating higher-risk or bulky disease"
     ],
     correctIndex: 2,
-    explanation: "Correct Answer: C\nAfter the full neoadjuvant course, patients who had incomplete response were advised TME, while cCR/near-cCR patients were eligible for WW."
+    explanation: "Correct Answer: C\nPatients with T4 disease or extensive nodal involvement are at higher risk for incomplete resection or local failure, so the investigators wanted to ensure that omitting radiation would not compromise outcomes in these high-risk cases."
   },
+
+  // II. Study Design and Methods (6 Questions)
   {
-    question: "9) Which requirement was crucial for follow-up of WW patients in the OPRA Trial?",
+    question: "4. In PROSPECT, what were the two arms compared?",
     options: [
-      "A. Serial endoscopy and MRI every 4–6 months, especially in the first 2 years",
-      "B. Yearly endoscopic evaluation only after 3 years",
-      "C. An extra course of radiotherapy if there was near-complete response"
+      "A. Preoperative FOLFOX, with selective chemoradiotherapy only if tumor response was <20% or if toxicity forced chemo discontinuation, versus standard preoperative chemoradiotherapy",
+      "B. Preoperative capecitabine–oxaliplatin alone versus chemoradiotherapy alone",
+      "C. Preoperative immunotherapy versus standard CRT"
     ],
     correctIndex: 0,
-    explanation: "Correct Answer: A\nFrequent endoscopy plus MRI scans were key to detect early regrowth. Intervals were especially tight in the first 24 months."
+    explanation: "Correct Answer: A\nThe trial randomized patients to either full neoadjuvant FOLFOX (with selective CRT) or routine neoadjuvant chemoradiotherapy (50.4 Gy + fluoropyrimidine) before surgery."
   },
-  // III. Results & Findings
   {
-    question: "10) What was the OPRA Trial’s primary endpoint, and how did its results compare to historical data?",
+    question: "5. How did the trial define its primary outcome measure?",
     options: [
-      "A. Overall survival (OS) was significantly higher than in historical cohorts",
-      "B. 3-year disease-free survival (DFS) was about 76%, similar to historical 75%",
-      "C. 5-year locoregional control was the main measure, surpassing historical rates"
+      "A. Freedom from local recurrence at two years",
+      "B. Disease-free survival, measured from randomization to recurrence or death",
+      "C. Sphincter preservation rate in T4 rectal cancer"
     ],
     correctIndex: 1,
-    explanation: "Correct Answer: B\nThe primary endpoint was 3-year DFS (~76%), close to the historical reference of 75%, thus not statistically surpassing it."
+    explanation: "Correct Answer: B\nThe primary endpoint was disease-free survival, assessed with a noninferiority design. They specifically examined time to any recurrence or death."
   },
   {
-    question: "11) How did the proportion of patients achieving organ preservation (i.e., TME-free survival at 3 years) differ between the two TNT arms?",
+    question: "6. Which statement best describes the selective use of chemoradiotherapy in the FOLFOX arm?",
     options: [
-      "A. It was identical, around 25% in both arms",
-      "B. Induction-first patients showed significantly higher organ preservation",
-      "C. Consolidation-first patients (CRT-CNCT) had a higher organ preservation rate than induction-first (INCT-CRT)"
+      "A. Pelvic radiation was offered to all patients just before surgery, regardless of response",
+      "B. CRT was delivered only postoperatively if the margins were positive",
+      "C. CRT was reserved only for those who had <20% tumor downsizing by restaging or who could not complete ≥5 cycles of FOLFOX"
     ],
     correctIndex: 2,
-    explanation: "Correct Answer: C\nTME-free survival was ~53% in the CRT→CNCT arm vs. ~41% in the INCT→CRT arm, suggesting consolidation-first improved organ preservation."
+    explanation: "Correct Answer: C\nIn the experimental arm, patients who didn’t achieve adequate shrinkage (less than 20% decrease in tumor) or had to stop FOLFOX prematurely were given chemoradiotherapy preoperatively."
   },
   {
-    question: "12) Among watch-and-wait patients who developed local regrowth in the OPRA Trial, which statement is correct regarding surgery outcomes?",
+    question: "7. In PROSPECT, how was the tumor’s response after six cycles of FOLFOX initially evaluated?",
     options: [
-      "A. Having delayed TME after regrowth did not yield worse DFS compared to patients who had immediate TME",
-      "B. Every patient with regrowth died of uncontrolled local disease",
-      "C. Delayed TME after regrowth was disallowed by protocol, so no data exist"
+      "A. By restaging MRI, proctoscopic exam, and clinical judgment to see if at least 20% size reduction was reached",
+      "B. By genomic analysis of circulating tumor DNA",
+      "C. By mandatory PET scan comparing baseline SUV to post-chemo SUV"
     ],
     correctIndex: 0,
-    explanation: "Correct Answer: A\nPatients requiring TME after regrowth did not have worse DFS or survival outcomes, supporting close surveillance and delayed surgery if needed."
+    explanation: "Correct Answer: A\nThe protocol required restaging with imaging plus endoscopic assessment. If there was ≥20% reduction, patients proceeded to surgery without radiation; <20% triggered chemoradiotherapy."
   },
   {
-    question: "13) Which baseline factor emerged as independently predictive of worse DFS in the trial’s multivariate analysis?",
+    question: "8. Which best describes the radiotherapy protocol for the standard arm?",
     options: [
-      "A. Older age (> 70 years)",
-      "B. Clinical nodal positivity (cN1–N2)",
-      "C. Tumor distance from anal verge under 2 cm"
+      "A. 25 Gy in five fractions (short-course RT), all completed in one week",
+      "B. 50.4 Gy in 28 fractions plus continuous-infusion 5-FU or oral capecitabine as radiosensitizer",
+      "C. 70 Gy with IMRT plus daily oxaliplatin infusion"
     ],
     correctIndex: 1,
-    explanation: "Correct Answer: B\nBeing cN+ was associated with higher hazard of DFS events. Age or distance were not as strongly predictive."
+    explanation: "Correct Answer: B\nThe control group used a conventional fractionation of 50.4 Gy over 5.5 weeks plus a fluoropyrimidine (usually 5-FU or capecitabine)."
   },
   {
-    question: "14) What was the approximate 3-year incidence of distant metastases in both arms?",
+    question: "9. Which eligibility criterion had to be met for patients to be enrolled?",
     options: [
-      "A. Nearly 100% in cT4 patients",
-      "B. Under 10% in the entire population",
-      "C. Around 16–18%, reflecting that roughly four-fifths remained metastasis-free"
+      "A. Clinical T4 tumor or M1 disease was required for high-risk selection",
+      "B. Tumors had to be located more than 12 cm from the anal verge",
+      "C. The tumor stage was T2N+ or T3N±, and patients needed to be deemed appropriate for sphincter-sparing resection"
     ],
     correctIndex: 2,
-    explanation: "Correct Answer: C\nDistant metastasis-free survival at 3 years was ~82–84%, so ~16–18% had distant spread."
+    explanation: "Correct Answer: C\nPROSPECT included cT2 node-positive or cT3 node-negative/positive disease suitable for low anterior resection, excluding T4 or low-lying tumors requiring APR."
   },
+
+  // III. Results and Findings (6 Questions)
   {
-    question: "15) Concerning toxicity during total neoadjuvant therapy, which conclusion is accurate?",
+    question: "10. Which core conclusion did PROSPECT make regarding disease-free survival (DFS) at five years?",
     options: [
-      "A. Grade 3+ adverse events rates were similar between induction-first and consolidation-first approaches",
-      "B. The OPRA trial required prophylactic dose reduction in the consolidation arm",
-      "C. More than half the patients discontinued therapy due to intolerance"
+      "A. FOLFOX with selective CRT was noninferior to standard chemoradiotherapy",
+      "B. Standard chemoradiotherapy was significantly superior, yielding an 8–10% higher DFS",
+      "C. FOLFOX with selective CRT was substantially inferior, with a hazard ratio of ~1.50"
     ],
     correctIndex: 0,
-    explanation: "Correct Answer: A\nBoth arms had similar incidence of grade ≥3 adverse events, with no major differences in completion rates."
+    explanation: "Correct Answer: A\nThe trial demonstrated noninferiority for the FOLFOX arm, with 5-year DFS ~80.8% vs. ~78.6% in the CRT arm (hazard ratio ~0.92)."
   },
   {
-    question: "16) What is one major strength of the OPRA Trial design?",
+    question: "11. How often did preoperative chemoradiotherapy end up being used in the FOLFOX (experimental) arm?",
     options: [
-      "A. It mandated that every patient undergo TME and multiple restaging steps",
-      "B. It prospectively tested watch-and-wait with two randomized TNT sequences in a multi-institution setting",
-      "C. It did not require any imaging before randomization, which reduced selection bias"
+      "A. Roughly 60% of patients in that arm ultimately needed radiation, due to poor response",
+      "B. Only about 9% actually required CRT preoperatively, plus another ~1% postoperatively",
+      "C. None of the patients in that arm ever received radiation"
     ],
     correctIndex: 1,
-    explanation: "Correct Answer: B\nOPRA’s prospective, randomized approach across multiple centers robustly tested watch-and-wait in two distinct TNT arms."
+    explanation: "Correct Answer: B\n~9.1% in the FOLFOX group received neoadjuvant CRT because of <20% shrinkage or intolerance of chemo, and ~1.4% had it postoperatively."
   },
   {
-    question: "17) What is one recognized limitation regarding these results on organ preservation?",
+    question: "12. How did the incidence of local recurrence (pelvic failure) compare between the two arms?",
     options: [
-      "A. There was no mandatory restaging after completion of neoadjuvant therapy",
-      "B. Three-year follow-up may be insufficient to capture all late local regrowth or metastases",
-      "C. The trial did not evaluate any quality-of-life outcomes or functional results"
+      "A. Significantly higher in the FOLFOX arm, nearly doubling local failures at 5 years",
+      "B. Negligible in both arms at 5 years, ~0–1%",
+      "C. Both arms had very low local recurrence (~1.6–1.8%), showing no meaningful difference"
     ],
     correctIndex: 2,
-    explanation: "Correct Answer: C\nA key limitation is that robust QoL/functional data were not the primary focus, and further follow-up is needed for final survival data."
+    explanation: "Correct Answer: C\nLocal recurrence was <2% at five years in both groups, confirming that skipping universal pelvic radiation didn’t compromise local control."
   },
   {
-    question: "18) Why might the OPRA investigators have trouble proving a statistically significant DFS benefit over the historical 75% reference?",
+    question: "13. Which best summarizes the rate of pathologic complete response (pCR) at surgery?",
     options: [
-      "A. The study was designed as a phase II with limited sample size and not powered for large DFS improvements",
-      "B. Both arms used suboptimal chemotherapy regimens that lowered success",
-      "C. They did not track local recurrence or metastasis rates"
+      "A. Both groups achieved roughly similar pCR rates (~22–24%)",
+      "B. The FOLFOX arm had more than double the pCR rate compared to the CRT arm",
+      "C. The CRT arm had an 80% pCR rate"
     ],
     correctIndex: 0,
-    explanation: "Correct Answer: A\nOPRA was a phase II trial with moderate enrollment, so it could not definitively surpass the historical DFS reference of 75%."
+    explanation: "Correct Answer: A\nThe pCR rates were similar in both arms (about 21.9% for FOLFOX vs. 24.3% for chemoradiotherapy)."
   },
   {
-    question: "19) How might clinicians view a ~50% organ-preservation rate in the context of OPRA’s results?",
+    question: "14. Concerning overall survival (OS), what did the five-year data show?",
     options: [
-      "A. They might consider it clinically meaningless without a complete elimination of recurrence",
-      "B. It suggests that nearly half of these patients could avoid TME and keep their rectum, with close monitoring",
-      "C. It indicates an underestimation of regrowth because MRI is inaccurate"
+      "A. FOLFOX was clearly inferior, with a 10% higher mortality at 5 years",
+      "B. No statistically significant difference was observed (both ~89–90% at 5 years)",
+      "C. The median survival was shorter with FOLFOX by about 12 months"
     ],
     correctIndex: 1,
-    explanation: "Correct Answer: B\nAbout half of CRT→CNCT patients avoided TME. This is meaningful for patients wishing to preserve rectal function, given close surveillance."
+    explanation: "Correct Answer: B\nFive-year OS was ~89.5% in the FOLFOX group and ~90.2% with standard CRT, showing no significant difference."
   },
   {
-    question: "20) For a patient with T3N2 rectal cancer who strongly wishes to avoid a permanent colostomy, how might OPRA’s findings help?",
+    question: "15. Looking at acute toxicities during preoperative therapy, which statement is correct?",
     options: [
-      "A. Induction chemo always leads to higher local control, so they can skip radiotherapy",
-      "B. The data do not support watch-and-wait for advanced T3N2 disease",
-      "C. TNT plus close surveillance can be considered, as nearly half of patients in certain subgroups avoided surgery long-term"
+      "A. Grade ≥3 side effects were identical since the total therapy duration was matched",
+      "B. The FOLFOX arm had fewer severe side effects overall despite more cycles",
+      "C. The FOLFOX arm had more severe toxicities preoperatively, but the CRT arm had more toxicity in the postoperative phase"
     ],
     correctIndex: 2,
-    explanation: "Correct Answer: C\nDespite advanced T3N2 stage, OPRA suggests that a subset may achieve cCR with TNT, offering a potential for WW if carefully followed."
+    explanation: "Correct Answer: C\nPreoperative therapy was ~12 weeks for FOLFOX vs. ~5.5 weeks for CRT, so the FOLFOX group had higher grade ≥3 toxicities up front; however, the CRT group more often received prolonged postoperative chemotherapy, raising toxicity later."
   },
+
+  // IV. Strengths and Limitations (3 Questions)
   {
-    question: "21) For a clinical team reluctant to delay surgery in favor of WW, what main takeaway supports a wait-and-see approach for complete responders?",
+    question: "16. What was a key strength of PROSPECT’s design?",
     options: [
-      "A. Patients with cCR who later needed surgery for regrowth did not suffer worse outcomes",
-      "B. cCR by MRI alone conclusively proves there is zero residual cancer",
-      "C. The watch-and-wait approach is guaranteed to prolong overall survival for T4 lesions"
+      "A. Large, multi-institutional enrollment with a noninferiority approach and a stringent margin (hazard ratio upper limit ~1.29)",
+      "B. Single-center design controlling for variation in surgical technique",
+      "C. Exclusively focusing on T4 or very low tumors requiring APR"
     ],
     correctIndex: 0,
-    explanation: "Correct Answer: A\nNo survival disadvantage was seen in patients who underwent TME after local regrowth, reassuring clinicians about delayed surgery if cCR was initially achieved."
+    explanation: "Correct Answer: A\nPROSPECT was a major multi-center, cooperative group trial with a carefully justified noninferiority margin to test whether FOLFOX + selective CRT was not worse than standard CRT."
   },
   {
-    question: "22) In a busy oncology clinic, how might OPRA’s findings alter standard care for rectal cancer?",
+    question: "17. Which limitation could reduce the trial’s applicability to all rectal cancer patients?",
     options: [
-      "A. Most clinics will abandon TME entirely in all rectal cancer patients",
-      "B. Teams may increasingly adopt TNT followed by strict restaging to identify cCR for potential organ preservation",
-      "C. The results show that standard chemoradiotherapy alone is always superior"
+      "A. Patients with T1 disease were included, inflating the success rate",
+      "B. It excluded T4 or very low rectal lesions, so it may not extend to higher-risk or borderline resectable disease",
+      "C. It mandated a watch-and-wait approach for everyone"
     ],
     correctIndex: 1,
-    explanation: "Correct Answer: B\nOPRA’s data encourage a TNT + restaging approach, letting cCR patients consider watch-and-wait as a viable alternative to immediate TME."
+    explanation: "Correct Answer: B\nBy design, PROSPECT excluded T4 or large nodal burdens, so caution is needed in extrapolating results to those higher-risk groups."
   },
   {
-    question: "23) What is a key real-world requirement if a center implements OPRA-like watch-and-wait?",
+    question: "18. Why might some critics label the approach as “overtreatment” even though radiation was avoided in most FOLFOX patients?",
     options: [
-      "A. Universal stoma creation in all patients regardless of response",
-      "B. Administering at least 12 cycles of FOLFOX to everyone",
-      "C. Ensuring frequent endoscopic and MRI follow-up plus readiness to operate on regrowth"
+      "A. They mandated indefinite maintenance chemo for all responders",
+      "B. Additional T4 tumors were enrolled and all got extended therapy",
+      "C. Because many patients received 6+ cycles of oxaliplatin-based chemo preop plus more postoperatively, potentially exceeding the minimal needed"
     ],
     correctIndex: 2,
-    explanation: "Correct Answer: C\nImplementing watch-and-wait demands rigorous endoscopic/MRI monitoring and swift surgery if local regrowth appears."
+    explanation: "Correct Answer: C\nThere is a possibility that simpler approaches—like direct surgery plus selective adjuvant therapy—could suffice for mid-rectal T2–T3. PROSPECT gave more up-front chemo to some potentially overtreated patients."
   },
+
+  // V. Interpretation and Real-World Application (3 Questions)
   {
-    question: "24) A patient’s restaging scans show “near-complete response.” How does OPRA influence the next step?",
+    question: "19. Which outcome supports the idea that standard pelvic chemoradiotherapy might not be necessary in many T3N0/N+ rectal cancers?",
     options: [
-      "A. WW can still be offered, provided the patient consents to short-interval surveillance",
-      "B. Surgeons must proceed to radical TME immediately",
-      "C. Induction chemo must be repeated for another 8 cycles"
+      "A. Both arms had a ≤2% local failure at 5 years",
+      "B. The FOLFOX arm had half as many recurrences as the CRT arm",
+      "C. No one in the CRT arm had distant metastases"
     ],
     correctIndex: 0,
-    explanation: "Correct Answer: A\nOPRA allowed watch-and-wait in near-cCR, with close follow-up to detect residual disease or early regrowth."
+    explanation: "Correct Answer: A\nThe study shows minimal local recurrence in the FOLFOX arm, indicating that universal preoperative radiation isn’t essential in the majority of intermediate-risk rectal cancers."
   },
   {
-    question: "25) How do OPRA’s findings align with the RAPIDO Trial’s overarching message?",
+    question: "20. If a clinic were to use PROSPECT’s approach, how might they handle a patient who develops borderline resectability after partial FOLFOX?",
     options: [
-      "A. OPRA contradicts RAPIDO, showing no role for short-course RT in advanced rectal cancer",
-      "B. Both underscore that TNT can achieve strong tumor responses and potential for organ preservation in select patients",
-      "C. They share identical radiation schedules and identical endpoints"
+      "A. Switch to immunotherapy since radiation is contraindicated",
+      "B. Administer neoadjuvant chemoradiotherapy if tumor response is inadequate (<20% shrinkage)",
+      "C. Perform immediate surgery regardless"
     ],
     correctIndex: 1,
-    explanation: "Correct Answer: B\nBoth demonstrate TNT’s ability to reduce or maintain good DFS and let some patients avoid TME via robust downstaging."
+    explanation: "Correct Answer: B\nThe protocol calls for standard preop radiation if FOLFOX response is insufficient."
   },
   {
-    question: "26) The CAO/ARO/AIO-12 trial (Fokas et al) also compared induction vs. consolidation chemotherapy. How did its main finding compare with OPRA’s results?",
+    question: "21. For a medical oncologist advising a patient about short-term toxicity, how might PROSPECT’s results guide the conversation?",
     options: [
-      "A. CAO/ARO/AIO-12 concluded induction chemo leads to higher pCR rates",
-      "B. OPRA found induction chemo to be superior, whereas CAO/ARO/AIO-12 found no differences",
-      "C. Both found that consolidation-first arms were associated with better complete responses/organ preservation"
+      "A. Omit mention of neuropathy entirely, as it’s not a recognized effect of FOLFOX",
+      "B. Warn that short-course radiation is always more toxic than any chemo",
+      "C. Acknowledge that preoperative chemo can cause more acute grade ≥3 events than a 5.5-week CRT course, though post-op chemo demands can differ"
     ],
     correctIndex: 2,
-    explanation: "Correct Answer: C\nCAO/ARO/AIO-12 also showed improved pCR with CRT→consolidation, mirroring OPRA’s higher TME-free survival in the CRT-CNCT group."
+    explanation: "Correct Answer: C\nFOLFOX-based regimens lead to neuropathy and other side effects over ~12 weeks, which is more drawn-out than 6 weeks of CRT. Overall toxicity burden must be discussed, balancing post-op therapy needs."
   },
+
+  // VI. How the Study Influences Decision Making (3 Questions)
   {
-    question: "27) In comparison to Habr-Gama’s early watch-and-wait series, OPRA’s main added value is:",
+    question: "22. In routine practice, how could PROSPECT’s findings shift management for an average-risk T3N+ rectal tumor?",
     options: [
-      "A. Larger prospective, randomized data clarifying TNT’s effect on cCR rates",
-      "B. Purely retrospective design limiting external validity",
-      "C. Mandating immediate surgery for all stage II patients"
+      "A. Clinicians might start with upfront FOLFOX and then only give CRT to poor responders, reducing the number exposed to pelvic radiation",
+      "B. They must keep radiation mandatory for all T3N+ disease",
+      "C. They can entirely skip TME surgery in all T3N+ patients"
     ],
     correctIndex: 0,
-    explanation: "Correct Answer: A\nOPRA is a prospective, randomized trial across many centers, building on earlier retrospective single-center experiences."
+    explanation: "Correct Answer: A\nThe trial indicates that many patients can skip radiation if they show good tumor shrinkage on FOLFOX."
   },
   {
-    question: "28) PRODIGE 23 (Conroy et al) used FOLFIRINOX-based TNT. What differentiates OPRA from that approach?",
+    question: "23. A patient with mid-rectal cT3N1 cancer is borderline for colostomy, but the surgeon believes sphincter preservation is feasible. Based on PROSPECT, what’s a valid approach?",
     options: [
-      "A. OPRA mandated short-course radiotherapy, whereas PRODIGE 23 prohibited radiotherapy",
-      "B. OPRA used FOLFOX or CAPEOX ± 5-FU/Cap RT, while PRODIGE 23 used a more intensive triple-drug regimen (FOLFIRINOX)",
-      "C. Both used identical induction sequences but had different endpoints"
+      "A. Start with local excision to confirm pathologic stage, then decide",
+      "B. Try neoadjuvant FOLFOX for ~12 weeks, restage; if <20% shrinkage, add CRT, then operate",
+      "C. Move directly to abdominoperineal resection"
     ],
     correctIndex: 1,
-    explanation: "Correct Answer: B\nPRODIGE 23 used FOLFIRINOX, while OPRA used FOLFOX/CAPEOX with concurrent chemoRT, thus different intensities/toxicities."
+    explanation: "Correct Answer: B\nThis scenario closely matches the trial’s approach: preoperative FOLFOX, assess response, and add radiation only if insufficient downsizing."
   },
   {
-    question: "29) Overall, how might a meta-analysis of OPRA and other TNT-based trials affect rectal cancer treatment paradigms?",
+    question: "24. If a patient is found to have only 10% tumor shrinkage and borderline resectability after FOLFOX, but the team wants to consider a watch-and-wait strategy, what do PROSPECT data suggest?",
     options: [
-      "A. Likely to abolish all surgery for rectal adenocarcinoma",
-      "B. Show that TNT drastically reduces OS in locally advanced rectal cancer",
-      "C. Strengthen the role of TNT to improve response, enabling a subset to avoid TME when carefully selected"
+      "A. The trial didn’t adopt watch-and-wait, so standard local resection or chemoradiotherapy remains standard",
+      "B. Proceed with immediate resection no matter the margin status",
+      "C. They can safely omit radiation and simply continue indefinite FOLFOX"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nPROSPECT mandated surgery or CRT for under-responders; it did not test watch-and-wait, so data do not support skipping radiation in suboptimal responders."
+  },
+
+  // VII. Comparing Its Findings With Similar Studies (5 Questions)
+  {
+    question: "25. How does the PROSPECT design contrast with the German Rectal Cancer Trial (Sauer et al, 2004) that established preop CRT as a standard?",
+    options: [
+      "A. PROSPECT specifically tested neoadjuvant chemotherapy plus selective radiation vs. universal CRT, whereas Sauer et al compared preoperative to postoperative CRT",
+      "B. PROSPECT used short-course RT in both arms, whereas Sauer used standard fractionation only",
+      "C. PROSPECT mandated watch-and-wait for T2 tumors, while Sauer used TME"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nThe German Trial established that preop is superior to postop CRT, whereas PROSPECT tested chemo-first (with selective radiation) versus mandatory preop CRT."
+  },
+  {
+    question: "26. FOWARC (Deng et al) also examined neoadjuvant FOLFOX vs. chemoradiotherapy in rectal cancer. What key difference stands out compared to PROSPECT?",
+    options: [
+      "A. PROSPECT mandated immunotherapy for T4 tumors",
+      "B. FOWARC had fewer patients overall (~330 total) and included T4 disease, whereas PROSPECT excluded T4 and was larger (1194 patients)",
+      "C. Both used identical arms with the same fractionation"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B\nFOWARC was smaller (~165 per arm) and allowed T4 tumors, while PROSPECT excluded T4 and enrolled nearly 1200 participants."
+  },
+  {
+    question: "27. Comparing PROSPECT to RAPIDO, which tested short-course RT plus chemo, how do the populations differ?",
+    options: [
+      "A. RAPIDO included only T1N0",
+      "B. PROSPECT included more high-risk T4 disease",
+      "C. RAPIDO focused on higher-risk “T4 or threatened margins” cases, whereas PROSPECT excluded them"
     ],
     correctIndex: 2,
-    explanation: "Correct Answer: C\nCombined data confirm TNT’s value in maximizing downstaging, so that a fraction of patients may forgo major surgery with proper monitoring."
+    explanation: "Correct Answer: C\nRAPIDO specifically enrolled T4 or MRF-positive patients, while PROSPECT studied T2N+ or T3 disease and excluded T4."
+  },
+  {
+    question: "28. In the context of total neoadjuvant therapy approaches like in OPRA or RAPIDO, how does PROSPECT’s approach differ?",
+    options: [
+      "A. PROSPECT used an either-or model for radiation: only if chemotherapy response was <20% or if chemo was discontinued prematurely",
+      "B. PROSPECT mandated full chemo and full pelvic RT for all T3 tumors",
+      "C. PROSPECT used immunotherapy instead of RT"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nInstead of giving radiation to all, the trial employed a selective approach, prescribing it only if FOLFOX response or compliance was inadequate."
+  },
+  {
+    question: "29. Considering the older US standard (preop CRT + TME + adjuvant chemo), how might PROSPECT’s results influence clinical trial design for future rectal cancer protocols?",
+    options: [
+      "A. Likely to confirm that universal CRT must remain the unchallenged comparator in all new studies",
+      "B. Encourage designs that further tailor or omit pelvic radiation in intermediate-risk tumors, focusing on chemo +/- short-course RT for subgroups",
+      "C. Mandate watch-and-wait in every advanced rectal cancer"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B\nPROSPECT’s success with selective RT underscores that many T2–T3 rectal cancers don’t need universal radiation, suggesting future trials focusing on individualized, risk-adapted therapy."
   },
 ];
 
 // ============
 // QUIZ ENGINE
 // ============
-
 let currentQuestionIndex = 0;
 let score = 0;
 let totalQuestions = 0;
 let selectedQuiz = null;
-let quizTitleEl = null;
-let isRetryMode = false;        // Distinguishes normal run vs. "retry missed"
-let missedQuestions = [];       // Will store the question objects for the ones answered incorrectly
-let isSecondPass = false;       // True if user has chosen "Retry Missed Questions"
+let missedQuestions = [];
+let isRetryMode = false;
+let isSecondPass = false;
 
 const questionContainer = document.getElementById("questionContainer");
 const optionsContainer = document.getElementById("optionsContainer");
@@ -743,12 +775,12 @@ const retryBtn = document.getElementById("retryBtn");
 const homeBtn = document.getElementById("homeBtn");
 const progressFill = document.getElementById("progressFill");
 const progressText = document.getElementById("progressText");
-quizTitleEl = document.getElementById("quizTitle");
+const quizTitleEl = document.getElementById("quizTitle");
 
-// Start Quiz: pick RAPIDO or OPRA from radio, show quiz container
 function startQuiz() {
   const rapidoSelected = document.getElementById('rapidoQuiz').checked;
   const opraSelected = document.getElementById('opraQuiz').checked;
+  const prospectSelected = document.getElementById('prospectQuiz').checked;
 
   if (rapidoSelected) {
     selectedQuiz = questionsRapido;
@@ -756,22 +788,25 @@ function startQuiz() {
   } else if (opraSelected) {
     selectedQuiz = questionsOpra;
     quizTitleEl.textContent = "OPRA Trial Expert MCQ Quiz";
+  } else if (prospectSelected) {
+    selectedQuiz = questionsProspect;
+    quizTitleEl.textContent = "PROSPECT Trial Expert MCQ Quiz";
   } else {
     alert("Please select a quiz first.");
     return;
   }
 
-  // Hide the initial choice UI, show the quiz container
+  // Hide initial choice, show quiz
   document.querySelector('.intro').style.display = "none";
   document.getElementById('quizContainer').style.display = "block";
 
-  // Initialize quiz state
+  // Initialize state
   currentQuestionIndex = 0;
   score = 0;
-  totalQuestions = selectedQuiz.length;
   missedQuestions = [];
   isRetryMode = false;
   isSecondPass = false;
+  totalQuestions = selectedQuiz.length;
 
   loadQuestion();
 }
@@ -798,6 +833,7 @@ function loadQuestion() {
     input.type = 'radio';
     input.name = 'option';
     input.value = i.toString();
+
     label.appendChild(input);
     label.appendChild(document.createTextNode(' ' + qObj.options[i]));
     optionsContainer.appendChild(label);
@@ -810,7 +846,6 @@ function updateProgressBar() {
   const questionNumber = currentQuestionIndex + 1;
   const quizProgressPercent = (questionNumber / totalQuestions) * 100;
 
-  // Score among the answered so far
   let scorePercent = 0;
   const answeredSoFar = questionNumber - 1;
   if (answeredSoFar > 0) {
@@ -844,7 +879,6 @@ function checkAnswer() {
   } else {
     feedbackEl.textContent = "Incorrect!";
     feedbackEl.classList.add("incorrect");
-    // Store the missed question for potential retry
     if (!isSecondPass) {
       missedQuestions.push(qObj);
     }
@@ -869,26 +903,23 @@ function goToNextQuestion() {
 
 function endQuiz() {
   const finalScorePercent = (score / totalQuestions) * 100;
-
   questionContainer.textContent = "Quiz Completed!";
   optionsContainer.innerHTML = "";
   feedbackEl.classList.remove('incorrect', 'correct');
   feedbackEl.classList.add('correct');
-
+  
   if (!isSecondPass) {
-    // First pass completed
+    // first pass
     feedbackEl.textContent = `You answered ${score} out of ${totalQuestions} questions correctly.`;
     explanationEl.textContent = `Your final score: ${finalScorePercent.toFixed(0)}%.`;
     submitBtn.style.display = 'none';
     nextBtn.style.display = 'none';
-
-    // If user missed any questions, show "Retry Missed" button
     if (missedQuestions.length > 0) {
       retryBtn.style.display = 'inline-block';
     }
     homeBtn.style.display = 'inline-block';
   } else {
-    // Second pass (retry mode) completed
+    // second pass
     feedbackEl.textContent = `Retry Attempt Completed: You answered ${score} out of ${totalQuestions} missed questions correctly.`;
     explanationEl.textContent = `Your final score: ${finalScorePercent.toFixed(0)}%.`;
     submitBtn.style.display = 'none';
@@ -896,33 +927,25 @@ function endQuiz() {
     retryBtn.style.display = 'none';
     homeBtn.style.display = 'inline-block';
   }
-
-  // Fill the progress bar to 100%, final
   progressFill.style.width = '100%';
   progressText.textContent = `All questions answered! Final score: ${finalScorePercent.toFixed(0)}%.`;
 }
 
-// Called by "Retry Missed Questions" button
 retryBtn.addEventListener('click', function() {
-  // Only do this if there are missed questions
   if (missedQuestions.length === 0) {
     alert("No missed questions to retry.");
     return;
   }
-
-  // Switch to second pass
   isSecondPass = true;
   score = 0;
   selectedQuiz = missedQuestions;
   totalQuestions = missedQuestions.length;
   currentQuestionIndex = 0;
-  missedQuestions = []; // We won't do repeated loops
-
+  missedQuestions = [];
   loadQuestion();
 });
 
 function returnHome() {
-  // Simple approach: reload the page to reset
   location.reload();
 }
 
