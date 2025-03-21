@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Rectal Cancer Trials: Expert MCQ Quizzes</title>
+  <title>Rectal Cancer Trials: MCQ Quizzes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -19,6 +19,11 @@
     .intro {
       text-align: center;
       margin-bottom: 1.5em;
+    }
+    .quizSelection {
+      text-align: left;     /* Align the radio inputs/labels to the left */
+      display: inline-block;
+      margin: 0 auto;
     }
     .button-container {
       text-align: center;
@@ -107,10 +112,10 @@
 </head>
 <body>
 
-<h1>Rectal Cancer Trials: Expert MCQ Quizzes</h1>
+<h1>Rectal Cancer Trials: MCQ Quizzes</h1>
 <div class="intro">
   <p>Select which study quiz you want to attempt:</p>
-  <div>
+  <div class="quizSelection">
     <input type="radio" id="rapidoQuiz" name="quizSelect" value="rapido" checked>
     <label for="rapidoQuiz">RAPIDO 5-Year Follow-up (27 Questions)</label>
     <br>
@@ -152,607 +157,16 @@
 // ======================
 
 // 1) RAPIDO 5-Year Follow-up (27 questions)
-const questionsRapido = [
-  {
-    question: "1) Which primary clinical challenge in locally advanced rectal cancer motivated the concept of total neoadjuvant treatment (TNT) in the RAPIDO trial?",
-    options: [
-      "A. The high rate of distant metastasis despite improved local control",
-      "B. The need to offer shorter, non-surgical treatment for rectal cancer",
-      "C. A desire to replace all radiation with purely systemic chemotherapy"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nEven though local control improved significantly after the introduction of preoperative RT and TME, distant metastases remained a persistent problem. TNT was introduced to reduce systemic relapse."
-  },
-  {
-    question: "2) One key reason short-course radiotherapy (scRT) was selected for the experimental arm was:",
-    options: [
-      "A. To provide a lesser biologically effective dose than long-course chemoradiotherapy",
-      "B. To enable a faster transition to systemic chemotherapy",
-      "C. To maintain local control while delaying surgery indefinitely"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nShort-course RT shortens the time to full-dose chemotherapy, aligning with the TNT concept to tackle micrometastatic disease earlier."
-  },
-  {
-    question: "3) In the context of the RAPIDO trial’s rationale, what was the primary goal of administering systemic chemotherapy before surgery?",
-    options: [
-      "A. To eliminate any need for TME surgery",
-      "B. To prevent local recurrences in the pelvis",
-      "C. To improve control of micrometastatic disease and thus reduce distant metastases"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nSystemic chemotherapy early on was meant to reduce the overall risk of distant spread, the main cause of treatment failure."
-  },
-  {
-    question: "4) Which baseline high-risk features on MRI qualified patients for enrollment in the RAPIDO trial?",
-    options: [
-      "A. cT4, cN2, EMVI+, enlarged lateral lymph nodes, and/or threatened mesorectal fascia",
-      "B. Any rectal cancer located 0–16 cm from the anal verge, regardless of staging",
-      "C. Low-grade adenomas of the rectum with negative lymph nodes"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nPatients needed at least one high-risk MRI finding (cT4, N2, EMVI+, large lateral nodes, or MRF+)."
-  },
-  {
-    question: "5) In the experimental (EXP) arm, what was the sequence of treatments?",
-    options: [
-      "A. Chemotherapy → Total mesorectal excision (TME) → Long-course radiotherapy",
-      "B. Short-course radiotherapy → Preoperative chemotherapy → Surgery",
-      "C. Long-course chemoradiotherapy → Surgery → Mandatory adjuvant chemotherapy"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nThe EXP arm used TNT: 5×5 Gy RT, then CAPOX/FOLFOX4, then TME surgery."
-  },
-  {
-    question: "6) In the standard-care (STD) arm of the RAPIDO trial, patients could receive postoperative chemotherapy based on:",
-    options: [
-      "A. Mandatory enrollment in a second randomized trial",
-      "B. Discretion of the treating center, per protocol allowance",
-      "C. A universal requirement that all patients complete six cycles of CAPOX"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nLong-course chemoradiotherapy was followed by surgery, and postoperative chemotherapy (8 cycles CAPOX or 12 FOLFOX4) was optional per hospital policy, though strongly recommended."
-  },
-  {
-    question: "7) How was tumor response assessed in the RAPIDO trial before TME surgery?",
-    options: [
-      "A. Radiologic restaging (MRI ± CT) ~1–2 weeks pre-surgery",
-      "B. Only a baseline CT scan of the thorax and abdomen was done, without further imaging",
-      "C. Intraoperative frozen sections of the tumor were the sole method of response assessment"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nPatients underwent MRI of the pelvis and CT of the thorax/abdomen for restaging before surgery, consistent with standard protocols."
-  },
-  {
-    question: "8) Which statement best reflects the radiation techniques used in the RAPIDO trial?",
-    options: [
-      "A. All sites exclusively used volumetric-modulated arc therapy (VMAT) to deliver scRT",
-      "B. Both 3D-CRT and IMRT/VMAT were permitted, depending on each center’s protocols",
-      "C. Radiation technique was standardized to conventional two-field planning in all centers"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nCenters used various approaches; IMRT/VMAT was commonly used in long-course CRT, while 3D-CRT was typical for short-course RT."
-  },
-  {
-    question: "9) Which best describes the surgical procedure mandated by the protocol for most patients in both arms?",
-    options: [
-      "A. Radical local excision without mesorectal resection",
-      "B. Standardized total mesorectal excision (TME)",
-      "C. Sphincter-saving resection only if a complete clinical response was confirmed"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nTME was the standard surgical approach for resectable disease, with the choice of sphincter-saving or APR depending on tumor location and response."
-  },
-  {
-    question: "10) At a median follow-up of about 5.6 years, which statement accurately reflects the difference in locoregional failure (LRF) between arms?",
-    options: [
-      "A. LRF was numerically higher in the EXP arm (12%) vs. STD (8%), approaching but not reaching significance",
-      "B. There was no difference in LRF rates; both arms had 10%",
-      "C. The EXP arm demonstrated a significantly lower LRF rate than STD"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nLRF was 11.7% (EXP) vs. 8.1% (STD) at five years (P=0.07), slightly favoring the STD arm."
-  },
-  {
-    question: "11) Regarding early locoregional failures (eLRF), defined as no resection or R2 resection (except organ preservation):",
-    options: [
-      "A. eLRFs were over three times higher in the EXP arm",
-      "B. Both arms showed similarly low rates of eLRF, often accompanied by distant metastases",
-      "C. eLRFs were only seen in STD patients since they waited longer before surgery"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\neLRFs were rare and occurred at similar rates (10 patients each arm). Most eLRF cases also had distant metastases."
-  },
-  {
-    question: "12) When focusing on locoregional recurrence (LRR) after an R0/R1 resection, what was observed in the EXP arm vs. STD?",
-    options: [
-      "A. Identical LRR rates (~6%) in both arms",
-      "B. A strong reduction in LRR in the EXP arm thanks to chemo",
-      "C. A significantly higher LRR rate in the EXP group (10.2%) vs. STD (6.1%)"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nLRR was indeed higher in the EXP group (10.2% vs. 6.1%)."
-  },
-  {
-    question: "13) Which factor was associated with an increased risk of LRR in patients receiving the experimental treatment?",
-    options: [
-      "A. Use of 3D-conformal RT instead of IMRT/VMAT",
-      "B. Tumor location in the upper rectum (>12 cm from the anal verge)",
-      "C. Absence of baseline EMVI"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nIn the EXP group, 3D-CRT correlated with higher LRR, possibly due to coverage or planning differences."
-  },
-  {
-    question: "14) Which outcome did the five-year follow-up confirm regarding disease-related treatment failure (DrTF) and distant metastases (DM)?",
-    options: [
-      "A. No difference in DrTF or DM was detectable at five years",
-      "B. Both DrTF and DM were significantly lower in the EXP arm at five years",
-      "C. DM was higher in the EXP arm compared to STD at five years"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nEven at five years, DrTF and DM remained significantly lower in the EXP arm."
-  },
-  {
-    question: "15) In terms of overall survival (OS) at five years, what was reported?",
-    options: [
-      "A. The EXP arm had clearly superior overall survival",
-      "B. The STD arm had substantially better five-year OS",
-      "C. There was no statistically significant difference between EXP and STD arms"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nNo significant OS difference emerged (81.7% vs. 80.2%; P=0.50)."
-  },
-  {
-    question: "16) Which of the following is most clearly a strength of this trial?",
-    options: [
-      "A. It enrolled a large, international cohort of high-risk rectal cancer patients with robust imaging and follow-up",
-      "B. It had a single-center design, ensuring strict uniformity of treatment",
-      "C. The short follow-up period allowed quick conclusions about late recurrences"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nRAPIDO was a large, multicenter international study, making results generalizable for high-risk rectal cancer."
-  },
-  {
-    question: "17) Which limitation might partly explain the higher LRR in the experimental group?",
-    options: [
-      "A. Overly aggressive surgical techniques in the EXP group",
-      "B. Variability in radiation techniques (3D-CRT vs. IMRT/VMAT) without centralized RT quality control",
-      "C. A requirement that all centers use exactly the same chemotherapy regimen"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nOne potential limitation is that scRT was more commonly planned with 3D-CRT, which may have led to more geographic misses and higher LRR."
-  },
-  {
-    question: "18) One recognized shortcoming in analyzing LRR and LRF in the five-year results was:",
-    options: [
-      "A. The lack of any restaging imaging to confirm local recurrence",
-      "B. The trial was underpowered for these secondary endpoints",
-      "C. All LRR events were assumed to be in the anastomotic region"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nThe trial was not powered for LRF/LRR analyses, making definitive conclusions about local failure rates more challenging."
-  },
-  {
-    question: "19) What does the study imply about the use of TNT (short-course RT + chemo) in rectal cancer care?",
-    options: [
-      "A. It confirms TNT’s ability to substantially reduce distant metastases while marginally risking higher local recurrences",
-      "B. It recommends abandoning TNT altogether due to increased local failure",
-      "C. It shows that TNT is only beneficial in early-stage rectal cancer"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nTNT reduces DM significantly but may have a slightly higher LRR risk, requiring careful technique."
-  },
-  {
-    question: "20) Given the findings, how might clinicians mitigate the risk of local recurrence when using TNT?",
-    options: [
-      "A. By postponing all imaging and proceeding directly to surgery after chemotherapy",
-      "B. By performing interim MRI evaluations and ensuring optimal RT technique and mesorectal dissection quality",
-      "C. By removing all lateral pelvic lymph nodes prophylactically in every rectal cancer case"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nMonitoring response and refining radiotherapy and surgery can reduce locoregional failures."
-  },
-  {
-    question: "21) Why might results at five years still justify TNT approaches in some centers despite an increased LRR rate?",
-    options: [
-      "A. Because local recurrence rates do not matter in rectal cancer",
-      "B. Because significantly fewer distant metastases can outweigh a modest increase in LRR if local treatment is optimized",
-      "C. Because the short-course RT regimen completely prevents anastomotic breakdown"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nTNT’s systemic benefits (reduced DM) are crucial. Many centers accept a slightly higher local recurrence if overall outcomes improve, especially with refined local therapy."
-  },
-  {
-    question: "22) In a patient with cT3N2 rectal cancer and no sign of distant disease, how might the RAPIDO results guide therapy?",
-    options: [
-      "A. Consider short-course radiotherapy followed by chemotherapy, then carefully re-assess for surgery",
-      "B. Start with immediate surgery to remove the primary tumor as soon as possible",
-      "C. Omit local radiotherapy because TNT alone is enough for local control"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nTNT can address both local and systemic risk factors in cT3N2 disease; short-course RT plus chemo, then re-assessment, is a valid approach."
-  },
-  {
-    question: "23) A patient on the EXP regimen shows poor tumor response mid-chemotherapy. What lesson from the trial might inform next steps?",
-    options: [
-      "A. Abandon all chemotherapy and consider best supportive care",
-      "B. Perform an interim restaging, and if progression is suspected, expedite surgery or adapt therapy",
-      "C. Continue the entire planned chemotherapy before evaluating any surgical option"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nIdentifying non-responders early may help avert local progression by moving to surgery sooner or changing strategy."
-  },
-  {
-    question: "24) In patients for whom short-course RT is planned, what practical change might improve locoregional control according to the RAPIDO authors?",
-    options: [
-      "A. Using partial rather than whole-pelvis RT",
-      "B. Shortening the total mesorectal excision plane",
-      "C. Optimizing RT planning (IMRT/VMAT) to reduce geographic misses"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nBetter RT planning (e.g. IMRT/VMAT) may reduce LRR by avoiding under-coverage of the target area."
-  },
-  {
-    question: "25) How do RAPIDO’s results compare with historical trials like Polish II and TROG concerning short-course vs. long-course RT?",
-    options: [
-      "A. RAPIDO is unique in adding full-dose chemotherapy preoperatively, showing improved systemic control beyond those earlier comparisons",
-      "B. RAPIDO used the exact same protocol as Polish II, so the conclusions overlap completely",
-      "C. Earlier studies found long-course RT was always superior to short-course in all endpoints"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nRAPIDO combined scRT with upfront full chemotherapy. Previous short-/long-course comparisons lacked this comprehensive TNT approach."
-  },
-  {
-    question: "26) In comparison to the PRODIGE 23 trial, which also utilized a TNT approach, RAPIDO is distinct because:",
-    options: [
-      "A. It only studied metastatic rectal cancer",
-      "B. It employed short-course RT and immediate chemotherapy, whereas PRODIGE 23 used long-course chemoradiotherapy within TNT",
-      "C. It required 12 months of consecutive chemotherapy in all patients"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nRAPIDO gave 5×5 Gy followed by chemo, while PRODIGE 23 used a different sequence (long-course CRT plus induction chemo)."
-  },
-  {
-    question: "27) What key message might a meta-analysis of RAPIDO and similar TNT studies highlight?",
-    options: [
-      "A. TNT should be avoided in high-risk rectal cancer",
-      "B. TNT always leads to excessive toxicity with no improvement in outcomes",
-      "C. TNT can improve systemic disease control but needs refinements to optimize local control"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nTNT lowers distant relapses, but local control strategies (RT, surgery technique) must be carefully refined."
-  },
-];
+// Insert your RAPIDO question array here:
+const questionsRapido = [/* ...27 Q&A items... */];
 
 // 2) OPRA Trial (29 questions)
-const questionsOpra = [
-  // (Already posted in previous messages, no changes)
-  // ...
-  // To keep code concise, we won't re-paste the entire OPRA array here in the explanation. 
-  // The user has that. Insert the full array from your existing code.
-  {
-    question: "1) What was one of the key motivations for investigating “watch-and-wait” (WW) strategies in the OPRA Trial?",
-    options: [
-      "A. To eliminate the need for systemic chemotherapy in low-risk rectal cancer",
-      "B. To preserve organ function in patients who achieve a complete clinical response",
-      "C. To test whether shorter radiation schedules could replace standard long-course RT"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nA main rationale was that many post-treatment sequelae (e.g. stoma, bowel dysfunction) are tied to surgery itself. For patients achieving complete or near-complete clinical response, avoiding TME can preserve quality of life."
-  },
-  // ... Insert the remaining 28 OPRA Q&A items ...
-];
+// Insert your OPRA question array here:
+const questionsOpra = [/* ...29 Q&A items... */];
 
 // 3) PROSPECT Trial (29 questions)
-const questionsProspect = [
-  // *** This is the new PROSPECT set of 29 Q&A. ***
-  // EXACT TEXT from user’s final version:
-
-  // I. Background and Rationale (3 Questions)
-  {
-    question: "1. Which main concern spurred investigators to explore whether neoadjuvant FOLFOX could be used instead of standard chemoradiotherapy in rectal cancer?",
-    options: [
-      "A. The recognition that many average-risk patients may be overtreated with universal pelvic radiation",
-      "B. A desire to fully eliminate chemotherapy from rectal cancer management",
-      "C. The need to expand indications for prophylactic ostomy in early-stage cancer"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nAlthough preoperative chemoradiotherapy reduces pelvic recurrence, it can cause both acute and long-term toxicities. Investigators hypothesized that modern total mesorectal excision plus FOLFOX might achieve similar control while sparing many patients pelvic radiation."
-  },
-  {
-    question: "2. Which historical trial’s findings (published in 2004) helped establish preoperative chemoradiotherapy as a standard for locally advanced rectal cancer in North America?",
-    options: [
-      "A. FOWARC",
-      "B. The German Rectal Cancer Trial (Sauer et al)",
-      "C. NSABP R-04"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nSauer and colleagues (German Rectal Cancer Trial) demonstrated that preoperative (rather than postoperative) chemoradiotherapy improves local control for T3–T4 rectal tumors, anchoring CRT as the dominant approach."
-  },
-  {
-    question: "3. Why did the PROSPECT investigators exclude patients with T4 or very low-lying rectal tumors?",
-    options: [
-      "A. To maximize the number of sphincter-saving surgeries",
-      "B. Because no patients in that category respond to chemotherapy",
-      "C. Because they aimed to avoid potentially under-treating higher-risk or bulky disease"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nPatients with T4 disease or extensive nodal involvement are at higher risk for incomplete resection or local failure, so the investigators wanted to ensure that omitting radiation would not compromise outcomes in these high-risk cases."
-  },
-
-  // II. Study Design and Methods (6 Questions)
-  {
-    question: "4. In PROSPECT, what were the two arms compared?",
-    options: [
-      "A. Preoperative FOLFOX, with selective chemoradiotherapy only if tumor response was <20% or if toxicity forced chemo discontinuation, versus standard preoperative chemoradiotherapy",
-      "B. Preoperative capecitabine–oxaliplatin alone versus chemoradiotherapy alone",
-      "C. Preoperative immunotherapy versus standard CRT"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nThe trial randomized patients to either full neoadjuvant FOLFOX (with selective CRT) or routine neoadjuvant chemoradiotherapy (50.4 Gy + fluoropyrimidine) before surgery."
-  },
-  {
-    question: "5. How did the trial define its primary outcome measure?",
-    options: [
-      "A. Freedom from local recurrence at two years",
-      "B. Disease-free survival, measured from randomization to recurrence or death",
-      "C. Sphincter preservation rate in T4 rectal cancer"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nThe primary endpoint was disease-free survival, assessed with a noninferiority design. They specifically examined time to any recurrence or death."
-  },
-  {
-    question: "6. Which statement best describes the selective use of chemoradiotherapy in the FOLFOX arm?",
-    options: [
-      "A. Pelvic radiation was offered to all patients just before surgery, regardless of response",
-      "B. CRT was delivered only postoperatively if the margins were positive",
-      "C. CRT was reserved only for those who had <20% tumor downsizing by restaging or who could not complete ≥5 cycles of FOLFOX"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nIn the experimental arm, patients who didn’t achieve adequate shrinkage (less than 20% decrease in tumor) or had to stop FOLFOX prematurely were given chemoradiotherapy preoperatively."
-  },
-  {
-    question: "7. In PROSPECT, how was the tumor’s response after six cycles of FOLFOX initially evaluated?",
-    options: [
-      "A. By restaging MRI, proctoscopic exam, and clinical judgment to see if at least 20% size reduction was reached",
-      "B. By genomic analysis of circulating tumor DNA",
-      "C. By mandatory PET scan comparing baseline SUV to post-chemo SUV"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nThe protocol required restaging with imaging plus endoscopic assessment. If there was ≥20% reduction, patients proceeded to surgery without radiation; <20% triggered chemoradiotherapy."
-  },
-  {
-    question: "8. Which best describes the radiotherapy protocol for the standard arm?",
-    options: [
-      "A. 25 Gy in five fractions (short-course RT), all completed in one week",
-      "B. 50.4 Gy in 28 fractions plus continuous-infusion 5-FU or oral capecitabine as radiosensitizer",
-      "C. 70 Gy with IMRT plus daily oxaliplatin infusion"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nThe control group used a conventional fractionation of 50.4 Gy over 5.5 weeks plus a fluoropyrimidine (usually 5-FU or capecitabine)."
-  },
-  {
-    question: "9. Which eligibility criterion had to be met for patients to be enrolled?",
-    options: [
-      "A. Clinical T4 tumor or M1 disease was required for high-risk selection",
-      "B. Tumors had to be located more than 12 cm from the anal verge",
-      "C. The tumor stage was T2N+ or T3N±, and patients needed to be deemed appropriate for sphincter-sparing resection"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nPROSPECT included cT2 node-positive or cT3 node-negative/positive disease suitable for low anterior resection, excluding T4 or low-lying tumors requiring APR."
-  },
-
-  // III. Results and Findings (6 Questions)
-  {
-    question: "10. Which core conclusion did PROSPECT make regarding disease-free survival (DFS) at five years?",
-    options: [
-      "A. FOLFOX with selective CRT was noninferior to standard chemoradiotherapy",
-      "B. Standard chemoradiotherapy was significantly superior, yielding an 8–10% higher DFS",
-      "C. FOLFOX with selective CRT was substantially inferior, with a hazard ratio of ~1.50"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nThe trial demonstrated noninferiority for the FOLFOX arm, with 5-year DFS ~80.8% vs. ~78.6% in the CRT arm (hazard ratio ~0.92)."
-  },
-  {
-    question: "11. How often did preoperative chemoradiotherapy end up being used in the FOLFOX (experimental) arm?",
-    options: [
-      "A. Roughly 60% of patients in that arm ultimately needed radiation, due to poor response",
-      "B. Only about 9% actually required CRT preoperatively, plus another ~1% postoperatively",
-      "C. None of the patients in that arm ever received radiation"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\n~9.1% in the FOLFOX group received neoadjuvant CRT because of <20% shrinkage or intolerance of chemo, and ~1.4% had it postoperatively."
-  },
-  {
-    question: "12. How did the incidence of local recurrence (pelvic failure) compare between the two arms?",
-    options: [
-      "A. Significantly higher in the FOLFOX arm, nearly doubling local failures at 5 years",
-      "B. Negligible in both arms at 5 years, ~0–1%",
-      "C. Both arms had very low local recurrence (~1.6–1.8%), showing no meaningful difference"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nLocal recurrence was <2% at five years in both groups, confirming that skipping universal pelvic radiation didn’t compromise local control."
-  },
-  {
-    question: "13. Which best summarizes the rate of pathologic complete response (pCR) at surgery?",
-    options: [
-      "A. Both groups achieved roughly similar pCR rates (~22–24%)",
-      "B. The FOLFOX arm had more than double the pCR rate compared to the CRT arm",
-      "C. The CRT arm had an 80% pCR rate"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nThe pCR rates were similar in both arms (about 21.9% for FOLFOX vs. 24.3% for chemoradiotherapy)."
-  },
-  {
-    question: "14. Concerning overall survival (OS), what did the five-year data show?",
-    options: [
-      "A. FOLFOX was clearly inferior, with a 10% higher mortality at 5 years",
-      "B. No statistically significant difference was observed (both ~89–90% at 5 years)",
-      "C. The median survival was shorter with FOLFOX by about 12 months"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nFive-year OS was ~89.5% in the FOLFOX group and ~90.2% with standard CRT, showing no significant difference."
-  },
-  {
-    question: "15. Looking at acute toxicities during preoperative therapy, which statement is correct?",
-    options: [
-      "A. Grade ≥3 side effects were identical since the total therapy duration was matched",
-      "B. The FOLFOX arm had fewer severe side effects overall despite more cycles",
-      "C. The FOLFOX arm had more severe toxicities preoperatively, but the CRT arm had more toxicity in the postoperative phase"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nPreoperative therapy was ~12 weeks for FOLFOX vs. ~5.5 weeks for CRT, so the FOLFOX group had higher grade ≥3 toxicities up front; however, the CRT group more often received prolonged postoperative chemotherapy, raising toxicity later."
-  },
-
-  // IV. Strengths and Limitations (3 Questions)
-  {
-    question: "16. What was a key strength of PROSPECT’s design?",
-    options: [
-      "A. Large, multi-institutional enrollment with a noninferiority approach and a stringent margin (hazard ratio upper limit ~1.29)",
-      "B. Single-center design controlling for variation in surgical technique",
-      "C. Exclusively focusing on T4 or very low tumors requiring APR"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nPROSPECT was a major multi-center, cooperative group trial with a carefully justified noninferiority margin to test whether FOLFOX + selective CRT was not worse than standard CRT."
-  },
-  {
-    question: "17. Which limitation could reduce the trial’s applicability to all rectal cancer patients?",
-    options: [
-      "A. Patients with T1 disease were included, inflating the success rate",
-      "B. It excluded T4 or very low rectal lesions, so it may not extend to higher-risk or borderline resectable disease",
-      "C. It mandated a watch-and-wait approach for everyone"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nBy design, PROSPECT excluded T4 or large nodal burdens, so caution is needed in extrapolating results to those higher-risk groups."
-  },
-  {
-    question: "18. Why might some critics label the approach as “overtreatment” even though radiation was avoided in most FOLFOX patients?",
-    options: [
-      "A. They mandated indefinite maintenance chemo for all responders",
-      "B. Additional T4 tumors were enrolled and all got extended therapy",
-      "C. Because many patients received 6+ cycles of oxaliplatin-based chemo preop plus more postoperatively, potentially exceeding the minimal needed"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nThere is a possibility that simpler approaches—like direct surgery plus selective adjuvant therapy—could suffice for mid-rectal T2–T3. PROSPECT gave more up-front chemo to some potentially overtreated patients."
-  },
-
-  // V. Interpretation and Real-World Application (3 Questions)
-  {
-    question: "19. Which outcome supports the idea that standard pelvic chemoradiotherapy might not be necessary in many T3N0/N+ rectal cancers?",
-    options: [
-      "A. Both arms had a ≤2% local failure at 5 years",
-      "B. The FOLFOX arm had half as many recurrences as the CRT arm",
-      "C. No one in the CRT arm had distant metastases"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nThe study shows minimal local recurrence in the FOLFOX arm, indicating that universal preoperative radiation isn’t essential in the majority of intermediate-risk rectal cancers."
-  },
-  {
-    question: "20. If a clinic were to use PROSPECT’s approach, how might they handle a patient who develops borderline resectability after partial FOLFOX?",
-    options: [
-      "A. Switch to immunotherapy since radiation is contraindicated",
-      "B. Administer neoadjuvant chemoradiotherapy if tumor response is inadequate (<20% shrinkage)",
-      "C. Perform immediate surgery regardless"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nThe protocol calls for standard preop radiation if FOLFOX response is insufficient."
-  },
-  {
-    question: "21. For a medical oncologist advising a patient about short-term toxicity, how might PROSPECT’s results guide the conversation?",
-    options: [
-      "A. Omit mention of neuropathy entirely, as it’s not a recognized effect of FOLFOX",
-      "B. Warn that short-course radiation is always more toxic than any chemo",
-      "C. Acknowledge that preoperative chemo can cause more acute grade ≥3 events than a 5.5-week CRT course, though post-op chemo demands can differ"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nFOLFOX-based regimens lead to neuropathy and other side effects over ~12 weeks, which is more drawn-out than 6 weeks of CRT. Overall toxicity burden must be discussed, balancing post-op therapy needs."
-  },
-
-  // VI. How the Study Influences Decision Making (3 Questions)
-  {
-    question: "22. In routine practice, how could PROSPECT’s findings shift management for an average-risk T3N+ rectal tumor?",
-    options: [
-      "A. Clinicians might start with upfront FOLFOX and then only give CRT to poor responders, reducing the number exposed to pelvic radiation",
-      "B. They must keep radiation mandatory for all T3N+ disease",
-      "C. They can entirely skip TME surgery in all T3N+ patients"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nThe trial indicates that many patients can skip radiation if they show good tumor shrinkage on FOLFOX."
-  },
-  {
-    question: "23. A patient with mid-rectal cT3N1 cancer is borderline for colostomy, but the surgeon believes sphincter preservation is feasible. Based on PROSPECT, what’s a valid approach?",
-    options: [
-      "A. Start with local excision to confirm pathologic stage, then decide",
-      "B. Try neoadjuvant FOLFOX for ~12 weeks, restage; if <20% shrinkage, add CRT, then operate",
-      "C. Move directly to abdominoperineal resection"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nThis scenario closely matches the trial’s approach: preoperative FOLFOX, assess response, and add radiation only if insufficient downsizing."
-  },
-  {
-    question: "24. If a patient is found to have only 10% tumor shrinkage and borderline resectability after FOLFOX, but the team wants to consider a watch-and-wait strategy, what do PROSPECT data suggest?",
-    options: [
-      "A. The trial didn’t adopt watch-and-wait, so standard local resection or chemoradiotherapy remains standard",
-      "B. Proceed with immediate resection no matter the margin status",
-      "C. They can safely omit radiation and simply continue indefinite FOLFOX"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nPROSPECT mandated surgery or CRT for under-responders; it did not test watch-and-wait, so data do not support skipping radiation in suboptimal responders."
-  },
-
-  // VII. Comparing Its Findings With Similar Studies (5 Questions)
-  {
-    question: "25. How does the PROSPECT design contrast with the German Rectal Cancer Trial (Sauer et al, 2004) that established preop CRT as a standard?",
-    options: [
-      "A. PROSPECT specifically tested neoadjuvant chemotherapy plus selective radiation vs. universal CRT, whereas Sauer et al compared preoperative to postoperative CRT",
-      "B. PROSPECT used short-course RT in both arms, whereas Sauer used standard fractionation only",
-      "C. PROSPECT mandated watch-and-wait for T2 tumors, while Sauer used TME"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nThe German Trial established that preop is superior to postop CRT, whereas PROSPECT tested chemo-first (with selective radiation) versus mandatory preop CRT."
-  },
-  {
-    question: "26. FOWARC (Deng et al) also examined neoadjuvant FOLFOX vs. chemoradiotherapy in rectal cancer. What key difference stands out compared to PROSPECT?",
-    options: [
-      "A. PROSPECT mandated immunotherapy for T4 tumors",
-      "B. FOWARC had fewer patients overall (~330 total) and included T4 disease, whereas PROSPECT excluded T4 and was larger (1194 patients)",
-      "C. Both used identical arms with the same fractionation"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nFOWARC was smaller (~165 per arm) and allowed T4 tumors, while PROSPECT excluded T4 and enrolled nearly 1200 participants."
-  },
-  {
-    question: "27. Comparing PROSPECT to RAPIDO, which tested short-course RT plus chemo, how do the populations differ?",
-    options: [
-      "A. RAPIDO included only T1N0",
-      "B. PROSPECT included more high-risk T4 disease",
-      "C. RAPIDO focused on higher-risk “T4 or threatened margins” cases, whereas PROSPECT excluded them"
-    ],
-    correctIndex: 2,
-    explanation: "Correct Answer: C\nRAPIDO specifically enrolled T4 or MRF-positive patients, while PROSPECT studied T2N+ or T3 disease and excluded T4."
-  },
-  {
-    question: "28. In the context of total neoadjuvant therapy approaches like in OPRA or RAPIDO, how does PROSPECT’s approach differ?",
-    options: [
-      "A. PROSPECT used an either-or model for radiation: only if chemotherapy response was <20% or if chemo was discontinued prematurely",
-      "B. PROSPECT mandated full chemo and full pelvic RT for all T3 tumors",
-      "C. PROSPECT used immunotherapy instead of RT"
-    ],
-    correctIndex: 0,
-    explanation: "Correct Answer: A\nInstead of giving radiation to all, the trial employed a selective approach, prescribing it only if FOLFOX response or compliance was inadequate."
-  },
-  {
-    question: "29. Considering the older US standard (preop CRT + TME + adjuvant chemo), how might PROSPECT’s results influence clinical trial design for future rectal cancer protocols?",
-    options: [
-      "A. Likely to confirm that universal CRT must remain the unchallenged comparator in all new studies",
-      "B. Encourage designs that further tailor or omit pelvic radiation in intermediate-risk tumors, focusing on chemo +/- short-course RT for subgroups",
-      "C. Mandate watch-and-wait in every advanced rectal cancer"
-    ],
-    correctIndex: 1,
-    explanation: "Correct Answer: B\nPROSPECT’s success with selective RT underscores that many T2–T3 rectal cancers don’t need universal radiation, suggesting future trials focusing on individualized, risk-adapted therapy."
-  },
-];
+// Insert your PROSPECT question array here:
+const questionsProspect = [/* ...29 Q&A items... */];
 
 // ============
 // QUIZ ENGINE
@@ -784,23 +198,21 @@ function startQuiz() {
 
   if (rapidoSelected) {
     selectedQuiz = questionsRapido;
-    quizTitleEl.textContent = "RAPIDO 5-Year Follow-up Expert MCQ Quiz";
+    quizTitleEl.textContent = "RAPIDO 5-Year Follow-up (27 Questions)";
   } else if (opraSelected) {
     selectedQuiz = questionsOpra;
-    quizTitleEl.textContent = "OPRA Trial Expert MCQ Quiz";
+    quizTitleEl.textContent = "OPRA Trial (29 Questions)";
   } else if (prospectSelected) {
     selectedQuiz = questionsProspect;
-    quizTitleEl.textContent = "PROSPECT Trial Expert MCQ Quiz";
+    quizTitleEl.textContent = "PROSPECT Trial (29 Questions)";
   } else {
     alert("Please select a quiz first.");
     return;
   }
 
-  // Hide initial choice, show quiz
   document.querySelector('.intro').style.display = "none";
   document.getElementById('quizContainer').style.display = "block";
 
-  // Initialize state
   currentQuestionIndex = 0;
   score = 0;
   missedQuestions = [];
@@ -812,7 +224,6 @@ function startQuiz() {
 }
 
 function loadQuestion() {
-  // Reset feedback
   feedbackEl.textContent = "";
   feedbackEl.className = "feedback";
   explanationEl.textContent = "";
@@ -907,9 +318,8 @@ function endQuiz() {
   optionsContainer.innerHTML = "";
   feedbackEl.classList.remove('incorrect', 'correct');
   feedbackEl.classList.add('correct');
-  
+
   if (!isSecondPass) {
-    // first pass
     feedbackEl.textContent = `You answered ${score} out of ${totalQuestions} questions correctly.`;
     explanationEl.textContent = `Your final score: ${finalScorePercent.toFixed(0)}%.`;
     submitBtn.style.display = 'none';
@@ -919,7 +329,6 @@ function endQuiz() {
     }
     homeBtn.style.display = 'inline-block';
   } else {
-    // second pass
     feedbackEl.textContent = `Retry Attempt Completed: You answered ${score} out of ${totalQuestions} missed questions correctly.`;
     explanationEl.textContent = `Your final score: ${finalScorePercent.toFixed(0)}%.`;
     submitBtn.style.display = 'none';
