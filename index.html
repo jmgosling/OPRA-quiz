@@ -1043,7 +1043,8 @@ const questionsProspect = [
   
   // 4) GRECCAR 2 Trial (29 Questions)
 const questionsGreccar2 = [
-  {question: "1) In what main respect did the GRECCAR 2 trial seek to challenge standard surgical practice in rectal cancer?",
+  {
+    question: "1) In what main respect did the GRECCAR 2 trial seek to challenge standard surgical practice in rectal cancer?",
     options: [
       "A. Testing whether a local excision strategy could safely preserve the rectum in good responders",
       "B. Completely eliminating chemotherapy from all T2–T3 rectal cancers",
@@ -1429,12 +1430,6 @@ function loadQuestion() {
 function updateProgressBar() {
   const questionNumber = currentQuestionIndex + 1;
   const quizProgressPercent = (questionNumber / totalQuestions) * 100;
-
-  let scorePercent = 0;
-  const answeredSoFar = questionNumber - 1;
-  if (answeredSoFar > 0) {
-    scorePercent = (score / answeredSoFar) * 100;
-  }
 
   progressFill.style.width = quizProgressPercent + '%';
   progressText.textContent = `Question ${questionNumber} of ${totalQuestions} | Score: ${scorePercent.toFixed(0)}%`;
