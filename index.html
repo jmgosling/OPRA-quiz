@@ -124,6 +124,9 @@
     <br>
     <input type="radio" id="prospectQuiz" name="quizSelect" value="prospect">
     <label for="prospectQuiz">PROSPECT Trial (29 Questions)</label>
+    <input type="radio" id="greccar2Quiz" name="quizSelect" value="greccar2">
+    <label for="greccar2Quiz">GRECCAR 2 Trial (29 Questions)</label>
+    <br>
   </div>
   <div class="button-container">
     <button onclick="startQuiz()">Start Quiz</button>
@@ -1035,6 +1038,297 @@ const questionsProspect = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nPROSPECT’s success with selective RT underscores that many T2–T3 rectal cancers don’t need universal radiation, suggesting future trials focusing on individualized, risk-adapted therapy."
   },
+  // 4) GRECCAR 2 Trial (29 Questions)
+const questionsGreccar2 = [
+  {question: "1) In what main respect did the GRECCAR 2 trial seek to challenge standard surgical practice in rectal cancer?",
+    options: [
+      "A. Testing whether a local excision strategy could safely preserve the rectum in good responders",
+      "B. Completely eliminating chemotherapy from all T2–T3 rectal cancers",
+      "C. Comparing short-course versus long-course radiotherapy for T4 lesions"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A<br>They aimed to see if local excision after neoadjuvant therapy could replace radical TME in carefully selected cases."
+  },
+  {
+    question: "2) Before GRECCAR 2, which approach was the recognized &quot;gold standard&quot; for resectable low rectal cancer after neoadjuvant therapy?",
+    options: [
+      "A. Transanal local excision for all T4 tumors",
+      "B. Total mesorectal excision (TME)",
+      "C. Watch-and-wait with no surgical resection"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B<br>TME was long considered standard for locally advanced rectal tumors, especially after chemoradiotherapy."
+  },
+  {
+    question: "3) Why was organ preservation a key rationale for exploring local excision in GRECCAR 2?",
+    options: [
+      "A. Because local excision frequently leads to improved survival in metastatic patients",
+      "B. Because it provides a major cost benefit by removing the need for radiotherapy",
+      "C. Because radical TME can cause significant morbidity and permanent stomas or functional deficits"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C<br>The trial wanted to avoid TME's morbidity—such as stomas, bowel/sexual dysfunction—via a less invasive approach."
+  },
+  {
+    question: "4) Which eligibility criteria best describe the patients enrolled in GRECCAR 2?",
+    options: [
+      "A. Adults with T2–T3, ≤4 cm rectal carcinoma (≤8 cm from the anal verge), who had a &quot;good clinical response&quot; after chemoradiotherapy",
+      "B. Patients with any T4 rectal cancer or upper rectal tumors (&gt;10 cm)",
+      "C. Only those with node-negative T1 lesions requiring no radiotherapy"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A<br>They included lower rectal tumors (T2–T3, up to 4 cm, ≤8 cm) that shrank well after neoadjuvant therapy."
+  },
+  {
+    question: "5) What was the primary endpoint used in this randomized trial?",
+    options: [
+      "A. Pathologic complete response rate alone",
+      "B. A composite outcome (death, recurrence, major morbidity, and severe side effects) at 2 years",
+      "C. Rate of abdominoperineal resections in each arm"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B<br>The authors included a composite measure, combining oncologic and morbidity/functional aspects at 2 years."
+  },
+  {
+    question: "6) How was the &quot;good clinical response&quot; defined before randomization to local excision versus TME?",
+    options: [
+      "A. A residual tumor scar ≤1 cm",
+      "B. Negative tumor biopsy from the rectal site",
+      "C. A residual tumor or scar ≤2 cm by clinical and imaging assessment"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C<br>They labeled patients &quot;good responders&quot; if at restaging their lesion was ≤2 cm, with no deep infiltration."
+  },
+  {
+    question: "7) Which best describes the neoadjuvant therapy protocol used in GRECCAR 2?",
+    options: [
+      "A. 3D conformal radiotherapy (50 Gy over 5 weeks) plus capecitabine ± oxaliplatin, then surgery ~8 weeks later",
+      "B. Short-course radiation (5×5 Gy) followed by immediate surgery",
+      "C. Induction FOLFIRI for 6 months only"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A<br>The study used ~50 Gy over 5 weeks with concurrent capecitabine; oxaliplatin was initially included then dropped."
+  },
+  {
+    question: "8) What surgical approach was assigned to the control arm?",
+    options: [
+      "A. Transanal local excision plus completion TME only if path was ypT3",
+      "B. Conventional radical TME (low anterior resection or intersphincteric resection) for all",
+      "C. Local excision alone with no completion TME"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B<br>The control group underwent the standard TME procedure."
+  },
+  {
+    question: "9) What was the protocol’s requirement when local excision pathology revealed a poor response (ypT2–3 or R1 margin)?",
+    options: [
+      "A. Close monitoring only, with MRI every 6 months",
+      "B. Mandatory radiotherapy boost to the rectum",
+      "C. A &quot;completion&quot; TME was recommended within a short interval (1–4 weeks)"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C<br>Patients with deeper invasion or positive margin after local excision had completion TME to ensure radical clearance."
+  },
+  {
+    question: "10) Which main conclusion did GRECCAR 2 draw about local excision versus TME at 2 years for its primary composite endpoint?",
+    options: [
+      "A. Local excision did not prove superior, mainly because many patients ended up needing completion TME",
+      "B. Local excision drastically outperformed TME in terms of local control, with zero recurrences",
+      "C. TME was so toxic that local excision clearly surpassed it for all endpoints"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A<br>The trial found no overall superiority of local excision, owing to the high rate of completion TME which increased morbidity."
+  },
+  {
+    question: "11) In terms of pathologic nodal positivity after chemoradiotherapy, what did the study reveal for these ≤4 cm T2–T3 rectal tumors?",
+    options: [
+      "A. More than half of the patients had positive mesorectal nodes even with downstaging",
+      "B. Only about 8% overall had ypN+ disease, mostly in poor responders (ypT3)",
+      "C. Nodal positivity was impossible to detect because no completion TME was done"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B<br>They reported a low nodal positivity (~8%), which was predominantly in higher ypT categories, e.g. ypT3."
+  },
+  {
+    question: "12) Regarding local recurrence rates at 3 years, how did local excision compare with TME in GRECCAR 2?",
+    options: [
+      "A. Local excision group’s recurrence was nearly 30% higher",
+      "B. TME patients had zero local recurrences",
+      "C. Both arms had similarly low local recurrence (~5–6%), no significant difference"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C<br>Local recurrence was about 5–6% in both arms, showing no major compromise in local control for local-excision strategy."
+  },
+  {
+    question: "13) What proportion of patients from the local-excision arm ended up actually requiring a completion TME due to poor pathology?",
+    options: [
+      "A. ~35%",
+      "B. ~5%",
+      "C. ~90%"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A<br>Roughly one-third needed completion TME (e.g., ypT2–3, R1), increasing total morbidity."
+  },
+  {
+    question: "14) What did the trial show regarding disease-free survival (DFS) at 3 years in both arms?",
+    options: [
+      "A. DFS was strongly favoring local excision only, ~95% vs. 70%",
+      "B. ~78% (local excision) vs. ~76% (TME), with no significant difference",
+      "C. TME group had a dramatically worse DFS, below 50%"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B<br>They reported ~78% DFS in local excision vs. ~76% for TME, no statistical difference."
+  },
+  {
+    question: "15) What main factor undermined the hypothesized advantage of local excision in the primary composite outcome?",
+    options: [
+      "A. Near-universal refusal of local excision by patients",
+      "B. Excess local failures after local excision that mandated repeated salvage",
+      "C. A substantial number of “completion TME” surgeries, increasing overall morbidity and side-effects"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C<br>Because ~35% had completion TME, local excision’s expected lower morbidity was overshadowed by two operations."
+  },
+  {
+    question: "16) Which aspect is considered a notable strength of GRECCAR 2?",
+    options: [
+      "A. It is the first multicenter, phase 3 randomized trial specifically comparing local excision vs. TME for good responders with small T2–T3 rectal cancers",
+      "B. It only enrolled T1 disease, guaranteeing extremely high local control",
+      "C. Its follow-up was limited to under 6 months for quick evaluation"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A<br>Previous studies were mostly single-center or phase 2; GRECCAR 2 is a well-powered multicenter design focusing on T2–T3 ≤4 cm."
+  },
+  {
+    question: "17) Which key limitation made interpreting local excision’s net benefit more difficult?",
+    options: [
+      "A. Lack of histopathological data on resected specimens",
+      "B. The frequent use of completion TME, which compromised the “less invasive” approach’s advantage",
+      "C. Blinding the surgeons to each patient’s allocated arm"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B<br>Because >30% in the local-excision arm needed completion TME, it increased complications and diminished the net advantage."
+  },
+  {
+    question: "18) Why can’t the GRECCAR 2 data alone declare local excision noninferior to TME in terms of long-term outcomes?",
+    options: [
+      "A. The study had 10 times more local recurrences in the local-excision group",
+      "B. The watch-and-wait method was used exclusively, preventing direct comparison",
+      "C. The trial wasn’t powered for formal noninferiority, and confidence intervals for recurrence remain broad"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C<br>The authors didn’t design or power it as a strict noninferiority study, so they can’t formally claim equivalence in oncologic endpoints."
+  },
+  {
+    question: "19) How might clinicians interpret the fact that local excision’s overall composite endpoint was not better than TME?",
+    options: [
+      "A. It underscores that local excision is only beneficial if we can avoid completion TME, highlighting the need for more precise selection",
+      "B. It proves local excision is always detrimental and should be banned",
+      "C. It means TME patients faced extreme mortality compared with local excision"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A<br>More refined selection is crucial so that fewer patients need a second operation; otherwise, the benefits are lost."
+  },
+  {
+    question: "20) From the GRECCAR 2 data, how can a “watch-and-wait” approach be considered, even though that was not the exact focus of the trial?",
+    options: [
+      "A. The trial mandated universal observation with no surgery, so we have final proof it works",
+      "B. Since local recurrence was low in good responders, watch-and-wait is feasible if robust imaging and salvage TME remain an option",
+      "C. The authors concluded watch-and-wait is unacceptable because local recurrences were above 50%"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B<br>Though they studied local excision, the low local recurrence suggests watch-and-wait could be similarly feasible for strong responders, given close follow-up and salvage readiness."
+  },
+  {
+    question: "21) In real-world practice, why might small T2–T3 (≤4 cm) rectal tumors be singled out for potential organ preservation?",
+    options: [
+      "A. Because T4 tumors absolutely never respond to radiotherapy",
+      "B. Because large T3–T4 tumors have a higher residual nodal risk, undermining safe local approaches",
+      "C. Because smaller, downstaged tumors have a greater chance of minimal residual disease and nodal sterilization"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C<br>GRECCAR 2 confirms that small T2–T3 tumors are more likely to achieve good pathological downstaging, supporting safer local excision or watch-and-wait."
+  },
+  {
+    question: "22) How might GRECCAR 2 findings shape decisions for a cT2N1 rectal tumor that shrinks significantly to 1 cm after chemoradiotherapy?",
+    options: [
+      "A. Surgeons may consider local excision, but plan to do TME if pathology reveals ypT2–3 or close margins",
+      "B. The study mandates immediate abdominoperineal resection for all cT2N1 cases",
+      "C. Radiotherapy is omitted, so direct local excision is the only approach"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A<br>They may choose local excision for a small residual lesion but remain prepared to do completion TME if final histology is adverse."
+  },
+  {
+    question: "23) A center wants to reduce rectal excision rates for selected patients. What key point from GRECCAR 2 must it keep in mind?",
+    options: [
+      "A. They must avoid any imaging restaging, as it adds confusion",
+      "B. Up to ~35% of local-excision patients may still require radical TME, so proper selection and counseling are paramount",
+      "C. Once local excision is done, no salvage TME is ever possible"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B<br>Because about a third ended up with completion TME, patients need thorough pre-op counseling about potential second surgery."
+  },
+  {
+    question: "24) If a patient’s final pathology after local excision is ypT2 but no nodal involvement, how might GRECCAR 2’s results inform next steps?",
+    options: [
+      "A. The protocol forced mandatory TME for all ypT2",
+      "B. TME was never recommended even if T2",
+      "C. The authors suggest future research might forgo TME in ypT2N0 if carefully monitored"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C<br>While the trial protocol recommended TME for ypT2, the low nodal positivity raises the idea that ypT2N0 might skip completion TME if monitored closely."
+  },
+  {
+    question: "25) How does GRECCAR 2 differ from the ACOSOG Z6041 trial in terms of patient selection?",
+    options: [
+      "A. GRECCAR 2 included T2–T3 ≤4 cm, while Z6041 included T2N0 only",
+      "B. ACOSOG Z6041 used no chemoradiotherapy at all",
+      "C. GRECCAR 2 only studied T1 disease with no nodal involvement"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A<br>ACOSOG Z6041 focused on T2N0, whereas GRECCAR 2 included T3 or cN1 if the lesion was ≤4 cm in good responders."
+  },
+  {
+    question: "26) In comparison to the Brazilian “watch-and-wait” approach (Habr-Gama et al), how did GRECCAR 2 address organ preservation?",
+    options: [
+      "A. GRECCAR 2 had no local excision arm, only watch-and-wait",
+      "B. GRECCAR 2 used local excision plus possible TME, rather than observation alone",
+      "C. GRECCAR 2 never considered salvage TME for local recurrence"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B<br>Habr-Gama typically avoided resection if a complete response was seen. GRECCAR 2 systematically used local excision to confirm pathology, plus TME if deeper disease was found."
+  },
+  {
+    question: "27) How do GRECCAR 2’s local recurrence results compare with the Dutch observational “watch-and-wait” data (Maas et al)?",
+    options: [
+      "A. GRECCAR 2 had no local recurrences, while the Dutch group had ~30%",
+      "B. They showed contradictory results on feasibility of organ preservation",
+      "C. Both demonstrated low local recurrence in carefully selected downstaged tumors"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C<br>Both found local recurrences of only ~5–10% in good responders, supporting organ preservation if carefully monitored."
+  },
+  {
+    question: "28) In the ACOSOG Z6041 phase 2 trial, local excision was also done after chemoradiotherapy, but exclusively for T2N0. How does GRECCAR 2 differ in scope?",
+    options: [
+      "A. GRECCAR 2 included T2–T3, possibly N1 if the lesion was ≤4 cm",
+      "B. ACOSOG used no pathology to confirm response",
+      "C. GRECCAR 2 never gave any neoadjuvant treatment"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A<br>While ACOSOG restricted to T2N0, GRECCAR 2 encompassed T2 or T3 ≤4 cm, including some nodal involvement if small and responsive."
+  },
+  {
+    question: "29) Overall, how do GRECCAR 2 results fit into the evolving evidence around organ preservation for rectal cancer?",
+    options: [
+      "A. They argue that local excision is unequivocally the new standard for all T3–T4 rectal tumors",
+      "B. They reinforce that organ preservation is feasible in smaller T2–T3 lesions, but optimization is needed to avoid unnecessary completion TME",
+      "C. They completely refute watch-and-wait or local excision in any scenario"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B<br>GRECCAR 2 shows local excision is safe in principle, but the high completion TME rate means better selection or monitoring is required."
+  }
 ];
 
 // ============
@@ -1064,6 +1358,7 @@ function startQuiz() {
   const rapidoSelected = document.getElementById('rapidoQuiz').checked;
   const opraSelected = document.getElementById('opraQuiz').checked;
   const prospectSelected = document.getElementById('prospectQuiz').checked;
+  const greccar2Selected = document.getElementById('greccar2Quiz').checked;
 
   if (rapidoSelected) {
     selectedQuiz = questionsRapido;
@@ -1074,6 +1369,9 @@ function startQuiz() {
   } else if (prospectSelected) {
     selectedQuiz = questionsProspect;
     quizTitleEl.textContent = "PROSPECT Trial Expert MCQ Quiz";
+  } else if (greccar2Selected) {
+  selectedQuiz = questionsGreccar2;
+  quizTitleEl.textContent = "GRECCAR 2 Trial (29 Questions)";
   } else {
     alert("Please select a quiz first.");
     return;
