@@ -427,10 +427,7 @@ const questionsRapido = [
 
 // 2) OPRA Trial (29 questions)
 const questionsOpra = [
-  // (Already posted in previous messages, no changes)
-  // ...
-  // To keep code concise, we won't re-paste the entire OPRA array here in the explanation. 
-  // The user has that. Insert the full array from your existing code.
+  // I. Background & Rationale
   {
     question: "1) What was one of the key motivations for investigating “watch-and-wait” (WW) strategies in the OPRA Trial?",
     options: [
@@ -441,7 +438,288 @@ const questionsOpra = [
     correctIndex: 1,
     explanation: "Correct Answer: B\nA main rationale was that many post-treatment sequelae (e.g. stoma, bowel dysfunction) are tied to surgery itself. For patients achieving complete or near-complete clinical response, avoiding TME can preserve quality of life."
   },
-  // ... Insert the remaining 28 OPRA Q&A items ...
+  {
+    question: "2) Prior research on nonoperative management (NOM) strategies suggested what about patients with a complete clinical response (cCR)?",
+    options: [
+      "A. They always experience worse DFS than operated patients",
+      "B. They can safely be observed without the need for long-term imaging",
+      "C. They may achieve survival outcomes similar to those who undergo surgery"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C\nRetrospective and prospective data indicate that cCR patients can have comparable oncologic outcomes to surgical patients, prompting prospective trials like OPRA."
+  },
+  {
+    question: "3) Why was the concept of total neoadjuvant therapy (TNT) integral to the OPRA Trial design?",
+    options: [
+      "A. It aimed to optimize both local and systemic control before considering surgery",
+      "B. To avoid any form of radiotherapy prior to TME",
+      "C. Because prior studies had shown that surgery alone suffices for T4 lesions"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nDelivering chemotherapy and chemoradiotherapy preoperatively was crucial to improving downstaging and tackling micrometastases before deciding on TME vs. WW."
+  },
+  // II. Study Design & Methods
+  {
+    question: "4) Which best describes the OPRA Trial’s randomization arms?",
+    options: [
+      "A. Induction chemotherapy (FOLFIRI) vs. induction chemotherapy (CAPEOX)",
+      "B. Induction chemotherapy → chemoradiotherapy (INCT-CRT) vs. chemoradiotherapy → consolidation chemotherapy (CRT-CNCT)",
+      "C. Two different schedules of low-dose radiotherapy before immediate TME"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B\nPatients were randomized to either systemic chemotherapy first (INCT-CRT) or chemoradiotherapy first (CRT-CNCT), both followed by restaging to decide TME or WW."
+  },
+  {
+    question: "5) In the OPRA protocol, how was a “clinical complete response” (cCR) defined at restaging?",
+    options: [
+      "A. Tumor visible endoscopically but stable in size for at least 12 months",
+      "B. Persistent ulceration or nodularity on MRI but negative endoscopic biopsy",
+      "C. No visible tumor on endoscopy plus radiologic normalization/near-normalization on MRI"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C\ncCR required no visible tumor endoscopically (often just a faint scar) plus near-complete or complete resolution on MRI."
+  },
+  {
+    question: "6) How many cycles of preoperative systemic chemotherapy were typically delivered in each OPRA arm, assuming FOLFOX was used?",
+    options: [
+      "A. Eight cycles",
+      "B. Four cycles",
+      "C. Twelve cycles"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nThe OPRA Trial used eight FOLFOX cycles (or five CAPEOX cycles) as either induction or consolidation around the chemoradiotherapy."
+  },
+  {
+    question: "7) Concerning radiation therapy, which statement best reflects the dosing schema in OPRA?",
+    options: [
+      "A. All patients received a single 5×5 Gy short-course, then surgery",
+      "B. Patients received approximately 50–56 Gy of pelvic RT, with either infusion 5-FU or oral capecitabine as a radiosensitizer",
+      "C. Radiation to the primary tumor site was optional unless restaging showed poor response"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B\nThey generally received 4,500 cGy plus a boost (up to ~5,400–5,600 cGy), with concurrent infusion 5-FU or capecitabine."
+  },
+  {
+    question: "8) Which best characterizes the timing of surgery decisions in OPRA?",
+    options: [
+      "A. Surgery was mandatory at a fixed 6 weeks after chemoradiotherapy in all patients",
+      "B. TME was done only if the patient refused further surveillance after induction therapy",
+      "C. Post-TNT restaging determined whether the patient would have TME immediately or be observed (WW) if cCR/near-cCR was achieved"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C\nAfter the full neoadjuvant course, patients who had incomplete response were advised TME, while cCR/near-cCR patients were eligible for WW."
+  },
+  {
+    question: "9) Which requirement was crucial for follow-up of WW patients in the OPRA Trial?",
+    options: [
+      "A. Serial endoscopy and MRI every 4–6 months, especially in the first 2 years",
+      "B. Yearly endoscopic evaluation only after 3 years",
+      "C. An extra course of radiotherapy if there was near-complete response"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nFrequent endoscopy plus MRI scans were key to detect early regrowth. Intervals were especially tight in the first 24 months."
+  },
+  // III. Results & Findings
+  {
+    question: "10) What was the OPRA Trial’s primary endpoint, and how did its results compare to historical data?",
+    options: [
+      "A. Overall survival (OS) was significantly higher than in historical cohorts",
+      "B. 3-year disease-free survival (DFS) was about 76%, similar to historical 75%",
+      "C. 5-year locoregional control was the main measure, surpassing historical rates"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B\nThe primary endpoint was 3-year DFS (~76%), close to the historical reference of 75%, thus not statistically surpassing it."
+  },
+  {
+    question: "11) How did the proportion of patients achieving organ preservation (i.e., TME-free survival at 3 years) differ between the two TNT arms?",
+    options: [
+      "A. It was identical, around 25% in both arms",
+      "B. Induction-first patients showed significantly higher organ preservation",
+      "C. Consolidation-first patients (CRT-CNCT) had a higher organ preservation rate than induction-first (INCT-CRT)"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C\nTME-free survival was ~53% in the CRT→CNCT arm vs. ~41% in the INCT→CRT arm, suggesting consolidation-first improved organ preservation."
+  },
+  {
+    question: "12) Among watch-and-wait patients who developed local regrowth in the OPRA Trial, which statement is correct regarding surgery outcomes?",
+    options: [
+      "A. Having delayed TME after regrowth did not yield worse DFS compared to patients who had immediate TME",
+      "B. Every patient with regrowth died of uncontrolled local disease",
+      "C. Delayed TME after regrowth was disallowed by protocol, so no data exist"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nPatients requiring TME after regrowth did not have worse DFS or survival outcomes, supporting close surveillance and delayed surgery if needed."
+  },
+  {
+    question: "13) Which baseline factor emerged as independently predictive of worse DFS in the trial’s multivariate analysis?",
+    options: [
+      "A. Older age (> 70 years)",
+      "B. Clinical nodal positivity (cN1–N2)",
+      "C. Tumor distance from anal verge under 2 cm"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B\nBeing cN+ was associated with higher hazard of DFS events. Age or distance were not as strongly predictive."
+  },
+  {
+    question: "14) What was the approximate 3-year incidence of distant metastases in both arms?",
+    options: [
+      "A. Nearly 100% in cT4 patients",
+      "B. Under 10% in the entire population",
+      "C. Around 16–18%, reflecting that roughly four-fifths remained metastasis-free"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C\nDistant metastasis-free survival at 3 years was ~82–84%, so ~16–18% had distant spread."
+  },
+  {
+    question: "15) Concerning toxicity during total neoadjuvant therapy, which conclusion is accurate?",
+    options: [
+      "A. Grade 3+ adverse events rates were similar between induction-first and consolidation-first approaches",
+      "B. The OPRA trial required prophylactic dose reduction in the consolidation arm",
+      "C. More than half the patients discontinued therapy due to intolerance"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nBoth arms had similar incidence of grade ≥3 adverse events, with no major differences in completion rates."
+  },
+  {
+    question: "16) What is one major strength of the OPRA Trial design?",
+    options: [
+      "A. It mandated that every patient undergo TME and multiple restaging steps",
+      "B. It prospectively tested watch-and-wait with two randomized TNT sequences in a multi-institution setting",
+      "C. It did not require any imaging before randomization, which reduced selection bias"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B\nOPRA’s prospective, randomized approach across multiple centers robustly tested watch-and-wait in two distinct TNT arms."
+  },
+  {
+    question: "17) What is one recognized limitation regarding these results on organ preservation?",
+    options: [
+      "A. There was no mandatory restaging after completion of neoadjuvant therapy",
+      "B. Three-year follow-up may be insufficient to capture all late local regrowth or metastases",
+      "C. The trial did not evaluate any quality-of-life outcomes or functional results"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C\nA key limitation is that robust QoL/functional data were not the primary focus, and further follow-up is needed for final survival data."
+  },
+  {
+    question: "18) Why might the OPRA investigators have trouble proving a statistically significant DFS benefit over the historical 75% reference?",
+    options: [
+      "A. The study was designed as a phase II with limited sample size and not powered for large DFS improvements",
+      "B. Both arms used suboptimal chemotherapy regimens that lowered success",
+      "C. They did not track local recurrence or metastasis rates"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nOPRA was a phase II trial with moderate enrollment, so it could not definitively surpass the historical DFS reference of 75%."
+  },
+  {
+    question: "19) How might clinicians view a ~50% organ-preservation rate in the context of OPRA’s results?",
+    options: [
+      "A. They might consider it clinically meaningless without a complete elimination of recurrence",
+      "B. It suggests that nearly half of these patients could avoid TME and keep their rectum, with close monitoring",
+      "C. It indicates an underestimation of regrowth because MRI is inaccurate"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B\nAbout half of CRT→CNCT patients avoided TME. This is meaningful for patients wishing to preserve rectal function, given close surveillance."
+  },
+  {
+    question: "20) For a patient with T3N2 rectal cancer who strongly wishes to avoid a permanent colostomy, how might OPRA’s findings help?",
+    options: [
+      "A. Induction chemo always leads to higher local control, so they can skip radiotherapy",
+      "B. The data do not support watch-and-wait for advanced T3N2 disease",
+      "C. TNT plus close surveillance can be considered, as nearly half of patients in certain subgroups avoided surgery long-term"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C\nDespite advanced T3N2 stage, OPRA suggests that a subset may achieve cCR with TNT, offering a potential for WW if carefully followed."
+  },
+  {
+    question: "21) For a clinical team reluctant to delay surgery in favor of WW, what main takeaway supports a wait-and-see approach for complete responders?",
+    options: [
+      "A. Patients with cCR who later needed surgery for regrowth did not suffer worse outcomes",
+      "B. cCR by MRI alone conclusively proves there is zero residual cancer",
+      "C. The watch-and-wait approach is guaranteed to prolong overall survival for T4 lesions"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nNo survival disadvantage was seen in patients who underwent TME after local regrowth, reassuring clinicians about delayed surgery if cCR was initially achieved."
+  },
+  {
+    question: "22) In a busy oncology clinic, how might OPRA’s findings alter standard care for rectal cancer?",
+    options: [
+      "A. Most clinics will abandon TME entirely in all rectal cancer patients",
+      "B. Teams may increasingly adopt TNT followed by strict restaging to identify cCR for potential organ preservation",
+      "C. The results show that standard chemoradiotherapy alone is always superior"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B\nOPRA’s data encourage a TNT + restaging approach, letting cCR patients consider watch-and-wait as a viable alternative to immediate TME."
+  },
+  {
+    question: "23) What is a key real-world requirement if a center implements OPRA-like watch-and-wait?",
+    options: [
+      "A. Universal stoma creation in all patients regardless of response",
+      "B. Administering at least 12 cycles of FOLFOX to everyone",
+      "C. Ensuring frequent endoscopic and MRI follow-up plus readiness to operate on regrowth"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C\nImplementing watch-and-wait demands rigorous endoscopic/MRI monitoring and swift surgery if local regrowth appears."
+  },
+  {
+    question: "24) A patient’s restaging scans show “near-complete response.” How does OPRA influence the next step?",
+    options: [
+      "A. WW can still be offered, provided the patient consents to short-interval surveillance",
+      "B. Surgeons must proceed to radical TME immediately",
+      "C. Induction chemo must be repeated for another 8 cycles"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nOPRA allowed watch-and-wait in near-cCR, with close follow-up to detect residual disease or early regrowth."
+  },
+  {
+    question: "25) How do OPRA’s findings align with the RAPIDO Trial’s overarching message?",
+    options: [
+      "A. OPRA contradicts RAPIDO, showing no role for short-course RT in advanced rectal cancer",
+      "B. Both underscore that TNT can achieve strong tumor responses and potential for organ preservation in select patients",
+      "C. They share identical radiation schedules and identical endpoints"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B\nBoth demonstrate TNT’s ability to reduce or maintain good DFS and let some patients avoid TME via robust downstaging."
+  },
+  {
+    question: "26) The CAO/ARO/AIO-12 trial (Fokas et al) also compared induction vs. consolidation chemotherapy. How did its main finding compare with OPRA’s results?",
+    options: [
+      "A. CAO/ARO/AIO-12 concluded induction chemo leads to higher pCR rates",
+      "B. OPRA found induction chemo to be superior, whereas CAO/ARO/AIO-12 found no differences",
+      "C. Both found that consolidation-first arms were associated with better complete responses/organ preservation"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C\nCAO/ARO/AIO-12 also showed improved pCR with CRT→consolidation, mirroring OPRA’s higher TME-free survival in the CRT-CNCT group."
+  },
+  {
+    question: "27) In comparison to Habr-Gama’s early watch-and-wait series, OPRA’s main added value is:",
+    options: [
+      "A. Larger prospective, randomized data clarifying TNT’s effect on cCR rates",
+      "B. Purely retrospective design limiting external validity",
+      "C. Mandating immediate surgery for all stage II patients"
+    ],
+    correctIndex: 0,
+    explanation: "Correct Answer: A\nOPRA is a prospective, randomized trial across many centers, building on earlier retrospective single-center experiences."
+  },
+  {
+    question: "28) PRODIGE 23 (Conroy et al) used FOLFIRINOX-based TNT. What differentiates OPRA from that approach?",
+    options: [
+      "A. OPRA mandated short-course radiotherapy, whereas PRODIGE 23 prohibited radiotherapy",
+      "B. OPRA used FOLFOX or CAPEOX ± 5-FU/Cap RT, while PRODIGE 23 used a more intensive triple-drug regimen (FOLFIRINOX)",
+      "C. Both used identical induction sequences but had different endpoints"
+    ],
+    correctIndex: 1,
+    explanation: "Correct Answer: B\nPRODIGE 23 used FOLFIRINOX, while OPRA used FOLFOX/CAPEOX with concurrent chemoRT, thus different intensities/toxicities."
+  },
+  {
+    question: "29) Overall, how might a meta-analysis of OPRA and other TNT-based trials affect rectal cancer treatment paradigms?",
+    options: [
+      "A. Likely to abolish all surgery for rectal adenocarcinoma",
+      "B. Show that TNT drastically reduces OS in locally advanced rectal cancer",
+      "C. Strengthen the role of TNT to improve response, enabling a subset to avoid TME when carefully selected"
+    ],
+    correctIndex: 2,
+    explanation: "Correct Answer: C\nCombined data confirm TNT’s value in maximizing downstaging, so that a fraction of patients may forgo major surgery with proper monitoring."
+  },
 ];
 
 // 3) PROSPECT Trial (29 questions)
